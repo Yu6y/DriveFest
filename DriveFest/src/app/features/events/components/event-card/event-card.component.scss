@@ -1,0 +1,118 @@
+.event-container{
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: orange;
+  height: 300px;
+  width: 300px;
+}
+
+.name-container{
+  padding-top: 8px;
+  padding-left: 3px;
+  font-family: sans-serif;
+  font-size: 25px;
+
+}
+
+.p-name{
+  margin: 0px;
+  
+  white-space: nowrap;   
+  overflow: hidden;           
+  text-overflow: ellipsis;  
+  max-width: 100%;          
+  display: block;
+}
+
+.event-image{
+  
+  width: 290px;
+  height: 145px; 
+  object-fit: contain;
+}
+
+.desc-container{
+  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mat-icon.mat-orange{
+  color: rgb(182, 123, 13);
+}
+
+.icons-container{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  padding-left: 3px;
+}
+
+.location-container{
+  display: flex;
+  align-items: center;
+}
+
+.desc-text {
+  font-size: 18px;
+  margin-left: 8px;
+}
+
+.date-container{
+  display: flex;
+  align-items: center;
+}
+
+.follow-container{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.follow-btn-container{
+  padding-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 5px;
+  .mat-icon.mat-orange, .mat-icon.mat-white{
+    transform: scale(0.75);
+    vertical-align: middle;
+    padding-bottom: 3px;
+  }
+
+}
+
+button{
+  cursor: pointer;
+}
+
+.follow-btn{
+  height: 40px;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(182, 123, 13);
+  font-size:15px;
+}
+
+
+.followed-btn{
+  height: 40px;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(182, 123, 13);
+  color: white;
+  font-size: 15px;
+  background-color: rgb(182, 123, 13);
+}
+
+.follow-text-container{
+  padding-right: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.follow-text{
+  font-size: 18px;
+}

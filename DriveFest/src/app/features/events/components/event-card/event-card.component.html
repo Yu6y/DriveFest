@@ -1,0 +1,35 @@
+<div class="event-container">
+  <div class="name-container">
+    <p class="p-name">{{ this.event.name }}</p>
+  </div>
+  <div class="img-container">
+    <img class="event-image" [src]="this.event.image">
+  </div>
+  <div class="desc-container">
+    <div class="icons-container">
+      <div class="location-container">
+        <mat-icon color="orange">event</mat-icon>
+        <span class="desc-text">{{ this.event.date }}</span>
+      </div>
+      <div class="date-container">
+        <mat-icon color="orange">location_on</mat-icon>
+        <span class="desc-text">{{ this.event.location }}</span>
+      </div>
+    </div>
+    <div class="follow-container">
+      <div class="follow-btn-container">
+        <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite"
+        (click)="follow.emit(this.event); $event.stopPropagation()"
+        >@if(event.isFavorite)
+          { Obserwujesz<mat-icon class="cos" color="white">favorite</mat-icon> }
+          @else{
+            Obserwuj<mat-icon color="orange">favorite</mat-icon>
+          }
+        </button>
+      </div>
+      <div class="follow-text-container">
+        <p class="follow-text">Followers: {{ this.event.followersCount }}</p>
+      </div>
+    </div>
+  </div>
+</div>

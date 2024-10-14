@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid header-container">
+    <a class="navbar-brand" href="#">DriveFest</a>
+    <button 
+      class="navbar-toggler" 
+      type="button" 
+      (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed"
+      aria-controls="navbarNav"
+      >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div 
+      #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed"
+      class="collapse navbar-collapse" 
+      id="navbarNav">
+      <div class="navbar-nav">
+        <div class="nav-item">
+          <a [class.navbar-container]="!isCollapsed" class="nav-link" routerLink="home">Wydarzenia</a>
+        </div>
+        <div  class="nav-item">
+          <a [class.navbar-container]="!isCollapsed" class="nav-link">Ulubione</a>
+        </div>
+        <div  class="nav-item">
+          <a [class.navbar-container]="!isCollapsed" class="nav-link">Warsztaty</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

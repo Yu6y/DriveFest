@@ -1,0 +1,16 @@
+.filters-container{
+  margin-top: 10px;
+}
+
+input{
+  max-width: 200px; 
+  display: inline;
+  padding: 10px 10px;
+  margin: 10px 10px;
+}
+
+select{
+  max-width: 250px; /* Increase the max-width for the select dropdown */
+  padding: 10px;
+  margin: 10px;
+}

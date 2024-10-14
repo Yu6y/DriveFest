@@ -1,0 +1,31 @@
+.navbar{
+  padding: 0;
+}
+
+.header-container{
+  background-color: orange;
+}
+
+.navbar-toggler{
+  border-width: 0;
+}
+.navbar-toggler:focus{
+  outline: none;
+  box-shadow: none; 
+  border: none; 
+}
+
+.navbar-nav{
+  display: flex;
+  text-align: center;
+}
+
+.navbar-container{
+  padding: 5px 5px;
+}
+
+.nav-link{
+  padding-bottom: 5px;
+}
+
+
