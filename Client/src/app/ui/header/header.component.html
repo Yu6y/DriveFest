@@ -16,7 +16,11 @@
       id="navbarNav">
       <div class="navbar-nav">
         <div class="nav-item">
-          <a [class.navbar-container]="!isCollapsed" class="nav-link" routerLink="home">Wydarzenia</a>
+          <a 
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link" 
+            routerLink="home"
+            (click)="isCollapsed = !isCollapsed">Wydarzenia</a>
         </div>
         <div  class="nav-item">
           <a [class.navbar-container]="!isCollapsed" class="nav-link">Ulubione</a>

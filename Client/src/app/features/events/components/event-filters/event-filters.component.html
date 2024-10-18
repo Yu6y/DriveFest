@@ -1,31 +1,45 @@
 <div class="container-fluid d-flex flex-column align-items-center filters-container">
     <button
-      class="btn btn-primary d-md-none"
+      class="btn btn-primary btn-custom d-md-none"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#formCollapse"
       aria-expanded="false"
       aria-controls="formCollapse">
-      Show/Hide Options
+      Pokaż/ukryj filtry   
     </button>
-    <p>Filtry</p>
+    
   
-    <div class="collapse d-md-block position-relative" id="formCollapse">
-      <input class="form-control my-2 text-input" placeholder="Enter text">
-      <input class="form-control my-2" type="date" placeholder="Data Od">
-      <input class="form-control my-2" type="date" placeholder="Data Do">
-      <select class="form-control my-2 custom-select" id="inputGroupSelect01">
-        <option selected>Choose...</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+    <div class="collapse d-md-block position-relative custom-collapse" id="formCollapse">
+      <p class="filter-text">Filtry</p>
+      <input 
+        class="form-control custom-input my-2 text-input" 
+        placeholder="Enter text">
+      <input 
+        class="form-control custom-input my-2" 
+        type="date" 
+        placeholder="Data Od" 
+        onkeydown="return false">
+      <input 
+        class="form-control custom-input my-2" 
+        type="date" 
+        placeholder="Data Do" 
+        onkeydown="return false">
+      <select 
+        class="from-select my-2 custom-select" 
+        id="inputGroupSelect01"
+        >
+        <option selected value="" disabled>Sortowanie po dacie</option>
+        <option value="1">Brak</option>
+        <option value="2">Rosnąco</option>
+        <option value="3">Malejąco</option>
       </select>
   
       
 
       <details class="tags-details">
         <summary class="tags-container"><span class="tags-text">Tagi</span></summary>
-        <div class="tags-container-div   gap-2">
+        <div class="tags-container-div  d-flex flex-wrap gap-2">
           <div>
             <input type="checkbox"/>
             <label class="tag-name">Opcja 1</label>
@@ -62,8 +76,107 @@
             <input type="checkbox"/>
             <label class="tag-name">Opcja 9</label>
           </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
         </div>
       </details>
+
+      <details class="tags-details">
+        <summary class="tags-container"><span class="tags-text">Województwo</span></summary>
+        <div class="tags-container-div  d-flex flex-wrap gap-2">
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja sssssssssssssssssssssssssssssssssssss1</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 2</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 3</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 4</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 5</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 6</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 7</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 8</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+          <div>
+            <input type="checkbox"/>
+            <label class="tag-name">Opcja 9</label>
+          </div>
+        </div>
+      </details>
+  
   
       <!-- Buttons Container -->
      
