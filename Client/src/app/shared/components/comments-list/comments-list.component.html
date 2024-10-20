@@ -1,0 +1,9 @@
+<div class="comments-container">
+  <div class="comments">
+    <input #textinput class="input-comment" type="text" (input)="onInput(textinput.value)" (keyup.enter)="!isInputEmpty ? '' : sendComment(textinput.value); textinput.value=''">
+    <button disabled class="comment-button" (click)="sendComment(textinput.value); textinput.value=''" [disabled]="!isInputEmpty">Publikuj</button>
+    @for(comment of commentsList; track comment.id){
+      <app-comment-card [value]="comment"/>
+    }
+  </div>
+</div>

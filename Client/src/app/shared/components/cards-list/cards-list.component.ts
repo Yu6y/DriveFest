@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { EventShort } from '../../models/EventShort';
 import { EventCardComponent } from '../../../features/events/components/event-card/event-card.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards-list',
@@ -10,5 +11,10 @@ import { EventCardComponent } from '../../../features/events/components/event-ca
   styleUrl: './cards-list.component.scss',
 })
 export class CardsListComponent {
-  @Input() tab!: EventShort[];
+  @Input() events: EventShort[] | null = [];
+  private router = inject(Router);
+
+  eventClick(id: number) {
+    this.router.navigate(['/event', id]);
+  }
 }

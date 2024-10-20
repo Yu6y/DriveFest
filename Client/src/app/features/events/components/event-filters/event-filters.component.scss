@@ -9,6 +9,10 @@
   margin-bottom: 10px;
 }
 
+.custom-collapse{
+  margin-bottom: 10px;
+}
+
 input{
   max-width: 200px; 
   display: inline;
@@ -69,7 +73,7 @@ select.decorated option:checked {
 }
 
 summary{
-  color: rgba(255, 165, 0, 0.25);
+  color: orange;
 }
 
 input[type="checkbox"] {
