@@ -5,16 +5,16 @@
 }
 
 .image-container {
-  margin-top: 3px;
+  padding-top: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .image {
-  height: 400px;
+  max-height: 400px;
   width: 100%;
   max-width: 800px;
   object-fit: contain;
@@ -25,6 +25,7 @@
   font-size: 40px;
   margin-top: 50px;
   text-align: center;
+  white-space: normal;
 }
 
 .icons-container {
@@ -90,6 +91,10 @@ button {
 
 .description {
   white-space: normal;
+}
+
+.text-container{
+  margin-bottom: 50px;
 }
 
 .desc-text {

@@ -1,6 +1,6 @@
 <div class="data-container container">
   <div class="image-container row justify-content-center">
-    <img class="image col-lg-12 col-md-6" [src]="event.image" />
+    <img class="image col-lg-12 col-md-6" [src]="event.image"/>
   </div>
   <div class="desc-container row">
     <p class="event-name col-lg-12 col-md-6">{{ event.name }}</p>
@@ -16,13 +16,17 @@
     </div>
     <div class="follow-container col-12">
       <div class="follow-btn-container">
-        <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite" >
-          <ng-container *ngIf="event.isFavorite">
+        <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite"
+          (click)="followClick()">
+          @if(event.isFavorite){
+          <ng-container>
             Obserwujesz<mat-icon class="cos" color="white">favorite</mat-icon>
           </ng-container>
-          <ng-container *ngIf="!event.isFavorite">
+          }@else{
+          <ng-container>
             Obserwuj<mat-icon color="orange">favorite</mat-icon>
           </ng-container>
+          }
         </button>
       </div>
       <div class="follow-text-container">
@@ -33,10 +37,10 @@
       <p class="description">{{ event.description }}</p>
     </div>
     <div class="tags-container col-12">
-      <p class="tags">{{ event.tags }}</p>
+      <p class="tags">{{ tags }}</p>
     </div>
     <div class="comments-container col-12">
-      <app-comments-list [eventId]="event.eventDescId"></app-comments-list>
+      <app-comments-list [comments]="comments$ | async" [eventId]="event.id"></app-comments-list>
     </div>
   </div>
 </div>

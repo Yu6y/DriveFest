@@ -3,6 +3,8 @@ import { Comment } from '../../models/Comment';
 import { CommentCardComponent } from '../comment-card/comment-card.component';
 import { EventApiService } from '../../../features/events/services/event-api.service';
 import { DateCustomPipe } from '../../pipes/custom-date.pipe';
+import { EventStateService } from '../../../features/events/services/event-state.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-comments-list',
   standalone: true,
@@ -11,28 +13,16 @@ import { DateCustomPipe } from '../../pipes/custom-date.pipe';
   styleUrl: './comments-list.component.scss',
 })
 export class CommentsListComponent {
+  @Input() comments: Comment[] | null = [];
   @Input({ required: true }) eventId!: number;
+  private dataService = inject(EventStateService);
 
-  private eventService = inject(EventApiService);
-  private datePipe = inject(DateCustomPipe);
-
-  commentsList!: Comment[];
   isInputEmpty: boolean = false;
 
-  ngOnInit() {
-    /* this.eventService.getComments(this.eventId).subscribe(
-      (response) => {
-        console.log(response);
-        this.commentsList = response;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );*/
-  }
+  sendComment(comment: string) {
+    this.dataService.addComment(this.eventId, comment);
 
-  //zmienic!!
-  sendComment(text: string) {
+    this.isInputEmpty = false;
     /*this.eventService
       .postComment(this.eventDescId, text)
       .pipe(
@@ -49,8 +39,7 @@ export class CommentsListComponent {
         error: (error: HttpErrorResponse) => {
           console.log(error.error);
         },
-      });
-    this.isInputEmpty = false;*/
+      });*/
   }
 
   onInput(text: string) {

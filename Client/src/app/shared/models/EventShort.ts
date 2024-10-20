@@ -1,4 +1,4 @@
-import { Tag } from './tag';
+import { Tag } from './Tag';
 
 export type EventShort = {
   id: number;

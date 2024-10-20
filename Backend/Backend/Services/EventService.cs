@@ -230,6 +230,7 @@ namespace Backend.Services
             var comments = await _dbContext
                 .Comments
                 .Where(e => e.EventDescriptionId == eventId)
+                .OrderByDescending(c => c.Timestamp)
                 .ToListAsync();
 
             return _mapper.Map<IEnumerable<CommentDto>>(comments);
