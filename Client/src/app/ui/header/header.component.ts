@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,4 +11,17 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HeaderComponent {
   isCollapsed: boolean = true;
+
+  navClick() {
+    if (window.innerWidth < 992) this.isCollapsed = !this.isCollapsed;
+  }
+
+  @ViewChild('navbar') navbar!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (this.navbar && !this.navbar.nativeElement.contains(event.target)) {
+      this.navClick();
+    }
+  }
 }

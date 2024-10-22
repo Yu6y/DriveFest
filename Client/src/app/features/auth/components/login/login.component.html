@@ -1,0 +1,36 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card" >
+          <div class="card-body p-5 text-center">
+
+            <form [formGroup]="form" (ngSubmit)="submit()" class="md-5 mt-md-4 pb-5">
+
+              <h2 class="text-uppercase pb-5">Logowanie</h2>
+
+              <div class="form-outline mb-4">
+                <input type="email" class="form-control form-control-lg" formControlName="email" />
+                <label class="form-label">Email</label>
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                <input type="password" class="form-control form-control-lg" formControlName="password"/>
+                <label class="form-label">Hasło</label>
+              </div>
+
+              <button class="btn btn-lg" type="submit" [disabled]="!(form.get('email')!.valid && form.get('password')!.valid)">Zaloguj się</button>
+
+            </form>
+
+            <div>
+              <p class="mb-0">Nie masz konta? <a href="register" class="text-black-50 fw-bold">Zarejestruj się</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

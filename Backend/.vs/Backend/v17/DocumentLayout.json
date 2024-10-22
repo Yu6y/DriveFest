@@ -3,20 +3,32 @@
   "WorkspaceRootPath": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\models\\registrationerror.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\models\\registrationerror.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\models\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\models\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\carregistercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\carregistercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\carregistercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\carregistercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\services\\carregisterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,11 +42,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 244,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RegistrationError.cs",
+              "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Models\\RegistrationError.cs",
+              "RelativeDocumentMoniker": "Backend\\Models\\RegistrationError.cs",
+              "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Models\\RegistrationError.cs",
+              "RelativeToolTip": "Backend\\Models\\RegistrationError.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T16:13:21.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "AccountService.cs",
+              "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\AccountService.cs",
+              "RelativeDocumentMoniker": "Backend\\Services\\AccountService.cs",
+              "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\AccountService.cs",
+              "RelativeToolTip": "Backend\\Services\\AccountService.cs",
+              "ViewState": "AQIAADwAAAAAAAAAAAAuwGkAAABUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T11:07:59.237Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Backend\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Backend\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAA9wCUAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T15:10:56.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "CommentDto.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Models\\CommentDto.cs",
               "RelativeDocumentMoniker": "Backend\\Models\\CommentDto.cs",
@@ -47,19 +98,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "EventController.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\EventController.cs",
               "RelativeDocumentMoniker": "Backend\\Controllers\\EventController.cs",
               "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\EventController.cs",
               "RelativeToolTip": "Backend\\Controllers\\EventController.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAAwwAAAAAAAAAAA",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAmwAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T11:39:38.616Z"
+              "WhenOpened": "2024-10-09T11:39:38.616Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "CarRegisterController.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\CarRegisterController.cs",
               "RelativeDocumentMoniker": "Backend\\Controllers\\CarRegisterController.cs",
@@ -71,20 +123,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "EventService.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\EventService.cs",
               "RelativeDocumentMoniker": "Backend\\Services\\EventService.cs",
               "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\EventService.cs",
               "RelativeToolTip": "Backend\\Services\\EventService.cs",
-              "ViewState": "AQIAALsAAAAAAAAAAAAuwMcAAAAXAAAA",
+              "ViewState": "AQIAAOwAAAAAAAAAAAAkwMcAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T11:21:07.731Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "CarRegisterService.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\CarRegisterService.cs",
               "RelativeDocumentMoniker": "Backend\\Services\\CarRegisterService.cs",

@@ -1,6 +1,7 @@
 ﻿using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 namespace Backend.Controllers
 {
     [Route("api/account")]
@@ -31,13 +32,21 @@ namespace Backend.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody]RegisterDto registerDto)
         {
-            var userRegistered = await _accountService.RegisterUser(registerDto);
-            if(userRegistered)
-                return Ok("Success");
-            return BadRequest("Fail");
+            try
+            {
+                var userRegistered = await _accountService.RegisterUser(registerDto);
+                if (userRegistered.ContainsKey(true))
+                    return new ObjectResult(new Dictionary<string, string> { { "success", "Konto pomyślnie utworzone." } }) { StatusCode = 200 };
+                else
+                    return new ObjectResult(userRegistered[false]) { StatusCode = 400 };
+            }catch(Exception ex)
+            {
+                return new ObjectResult(ex.Message) { StatusCode = 500 };
+            }
         }
 
         [HttpGet("{userId}")]
+        [Authorize]
         public async Task<IActionResult> GetUser([FromRoute] int userId)
         {
             try

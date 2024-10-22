@@ -1,0 +1,74 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card" >
+          <div class="card-body p-5 text-center">
+
+            <form [formGroup]="form" (ngSubmit)="submit()" class="md-5 mt-md-4 pb-5">
+
+              <h2 class="text-uppercase pb-5">Rejestracja</h2>
+
+              <div class="form-outline mb-4">
+                
+                @if(errors.email){
+                  <small class="text-danger">{{ errors.email }}</small>
+                }
+                <input type="email" 
+                class="form-control form-control-lg" 
+                formControlName="email" 
+                [class.input-valid]="form.get('email')!.valid && form.get('email')!.touched"
+                [class.input-invalid]="form.get('email')!.invalid && form.get('email')!.touched"
+                />
+                <label class="form-label">Email</label>
+              </div>
+
+              <div class="form-outline form-white mb-4">
+
+                @if(errors.username){
+                  <small class="text-danger">{{ errors.username }}</small>
+                }
+                <input 
+                type="text" 
+                class="form-control form-control-lg input-valid" formControlName="username"
+                [class.input-valid]="form.get('username')!.valid && form.get('username')!.touched"
+                [class.input-invalid]="form.get('username')!.invalid && form.get('username')!.touched"
+                />
+                <label class="form-label">Nazwa użytkownika</label>
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                @if(form.get('password')!.invalid && form.get('password')!.touched){
+                  <small class="text-danger">Hasło musi mieć przynajmniej 6 znaków</small>
+                }
+                <input 
+                type="password"
+                class="form-control form-control-lg" 
+                formControlName="password"
+                [class.input-valid]="form.get('password')!.valid && form.get('password')!.touched"
+                [class.input-invalid]="form.get('password')!.invalid && form.get('password')!.touched"
+                />
+                <label class="form-label">Hasło</label>
+              </div>
+              
+              <!--Dodanie awataru-->
+
+              <button 
+              class="btn btn-lg" 
+              type="submit"
+              [disabled]="!(form.get('email')!.valid && form.get('username')!.valid && form.get('password')!.valid)"
+              >Zarejestruj się</button>
+
+            </form>
+
+            <div>
+              <p class="mb-0">Masz już konto? <a href="login" class="text-black-50 fw-bold">Zaloguj się</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

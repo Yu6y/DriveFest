@@ -30,7 +30,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }*/
         // Handle the error as desired (e.g., show an alert, log, etc.)
         console.error(errorMessage);
-        return throwError(errorMessage);
+        return throwError(error);
       })
     );
   }

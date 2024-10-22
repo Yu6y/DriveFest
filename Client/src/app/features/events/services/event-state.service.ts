@@ -99,39 +99,38 @@ export class EventStateService {
   }
 
   handleEventFollow(eventId: number): Observable<boolean> {
-    const isFollowed: boolean = this.eventsListSubject$.value.find(
-      (x) => x.id === eventId
-    )!.isFavorite;
     const index: number = this.eventsListSubject$.value.findIndex(
       (x) => x.id === eventId
     );
 
     if (index === -1) return of(false);
 
-    if (isFollowed) {
-      return this.apiService.unFollowEvent(eventId).pipe(
-        catchError((error) => {
-          console.log(error);
-          return of(false);
-        }),
-        tap(() => {
-          this.eventsListSubject$.value.at(index)!.followersCount--;
-          this.eventsListSubject$.value.at(index)!.isFavorite = false;
-        }),
-        map(() => true)
-      );
-    } else {
-      return this.apiService.followEvent(eventId).pipe(
-        catchError((error) => {
-          console.log(error);
-          return of(false);
-        }),
-        tap(() => {
-          this.eventsListSubject$.value.at(index)!.followersCount++;
-          this.eventsListSubject$.value.at(index)!.isFavorite = true;
-        }),
-        map(() => true)
-      );
-    }
+    const event = this.eventsListSubject$.value[index];
+    const isFollowed = event.isFavorite;
+
+    const observable = isFollowed
+      ? this.apiService.unFollowEvent(eventId)
+      : this.apiService.followEvent(eventId);
+
+    return observable.pipe(
+      catchError((error) => {
+        console.log(error);
+        return of(false);
+      }),
+      tap(() => {
+        const updatedEvent = {
+          ...event,
+          isFavorite: !event.isFavorite,
+          followersCount: isFollowed
+            ? --event.followersCount
+            : ++event.followersCount,
+        };
+        const updatedEvents = [...this.eventsListSubject$.value];
+        updatedEvents[index] = updatedEvent;
+
+        this.eventsListSubject$.next(updatedEvents);
+      }),
+      map(() => true)
+    );
   }
 }

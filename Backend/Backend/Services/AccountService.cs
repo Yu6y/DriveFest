@@ -7,12 +7,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+
 namespace Backend.Services
 {
     public interface IAccountService
     {
         Task<string> LoginUser(LoginDto loginDto);
-        Task<bool> RegisterUser(RegisterDto registerDto);
+        Task<Dictionary<bool, RegistrationError>> RegisterUser(RegisterDto registerDto);
         Task<UserDto> GetUserInfo(int userId);
     }
 
@@ -64,29 +65,47 @@ namespace Backend.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<bool> RegisterUser(RegisterDto registerDto)
+        public async Task<Dictionary<bool, RegistrationError>> RegisterUser(RegisterDto registerDto)
         {
             var user = await _dbContext
                 .Users
-                .AnyAsync(r => r.Username == registerDto.Username || r.Email == registerDto.Email);
-            if (user)
-                return false;
+                .FirstOrDefaultAsync(r => r.Username == registerDto.Username || r.Email == registerDto.Email);
+
+            var responseErrors = new RegistrationError();
+
+            if (user != null)
+            {
+                if(user.Email == registerDto.Email)
+                {
+                    responseErrors.Errors.Add("email", "Podany adres email jest już zajęty.");
+                }
+                if(user.Username == registerDto.Username)
+                {
+                   responseErrors.Errors.Add("username", "Podana nazwa użytkownika jest już zajęta.");
+                }
+                return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
+            }
+           
 
             var newUser = new User()
             {
                 Username = registerDto.Username,
                 Email = registerDto.Email,
                 HashPassword = registerDto.Password,
+                UserPic = "",
                 CreatedAt = DateTime.Now
             };
             try
             {
                 _dbContext.Add(newUser);
                 _dbContext.SaveChanges();
-                return true;
+                return new Dictionary<bool, RegistrationError> { { true, new RegistrationError() } };
             }catch(Exception e)
             {
-                return false;
+                
+                responseErrors.Errors.Add("general", "Nie udało się utworzyć konta.");
+
+                return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
             }
         }
 

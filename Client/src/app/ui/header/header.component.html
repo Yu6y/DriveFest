@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav #navbar class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid header-container">
-    <a class="navbar-brand" href="#">DriveFest</a>
+    <a class="navbar-brand" href="home">DriveFest</a>
     <button 
       class="navbar-toggler" 
       type="button" 
@@ -12,21 +12,39 @@
     </button>
     <div 
       #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed"
-      class="collapse navbar-collapse" 
+      class="collapse navbar-collapse container" 
       id="navbarNav">
-      <div class="navbar-nav">
-        <div class="nav-item">
+      <div class="navbar-nav px-lg-5">
+        <div class="nav-item px-lg-5">
           <a 
             [class.navbar-container]="!isCollapsed" 
             class="nav-link" 
             routerLink="home"
-            (click)="isCollapsed = !isCollapsed">Wydarzenia</a>
+            (click)="navClick()">Wydarzenia</a>
         </div>
-        <div  class="nav-item">
-          <a [class.navbar-container]="!isCollapsed" class="nav-link">Ulubione</a>
+        <div  class="nav-item px-lg-5">
+          <a 
+          [class.navbar-container]="!isCollapsed" 
+          class="nav-link" 
+          (click)="navClick()">Ulubione</a>
         </div>
-        <div  class="nav-item">
-          <a [class.navbar-container]="!isCollapsed" class="nav-link">Warsztaty</a>
+        <div  class="nav-item px-lg-5">
+          <a 
+          [class.navbar-container]="!isCollapsed" 
+          class="nav-link"
+          (click)="navClick()">Warsztaty</a>
+        </div>
+        <div  class="nav-item px-lg-5">
+          <a 
+          [class.navbar-container]="!isCollapsed" 
+          class="nav-link"
+          (click)="navClick()">Warsztaty</a>
+        </div>
+        <div class="nav-item ms-lg-5 ps-lg-5">
+          <a 
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link text-white ps-lg-5 ms-lg-5" 
+            >Wyloguj się</a>
         </div>
       </div>
     </div>

@@ -19,13 +19,9 @@
         <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite"
           (click)="followClick()">
           @if(event.isFavorite){
-          <ng-container>
             Obserwujesz<mat-icon class="cos" color="white">favorite</mat-icon>
-          </ng-container>
           }@else{
-          <ng-container>
             Obserwuj<mat-icon color="orange">favorite</mat-icon>
-          </ng-container>
           }
         </button>
       </div>
