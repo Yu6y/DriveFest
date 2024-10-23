@@ -58,7 +58,20 @@
               type="submit"
               [disabled]="!(form.get('email')!.valid && form.get('username')!.valid && form.get('password')!.valid)"
               >Zarejestruj się</button>
-
+              @if(registerState$ | async; as state){
+                @switch(state.state){
+                  @case('error'){
+                    <p>Error</p>
+                  }
+                  @case('loading'){
+                    <p>Loading</p>
+                  }
+                  @case('success'){
+                    <p>{{state.data}}</p>
+                  }
+                }
+          
+              }
             </form>
 
             <div>

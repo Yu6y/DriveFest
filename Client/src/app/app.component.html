@@ -1,4 +1,4 @@
 @if((userLogged$ | async) && !(router.url.includes('login') || router.url.includes('register'))){
-  <app-header></app-header>
+  <app-header (logout)="logout()"></app-header>
 }
 <router-outlet></router-outlet>

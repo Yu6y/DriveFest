@@ -9,6 +9,8 @@ import {
 import { RegisterCredentials } from '../../models/RegisterCredentials';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthStateService } from '../../services/auth-state.service';
+import { AsyncPipe } from '@angular/common';
 
 type RegisterError = {
   username?: string;
@@ -19,16 +21,17 @@ type RegisterError = {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  private authService = inject(AuthService);
+  private authService = inject(AuthStateService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
   form!: FormGroup;
   errors: RegisterError = {};
+  registerState$ = this.authService.registerState$;
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -36,24 +39,17 @@ export class RegisterComponent {
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    this.registerState$.subscribe((res) => {
+      if (res.state === 'error') this.errors = res.error;
+    });
   }
 
   submit() {
-    this.authService
-      .registerUser({
-        email: this.form.value.email,
-        username: this.form.value.username,
-        password: this.form.value.password,
-      } as RegisterCredentials)
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-          this.router.navigate(['/login']);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.errors = error.error.errors as RegisterError;
-          console.log(this.errors.email);
-        },
-      });
+    this.authService.registerUser({
+      email: this.form.value.email,
+      username: this.form.value.username,
+      password: this.form.value.password,
+    } as RegisterCredentials);
   }
 }

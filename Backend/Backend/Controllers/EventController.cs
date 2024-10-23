@@ -26,8 +26,14 @@ namespace Backend.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAll() {
-            var eventsList = await _eventService.GetAllEvents(GetUserId());
-            return new ObjectResult(eventsList) { StatusCode = 200 };
+            try
+            {
+                var eventsList = await _eventService.GetAllEvents(GetUserId());
+                return new ObjectResult(eventsList) { StatusCode = 200 };
+            }catch(Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
         }
 
         [HttpGet("filters")]        

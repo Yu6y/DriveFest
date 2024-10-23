@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,14 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\models\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\models\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2211E616-2C52-4CB0-8AB6-B8183B20F19A}|Backend\\Backend.csproj|d:\\documents\\codes\\angular18\\drivefest\\backend\\backend\\controllers\\carregistercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,11 +42,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 244,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "RegistrationError.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Models\\RegistrationError.cs",
               "RelativeDocumentMoniker": "Backend\\Models\\RegistrationError.cs",
@@ -54,38 +54,37 @@
               "RelativeToolTip": "Backend\\Models\\RegistrationError.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T16:13:21.656Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T16:13:21.656Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AccountService.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\AccountService.cs",
               "RelativeDocumentMoniker": "Backend\\Services\\AccountService.cs",
               "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\AccountService.cs",
               "RelativeToolTip": "Backend\\Services\\AccountService.cs",
-              "ViewState": "AQIAADwAAAAAAAAAAAAuwGkAAABUAAAA",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAwGkAAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-22T11:07:59.237Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "Backend\\Controllers\\AccountController.cs",
               "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\AccountController.cs",
               "RelativeToolTip": "Backend\\Controllers\\AccountController.cs",
-              "ViewState": "AQIAACAAAAAAAAAAAAA9wCUAAAA1AAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwBYAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-22T15:10:56.116Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "CommentDto.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Models\\CommentDto.cs",
               "RelativeDocumentMoniker": "Backend\\Models\\CommentDto.cs",
@@ -93,18 +92,17 @@
               "RelativeToolTip": "Backend\\Models\\CommentDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T19:13:52.421Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T19:13:52.421Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "EventController.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\EventController.cs",
               "RelativeDocumentMoniker": "Backend\\Controllers\\EventController.cs",
               "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Controllers\\EventController.cs",
               "RelativeToolTip": "Backend\\Controllers\\EventController.cs",
-              "ViewState": "AQIAAFcAAAAAAAAAAAAmwAUAAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAACIAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T11:39:38.616Z",
               "EditorCaption": ""
@@ -123,13 +121,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "EventService.cs",
               "DocumentMoniker": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\EventService.cs",
               "RelativeDocumentMoniker": "Backend\\Services\\EventService.cs",
               "ToolTip": "D:\\Documents\\Codes\\Angular18\\DriveFest\\Backend\\Backend\\Services\\EventService.cs",
               "RelativeToolTip": "Backend\\Services\\EventService.cs",
-              "ViewState": "AQIAAOwAAAAAAAAAAAAkwMcAAAAXAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAcwMcAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T11:21:07.731Z",
               "EditorCaption": ""

@@ -4,6 +4,7 @@ import { HeaderComponent } from './ui/header/header.component';
 import { AuthService } from './features/auth/services/auth.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { AuthStateService } from './features/auth/services/auth-state.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private authService = inject(AuthService);
+  private authService = inject(AuthStateService);
   router = inject(Router);
   title = 'DriveFest';
   userLogged$!: Observable<boolean>;
@@ -21,5 +22,9 @@ export class AppComponent {
   ngOnInit() {
     this.userLogged$ = this.authService.userLogged$;
     this.authService.isLogged();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

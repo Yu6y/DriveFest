@@ -12,7 +12,7 @@
     </button>
     <div 
       #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed"
-      class="collapse navbar-collapse container" 
+      class="collapse navbar-collapse" 
       id="navbarNav">
       <div class="navbar-nav px-lg-5">
         <div class="nav-item px-lg-5">
@@ -42,8 +42,9 @@
         </div>
         <div class="nav-item ms-lg-5 ps-lg-5">
           <a 
+            (click)="logout.emit()"
             [class.navbar-container]="!isCollapsed" 
-            class="nav-link text-white ps-lg-5 ms-lg-5" 
+            class="nav-link text-white  ms-lg-5 pt-5 pt-lg-2" 
             >Wyloguj się</a>
         </div>
       </div>

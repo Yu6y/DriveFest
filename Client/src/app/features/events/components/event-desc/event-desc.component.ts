@@ -42,7 +42,7 @@ export class EventDescComponent {
   }
 
   followClick() {
-    this.eventService.handleEventFollow(this.event.id).subscribe((result) => {
+    /*  this.eventService.handleEventFollow(this.event.id).subscribe((result) => {
       if (result) {
         if (this.event.isFavorite) this.event.followersCount--;
         else this.event.followersCount++;
@@ -50,6 +50,6 @@ export class EventDescComponent {
       } else {
         console.log('Operation failed.');
       }
-    });
+    });*/
   }
 }

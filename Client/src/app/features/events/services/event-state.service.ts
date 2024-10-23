@@ -4,17 +4,20 @@ import { EventShort } from '../../../shared/models/EventShort';
 import {
   BehaviorSubject,
   catchError,
+  delay,
   map,
   Observable,
   of,
   startWith,
   tap,
+  throwError,
 } from 'rxjs';
 import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
 import { setTokenSourceMapRange } from 'typescript';
 import { EventDesc } from '../../../shared/models/EventDesc';
 import { Comment } from '../../../shared/models/Comment';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoadingState } from '../../../shared/models/LoadingState';
 
 @Injectable({
   providedIn: 'root',
@@ -23,29 +26,43 @@ export class EventStateService {
   private apiService = inject(EventApiService);
   private datePipe = inject(DateCustomPipe);
 
-  private eventsListSubject$ = new BehaviorSubject<EventShort[]>([]);
+  private eventsListSubject$ = new BehaviorSubject<LoadingState<EventShort[]>>({
+    state: 'idle',
+  });
   private commentsListSubject$ = new BehaviorSubject<Comment[]>([]);
-  //sygnal dla error, string lub null, nullowac gdy bedzie odpowiedz, wyskakujace powaidomienia //devexpress toast
 
-  eventsList$ = this.eventsListSubject$.asObservable().pipe(startWith([]));
+  eventsList$ = this.eventsListSubject$.asObservable();
   commentsList$ = this.commentsListSubject$.asObservable().pipe(startWith([]));
-  //komentarze desc itp osobne sygnaly ^
 
   loadEvents() {
+    this.eventsListSubject$.next({ state: 'loading' });
     this.apiService
       .getAllEvents()
       .pipe(
-        map((response) => {
-          response.forEach((obj) => {
-            obj.date = this.datePipe.transform(obj.date);
+        map((data) => {
+          data.forEach((x) => {
+            x.date = this.datePipe.transform(x.date);
           });
 
-          return response;
+          return data;
+        }),
+        tap((response) => {
+          of(response)
+            .pipe(delay(2000))
+            .subscribe((res) => {
+              this.eventsListSubject$.next({ state: 'success', data: res });
+              console.log(res);
+            });
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.eventsListSubject$.next({
+            state: 'error',
+            error: error.message,
+          });
+          return throwError(error);
         })
       )
-      .subscribe((events) => {
-        this.eventsListSubject$.next(events);
-      });
+      .subscribe();
   }
 
   getEventDesc(eventId: number): Observable<EventDesc> {
@@ -98,8 +115,8 @@ export class EventStateService {
       });
   }
 
-  handleEventFollow(eventId: number): Observable<boolean> {
-    const index: number = this.eventsListSubject$.value.findIndex(
+  handleEventFollow(eventId: number) {} //: Observable<boolean> {
+  /*const index: number = this.eventsListSubject$.value.findIndex(
       (x) => x.id === eventId
     );
 
@@ -131,6 +148,6 @@ export class EventStateService {
         this.eventsListSubject$.next(updatedEvents);
       }),
       map(() => true)
-    );
-  }
+    );*/
+  // }
 }

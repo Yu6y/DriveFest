@@ -21,12 +21,12 @@ export class CardsListComponent {
   }
 
   eventFollowClick(event: EventShort) {
-    this.stateService.handleEventFollow(event.id).subscribe((result) => {
+    /*this.stateService.handleEventFollow(event.id).subscribe((result) => {
       if (result) {
         if (event.isFavorite) event.followersCount--;
         else event.followersCount++;
         event.isFavorite = !event.isFavorite;
       }
-    });
+    });*/
   }
 }

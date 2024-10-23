@@ -9,19 +9,24 @@ import { AuthService } from '../../services/auth.service';
 import { LoginCredentials } from '../../models/LoginCredentials';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthStateService } from '../../services/auth-state.service';
+import { Observable } from 'rxjs';
+import { LoadingState } from '../../../../shared/models/LoadingState';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private authService = inject(AuthService);
+  private authService = inject(AuthStateService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
   form!: FormGroup;
+  loginState$ = this.authService.loginState$;
 
   ngOnInit() {
     this.form = this.formBuilder.group({
