@@ -23,6 +23,7 @@ namespace Backend
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<Comment, CommentDto>();
+            CreateMap<WorkshopComment, CommentDto>();
 
             CreateMap<User, UserDto>();
 
@@ -33,7 +34,17 @@ namespace Backend
             CreateMap<AddEventDto, EventDescription>()
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Desc));
 
+            CreateMap<AddWorkshopDto, Workshop>()
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.City))
+            .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.PhotoURL));
+
+            CreateMap<AddWorkshopDto, WorkshopDescription>()
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Desc));
+
             CreateMap<Workshop, WorkshopDto>();
+            CreateMap<Workshop, WorkshopDescDto>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.WorkshopDescription.Address))
+                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.WorkshopDescription.Description));
 
             CreateMap<CarExpense, CarExpenseDto>();
 

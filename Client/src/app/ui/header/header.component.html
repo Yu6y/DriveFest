@@ -26,19 +26,29 @@
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link" 
+          routerLink="favorites"
           (click)="navClick()">Ulubione</a>
         </div>
         <div  class="nav-item px-lg-5">
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link"
+          routerLink="workshops"
           (click)="navClick()">Warsztaty</a>
         </div>
         <div  class="nav-item px-lg-5">
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link"
-          (click)="navClick()">Warsztaty</a>
+          routerLink="add-event"
+          (click)="navClick()">Dodaj wydarzenie</a>
+        </div>
+        <div  class="nav-item px-lg-5">
+          <a 
+          [class.navbar-container]="!isCollapsed" 
+          class="nav-link"
+          routerLink="add-workshop"
+          (click)="navClick()">Dodaj warsztat</a>
         </div>
         <div class="nav-item ms-lg-5 ps-lg-5">
           <a 

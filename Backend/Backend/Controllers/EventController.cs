@@ -69,6 +69,9 @@ namespace Backend.Controllers
             catch (NotFoundException e)
             {
                 return new ObjectResult(e.Message) { StatusCode = 404 };
+            }catch(Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
 
@@ -97,6 +100,10 @@ namespace Backend.Controllers
             catch (NotFoundException e)
             {
                 return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
 
@@ -168,9 +175,9 @@ namespace Backend.Controllers
                 var result = await _eventService.AddEvent(eventDto);
                 return new ObjectResult(result) { StatusCode = 200 };
             }
-            catch (NotFoundException e)
+            catch (Exception e)
             {
-                return new ObjectResult("Nie udało się dodać wydarzenia!") { StatusCode = 400 };
+                return new ObjectResult("Nie udało się dodać wydarzenia!") { StatusCode = 500 };
             }
         }
     }

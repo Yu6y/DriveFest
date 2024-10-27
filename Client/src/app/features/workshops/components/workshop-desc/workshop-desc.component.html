@@ -1,0 +1,33 @@
+<div class="data-container container">
+  @if(workshop$ | async; as workshop){
+    @switch (workshop.state) {
+      @case('loading'){
+        <p>Loading...</p>
+      }
+      @case('success'){
+        <div class="image-container row justify-content-center">
+          <img class="image col-lg-12 col-md-6" [src]="workshop.data.image"/>
+        </div>
+        <div class="desc-container row">
+          <p class="workshop-name col-lg-12 col-md-6">{{ workshop.data.name }}</p>
+          <div class="icons-container col-12">
+            <div class="location-container">
+              <mat-icon color="orange">location_on</mat-icon>
+              <span class="desc-text">{{ workshop.data.location + ', ' + workshop.data.address  }}</span>
+            </div>
+            <div class="tags-container">
+              <mat-icon class="tag" color="orange">label</mat-icon>
+              <span class="desc-text"># {{ makeTags(workshop.data.tags) }}</span>
+            </div>
+          </div>
+          <div class="text-container col-12">
+            <p class="description">{{ workshop.data.description }}</p>
+          </div>
+          <div class="comments-container col-12">   
+            <app-comments-list [contextFlag]="'workshop'" [contextId]="workshop.data.workshopDescId"></app-comments-list>
+          </div>
+        </div>
+      }
+    }
+}
+</div>

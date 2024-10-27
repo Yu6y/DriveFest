@@ -25,7 +25,7 @@ namespace Backend.Services
         Task<IEnumerable<EventDto>> GetFavEvents(int userId);
         Task<int> AddFavEvent(int eventId, int userId);
         Task<int> DeleteFavEvent(int eventId, int userId);
-        Task<string> AddEvent(AddEventDto addEvent);
+        Task<int> AddEvent(AddEventDto addEvent);
     }
 
     public class EventService : IEventService
@@ -268,6 +268,7 @@ namespace Backend.Services
             var favList = await _dbContext
                 .Events
                 .Where(l => l.LikedByUsers.Any(r => r.Id == userId))
+                .OrderBy(d => d.Date)
                 .ToListAsync();
 
             var favListReturn = _mapper.Map<IEnumerable<EventDto>>(favList);
@@ -346,7 +347,7 @@ namespace Backend.Services
             return favDelete.Id;
         }
 
-        public async Task<string> AddEvent(AddEventDto addEvent)
+        public async Task<int> AddEvent(AddEventDto addEvent)
         {
             Event eventToSave = _mapper.Map<Event>(addEvent);
             EventDescription eventDescToSave = _mapper.Map<EventDescription>(addEvent);
@@ -376,7 +377,7 @@ namespace Backend.Services
 
                 await _dbContext.SaveChangesAsync();
 
-                return "Dodano wydarzenie!";
+                return eventToSave.Id;
 
             }
             catch(Exception e)

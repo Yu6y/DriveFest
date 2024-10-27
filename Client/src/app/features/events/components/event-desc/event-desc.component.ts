@@ -8,6 +8,7 @@ import { Tag } from '../../../../shared/models/Tag';
 import { Observable, ObservedValueOf, tap } from 'rxjs';
 import { Comment } from '../../../../shared/models/Comment';
 import { AsyncPipe } from '@angular/common';
+import { LoadingState } from '../../../../shared/models/LoadingState';
 
 @Component({
   selector: 'app-event-desc',
@@ -19,21 +20,12 @@ import { AsyncPipe } from '@angular/common';
 export class EventDescComponent {
   private route = inject(ActivatedRoute);
   private eventService = inject(EventStateService);
-  event: EventDesc = {} as EventDesc;
+  event$!: Observable<LoadingState<EventDesc>>;
   tags!: string;
-  comments$!: Observable<Comment[]>;
 
   ngOnInit() {
-    this.eventService
-      .getEventDesc(+this.route.snapshot.params['id'])
-      .subscribe((response) => {
-        console.log(response);
-        this.event = response;
-        this.tags = '#' + this.makeTags(response.tags);
-      });
-
-    this.eventService.loadComments(+this.route.snapshot.params['id']);
-    this.comments$ = this.eventService.commentsList$;
+    this.eventService.getEventDesc(+this.route.snapshot.params['id']);
+    this.event$ = this.eventService.eventDesc$;
   }
 
   makeTags(tags: Tag[]) {
@@ -41,15 +33,19 @@ export class EventDescComponent {
     return tagsDesc.join(', ');
   }
 
-  followClick() {
-    /*  this.eventService.handleEventFollow(this.event.id).subscribe((result) => {
-      if (result) {
-        if (this.event.isFavorite) this.event.followersCount--;
-        else this.event.followersCount++;
-        this.event.isFavorite = !this.event.isFavorite;
-      } else {
-        console.log('Operation failed.');
-      }
-    });*/
+  followClick(event: EventDesc) {
+    this.eventService
+      .handleEventFollow(event.id, 'description')
+      .subscribe
+      //(result) => {
+      //   if (result) {
+      //     if (this.event.isFavorite) this.event.followersCount--;
+      //     else this.event.followersCount++;
+      //     this.event.isFavorite = !this.event.isFavorite;
+      //   } else {
+      //     console.log('Operation failed.');
+      //   }
+      // }
+      ();
   }
 }

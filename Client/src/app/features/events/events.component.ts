@@ -15,9 +15,8 @@ import { AsyncPipe } from '@angular/common';
 })
 export class EventsComponent {
   private dataService = inject(EventStateService);
-  events$ = this.dataService.eventsList$;
 
   ngOnInit() {
-    this.dataService.loadEvents();
+    this.dataService.startEventList();
   }
 }

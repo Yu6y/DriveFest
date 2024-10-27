@@ -1,0 +1,97 @@
+.filters-container{
+  margin-top: 10px;
+}
+
+.btn-custom{
+  background-color: #fff;
+  color: #495057;
+  border-color: orange; 
+  margin-bottom: 10px;
+}
+
+.btn-custom:active{
+  background-color: orange;
+}
+
+.custom-collapse{
+  margin-bottom: 10px;
+}
+
+input{
+  max-width: 240px; 
+  display: inline;
+  padding: 10px 10px;
+  margin: 10px 10px;
+}
+
+.custom-select{
+  max-width: 240px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.custom-select{
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+select.decorated option:checked {
+  box-shadow: 0 0 10px 100px orange inset;
+}
+
+.custom-select,
+.custom-input{
+  border-color: rgba(255, 165, 0, 0.25);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.custom-select:focus {
+  color: #495057;
+  background-color: #fff;
+}
+
+.custom-input:focus,
+.custom-select:focus{
+  border-color: rgba(255, 165, 0, 0.25);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
+}
+
+.filter-text{
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.tags-text,
+.voiv-text{
+  color: black;
+}
+
+summary{
+  color: orange;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: orange;
+}
+
+.btn-clear{
+  background-color: #fff;
+  color: #495057;
+  border-color: orange; 
+}
+
+.btn-search{
+  background-color: orange;
+  color: #fff;
+}

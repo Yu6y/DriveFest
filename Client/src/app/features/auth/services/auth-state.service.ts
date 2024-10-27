@@ -15,7 +15,7 @@ import { LoginCredentials } from '../models/LoginCredentials';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RegisterCredentials } from '../models/RegisterCredentials';
 import { LoadingState } from '../../../shared/models/LoadingState';
-import { toLoadingState } from '../../../shared/CreateState';
+import { toLoadingState } from '../../../shared/utils/CreateState';
 import { RegisterError, RegisterState } from '../models/RegistrationState';
 
 @Injectable({

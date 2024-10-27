@@ -5,6 +5,9 @@ import { map, Observable, tap } from 'rxjs';
 import { EventShort } from '../../../shared/models/EventShort';
 import { EventDesc } from '../../../shared/models/EventDesc';
 import { Comment } from '../../../shared/models/Comment';
+import { Tag } from '../../../shared/models/Tag';
+import { EventListFiltersFormValue } from '../components/event-filters/event-filters.component';
+import { EventAddFormValue } from '../../add-forms/add-event/add-event.component';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +24,16 @@ export class EventApiService {
     return this.httpClient.get<EventDesc>(`${this.URL}/${eventId}`);
   }
 
+  getEventsFiltered(searchParams: EventListFiltersFormValue) {
+    return this.httpClient.get<EventShort[]>(`${this.URL}/filters`, {
+      params: {
+        ...searchParams,
+        tags: searchParams.tags.map((tag) => tag.id).join(','),
+        voivodeships: searchParams.voivodeships.map((v) => v).join(','),
+      },
+    });
+  }
+
   getComments(eventId: number): Observable<Comment[]> {
     return this.httpClient.get<Comment[]>(`${this.URL}/${eventId}/comments`);
   }
@@ -32,12 +45,22 @@ export class EventApiService {
   }
 
   unFollowEvent(eventId: number) {
-    console.log('unfollow');
     return this.httpClient.delete(`${this.URL}/favorites/${eventId}`);
   }
 
   followEvent(eventId: number) {
-    console.log('follow');
     return this.httpClient.post(`${this.URL}/favorites`, { eventId: eventId });
+  }
+
+  getFavoriteEvents(): Observable<EventShort[]> {
+    return this.httpClient.get<EventShort[]>(`${this.URL}/favorites`);
+  }
+
+  getTags(): Observable<Tag[]> {
+    return this.httpClient.get<Tag[]>(`${this.URL}/tags`);
+  }
+
+  addEvent(event: EventAddFormValue) {
+    return this.httpClient.post(`${this.URL}`, event, { responseType: 'text' });
   }
 }

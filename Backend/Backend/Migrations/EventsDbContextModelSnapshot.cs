@@ -294,14 +294,14 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WokrshopDescriptionId")
+                    b.Property<int>("WorkshopDescriptionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("WokrshopDescriptionId");
+                    b.HasIndex("WorkshopDescriptionId");
 
                     b.ToTable("WorkshopComments");
                 });
@@ -457,7 +457,7 @@ namespace Backend.Migrations
 
                     b.HasOne("Backend.Entities.WorkshopDescription", "WorkshopDescription")
                         .WithMany("WorkshopsComments")
-                        .HasForeignKey("WokrshopDescriptionId")
+                        .HasForeignKey("WorkshopDescriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

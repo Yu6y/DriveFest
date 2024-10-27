@@ -1,0 +1,117 @@
+.data-container {
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: rgb(226, 223, 223);
+}
+
+.image-container {
+  padding-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.image {
+  max-height: 400px;
+  width: 100%;
+  max-width: 800px;
+  object-fit: contain;
+}
+
+.workshop-name {
+  font-family: sans-serif;
+  font-size: 40px;
+  margin-top: 50px;
+  text-align: center;
+  white-space: normal;
+}
+
+.mat-icon.mat-orange{
+  
+  color: rgb(182, 123, 13);
+}
+
+.tag{
+  padding-top: 4px;
+}
+
+.icons-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  padding-left: 3px;
+  margin-bottom: 30px;
+}
+
+.location-container, .date-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.follow-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+.follow-btn-container {
+  padding-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.follow-btn, .followed-btn {
+  width: 270px;
+  height: 60px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 20px;
+}
+
+.follow-btn {
+  border-color: rgb(182, 123, 13);
+  background-color: transparent;
+}
+
+.followed-btn {
+  border-color: rgb(182, 123, 13);
+  background-color: rgb(182, 123, 13);
+  color: white;
+}
+
+.follow-text-container {
+  margin-bottom: 20px;
+}
+
+.follow-text {
+  font-size: 18px;
+  text-align: center;
+}
+
+.description {
+  white-space: normal;
+}
+
+.text-container{
+  margin-bottom: 50px;
+}
+
+.desc-text {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.comments-container {
+  padding-top: 50px;
+  padding-bottom: 30px;
+}

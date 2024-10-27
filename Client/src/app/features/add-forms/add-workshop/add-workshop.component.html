@@ -1,0 +1,77 @@
+<div class="container my-4 comments-container">
+  <p class="new-text text-center">Utwórz nowe wydarzenie</p>
+  <form [formGroup]="workshopForm" (ngSubmit)="submit()">
+    <div class="mb-3 row">
+      <label for="name" class="col-sm-3 col-form-label">Nazwa:</label>
+      <div class="col-sm-9">
+        <input id="name" class="form-control" formControlName="name">
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <label for="city" class="col-sm-3 col-form-label">Miejscowość:</label>
+      <div class="col-sm-9">
+        <input id="city" class="form-control" formControlName="city">
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <label for="address" class="col-sm-3 col-form-label">Adres:</label>
+      <div class="col-sm-9">
+        <input id="address" class="form-control" formControlName="address">
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <label for="photoURL" class="col-sm-3 col-form-label">Adres zdjęcia:</label>
+      <div class="col-sm-9">
+        <input id="photoURL" class="form-control" formControlName="photoURL">
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <label for="voivodeship" class="col-sm-3 col-form-label">Województwo:</label>
+      <div class="col-sm-9">
+        <select id="voivodeship" formControlName="voivodeship" class="form-select">
+          <option value=""></option>
+          @for(v of voivodeships; track v){
+            <option [value]="v">{{ v }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <details class="tags-details">
+        <summary class="tags-container"><span class="tags-text">Tagi</span></summary>
+        <div class="tags-container-div">
+          @for(option of tagsList; track option.id){
+            <div class="form-check">
+              <input
+                type="checkbox"
+                [id]="option.id"
+                (change)="checkboxChange(option)"
+              />
+              <label class="form-check-label">{{ option.name }}</label>
+            </div>
+          }
+          
+        </div>
+      </details>
+    </div>
+    
+    <div class="form-group mb-3">
+      <label for="desc" class="form-label">Opis:</label>
+      <textarea
+        id="desc"
+        class="form-control"
+        formControlName="desc"
+        (input)="autoResize($event)"
+        rows="1"></textarea>
+    </div>
+
+    <div class="text-end">
+      <button class="btn" type="submit">Prześlij</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,79 @@
+<div class="container-fluid d-flex flex-column align-items-center filters-container">
+  <button
+    class="btn btn-primary btn-custom d-md-none"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#formCollapse"
+    aria-expanded="false"
+    aria-controls="formCollapse">
+    Pokaż/ukryj filtry
+  </button>
+
+  <div class="collapse d-md-block position-relative custom-collapse" id="formCollapse">
+    <p class="filter-text">Filtry</p>
+    <form [formGroup]="form">
+    <div class="row g-3">      
+        <input 
+          formControlName="searchTerm"
+          class="form-control custom-input text-input" 
+          placeholder="Znajdź warsztat"
+          
+          >
+        <select 
+          class="form-select custom-select" 
+          formControlName="sortBy"
+
+          >
+          <option selected [value]="sortOption.NONE" disabled>Sortowanie po ocenach</option>
+          <!--<option [value]="sortOption.NONE">Brak</option>-->
+          <option [value]="sortOption.ASC">Rosnąco</option>
+          <option [value]="sortOption.DESC">Malejąco</option>
+        </select>
+      
+      <div class="col-12">
+        <details class="tags-details">
+          <summary class="tags-container"><span class="tags-text">Tagi</span></summary>
+          <div class="tags-container-div d-flex flex-wrap gap-2">
+            @for(tag of tags; track tag.id){
+            <div>
+              @if(selectedTags.includes(tag)){
+                <input type="checkbox" [id]="tag.id" [name]="tag.name" (change)="inputChange(tag)" checked/>
+                }
+                @else{
+                  <input type="checkbox" [id]="tag.id" [name]="tag.name" (change)="inputChange(tag)"/>
+                }
+              <label class="tag-name">{{ tag.name }}</label>
+            </div>
+          }
+          </div>
+        </details>
+      </div>
+      <div class="col-12">
+        <details class="voiv-details">
+          <summary class="voiv-container"><span class="voiv-text">Województwo</span></summary>
+          <div class="voiv-container-div d-flex flex-wrap gap-2">
+            @for(voivodeship of voivodeships; track voivodeship){
+            <div>
+              @if(selectedVoivodeships.includes(voivodeship)){
+                <input type="checkbox" [name]="voivodeship" (change)="voivChange(voivodeship)" checked/>
+                }
+                @else{
+                  <input type="checkbox" [name]="voivodeship" (change)="voivChange(voivodeship)"/>
+                }
+              <label class="tag-name">{{ voivodeship }}</label>
+            </div>
+          }
+          </div>
+        </details>
+      </div>
+    
+    </div>
+  </form>
+
+    <div class="d-flex justify-content-end mt-3">
+      <button class="btn btn-search me-2" (click)="submitFilters()" [disabled]="!check">Szukaj warsztatów</button>
+      <button class="btn btn-clear" (click)="clearFilters()">Wyczyść filtry</button>
+    </div>
+
+  </div>
+</div>

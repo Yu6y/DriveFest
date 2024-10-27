@@ -87,7 +87,7 @@ namespace Backend.Entities
             modelBuilder.Entity<WorkshopDescription>()
                 .HasMany(ed => ed.WorkshopsComments)
                 .WithOne(c => c.WorkshopDescription)
-                .HasForeignKey(c => c.WokrshopDescriptionId);
+                .HasForeignKey(c => c.WorkshopDescriptionId);
 
             // Relacja 1:N między User a WorkshopComment
             modelBuilder.Entity<User>()

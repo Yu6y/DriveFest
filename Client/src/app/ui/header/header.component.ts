@@ -21,7 +21,8 @@ export class HeaderComponent {
   isCollapsed: boolean = true;
 
   navClick() {
-    if (window.innerWidth < 992) this.isCollapsed = !this.isCollapsed;
+    if (window.innerWidth < 992)
+      if (!this.isCollapsed) this.isCollapsed = !this.isCollapsed;
   }
 
   @ViewChild('navbar') navbar!: ElementRef;

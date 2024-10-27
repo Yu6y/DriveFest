@@ -4,8 +4,19 @@ import { EventDescComponent } from './features/events/components/event-desc/even
 import { LoginComponent } from './features/auth/components/login/login.component';
 import { RegisterComponent } from './features/auth/components/register/register.component';
 import { authGuard } from './features/auth/services/auth.guard';
+import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
+import { FavListComponent } from './features/events/components/fav-list/fav-list.component';
+import { WorkshopsComponent } from './features/workshops/workshops.component';
+import { WorkshopDescComponent } from './features/workshops/components/workshop-desc/workshop-desc.component';
+import { AddEventComponent } from './features/add-forms/add-event/add-event.component';
+import { AddWorkshopComponent } from './features/add-forms/add-workshop/add-workshop.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
   {
     path: 'home',
     component: EventsComponent,
@@ -27,5 +38,43 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     title: 'Rejestracja',
+  },
+  {
+    path: 'favorites',
+    component: FavListComponent,
+    title: 'Zaobserwowane',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'workshops',
+    component: WorkshopsComponent,
+    title: 'Watsztaty',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'workshop/:id',
+    component: WorkshopDescComponent,
+    title: 'Szczegóły',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'error',
+    component: ErrorPageComponent,
+    title: 'Błąd',
+  },
+  {
+    path: 'add-event',
+    component: AddEventComponent,
+    title: 'Dodaj wydarzenie',
+  },
+  {
+    path: 'add-workshop',
+    component: AddWorkshopComponent,
+    title: 'Dodaj warsztat',
+  },
+  {
+    path: '**',
+    redirectTo: 'error',
+    pathMatch: 'full',
   },
 ];

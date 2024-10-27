@@ -1,0 +1,25 @@
+.vs/*
+
+Backend/bin/
+Backend/obj/
+Backend/.vs/
+Backend/*.user
+Backend/*.suo
+Backend/*.swp
+
+# Ignorowanie systemowych plików tymczasowych
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+
+# Ignorowanie plików edytorów i IDE
+.idea/
+*.code-workspace
+
+# Ignorowanie plików tymczasowych, zależności i buildów
+*.tmp
+*.temp
+*.bak
+*.swp
+

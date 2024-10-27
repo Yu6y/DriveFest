@@ -10,7 +10,7 @@
         public int UserId { get; set; }
 
         public virtual User User { get; set; }
-        public int WokrshopDescriptionId { get; set; }
+        public int WorkshopDescriptionId { get; set; }
         public virtual WorkshopDescription WorkshopDescription { get; set; }
     }
 }

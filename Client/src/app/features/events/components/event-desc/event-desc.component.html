@@ -1,42 +1,54 @@
 <div class="data-container container">
-  <div class="image-container row justify-content-center">
-    <img class="image col-lg-12 col-md-6" [src]="event.image"/>
-  </div>
-  <div class="desc-container row">
-    <p class="event-name col-lg-12 col-md-6">{{ event.name }}</p>
-    <div class="icons-container col-12">
-      <div class="location-container">
-        <mat-icon color="orange">event</mat-icon>
-        <span class="desc-text">{{ event.date }}</span>
-      </div>
-      <div class="date-container">
-        <mat-icon color="orange">location_on</mat-icon>
-        <span class="desc-text">{{ event.location + ', ' + event.address }}</span>
-      </div>
-    </div>
-    <div class="follow-container col-12">
-      <div class="follow-btn-container">
-        <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite"
-          (click)="followClick()">
-          @if(event.isFavorite){
-            Obserwujesz<mat-icon class="cos" color="white">favorite</mat-icon>
-          }@else{
-            Obserwuj<mat-icon color="orange">favorite</mat-icon>
-          }
-        </button>
-      </div>
-      <div class="follow-text-container">
-        <p class="follow-text">Obserwujących: {{ event.followersCount }}</p>
-      </div>
-    </div>
-    <div class="text-container col-12">
-      <p class="description">{{ event.description }}</p>
-    </div>
-    <div class="tags-container col-12">
-      <p class="tags">{{ tags }}</p>
-    </div>
-    <div class="comments-container col-12">
-      <app-comments-list [comments]="comments$ | async" [eventId]="event.id"></app-comments-list>
-    </div>
-  </div>
+  @if(event$ | async; as event){
+    @switch(event.state){
+      @case('loading'){
+        <p>Loading...</p>
+      }
+      @case('success'){
+        <div class="image-container row justify-content-center">
+          <img class="image col-lg-12 col-md-6" [src]="event.data.image"/>
+        </div>
+        <div class="desc-container row">
+          <p class="event-name col-lg-12 col-md-6">{{ event.data.name }}</p>
+          <div class="icons-container col-12">
+            <div class="location-container">
+              <mat-icon color="orange">event</mat-icon>
+              <span class="desc-text">{{ event.data.date }}</span>
+            </div>
+            <div class="date-container">
+              <mat-icon color="orange">location_on</mat-icon>
+              <span class="desc-text">{{ event.data.location + ', ' + event.data.address }}</span>
+            </div>
+          </div>
+          <div class="follow-container col-12">
+            <div class="follow-btn-container">
+              <button [class.followed-btn]="event.data.isFavorite" [class.follow-btn]="!event.data.isFavorite"
+                (click)="followClick(event.data)">
+                @if(event.data.isFavorite){
+                  Obserwujesz<mat-icon class="cos" color="white">favorite</mat-icon>
+                }@else{
+                  Obserwuj<mat-icon color="orange">favorite</mat-icon>
+                }
+              </button>
+            </div>
+            <div class="follow-text-container">
+              <p class="follow-text">Obserwujących: {{ event.data.followersCount }}</p>
+            </div>
+          </div>
+          <div class="text-container col-12">
+            <p class="description">{{ event.data.description }}</p>
+          </div>
+          <div class="tags-container col-12">
+            <p class="tags"> # {{ makeTags(event.data.tags) }}</p>
+          </div>
+          <div class="comments-container col-12">   
+            <app-comments-list 
+            [contextFlag]="'event'"
+            [contextId]="event.data.eventDescId"></app-comments-list>
+          </div>
+        </div>
+      }
+    }
+  
+}
 </div>

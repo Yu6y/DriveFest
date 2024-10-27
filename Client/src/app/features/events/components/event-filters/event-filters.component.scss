@@ -9,6 +9,10 @@
   margin-bottom: 10px;
 }
 
+.btn-custom:active{
+  background-color: orange;
+}
+
 .custom-collapse{
   margin-bottom: 10px;
 }
@@ -43,7 +47,6 @@ select.decorated option:checked {
   box-shadow: 0 0 10px 100px orange inset;
 }
 
-
 .custom-select,
 .custom-input{
   border-color: rgba(255, 165, 0, 0.25);
@@ -63,12 +66,18 @@ select.decorated option:checked {
   box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
 }
 
+.date-error{
+  color: red;
+  border-color: red;
+}
+
 .filter-text{
   font-weight: 100;
   font-size: 20px;
 }
 
-.tags-text{
+.tags-text,
+.voiv-text{
   color: black;
 }
 
@@ -79,4 +88,15 @@ summary{
 input[type="checkbox"] {
   cursor: pointer;
   accent-color: orange;
+}
+
+.btn-clear{
+  background-color: #fff;
+  color: #495057;
+  border-color: orange; 
+}
+
+.btn-search{
+  background-color: orange;
+  color: #fff;
 }

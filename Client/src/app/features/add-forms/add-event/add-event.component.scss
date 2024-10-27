@@ -1,0 +1,63 @@
+.comments-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(233, 232, 232, 0.1);
+  padding: 20px;
+}
+
+.new-text{
+  font-size: 20px;
+  text-align: center;
+}
+
+.form-control:focus,
+select:focus{
+  border-color: rgba(255, 165, 0, 0.25);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
+}
+
+.tags-container{
+  padding-bottom: 5px;
+}
+
+.tags-details{
+  margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+  accent-color: orange;  /* Ustawienie koloru checkboxa */
+}
+
+textarea.form-control {
+  resize: none; /* Zapobiega ręcznej zmianie rozmiaru */
+  overflow: hidden; /* Ukrywa pasek przewijania */
+}
+
+.focused {
+  border-color: rgba(255, 165, 0, 0.25);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
+}
+
+.btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: orange;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+input[type=checkbox] {
+  cursor: pointer;
+  accent-color: orange;
+  left: 0.25rem;
+  margin-left: -10px;
+  margin-right: 5px;
+}

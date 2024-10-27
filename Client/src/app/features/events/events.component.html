@@ -2,18 +2,6 @@
   <app-event-filters></app-event-filters>
 </div>
 
-@if(events$ | async; as events){
-  @switch(events.state){
-    @case('loading'){
-      <p>Loading...</p>
-    }
-    @case('success'){
-      <div class="container list-container d-flex justify-content-center">
-      <app-cards-list [events]="events.data"></app-cards-list>
-      </div>
-    }
-    @case('error'){
-      <p>{{ events.error }}</p>
-    }
-  }
-}
+  <div class="container list-container d-flex justify-content-center">
+    <app-cards-list [flag]="'events'"></app-cards-list>
+  </div>
