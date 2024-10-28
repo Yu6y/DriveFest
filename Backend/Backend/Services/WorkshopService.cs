@@ -3,6 +3,8 @@ using Backend.Models;
 using Backend.Entities;
 using Microsoft.EntityFrameworkCore;
 using Backend.Exceptions;
+using System;
+using Firebase.Storage;
 
 namespace Backend.Services
 {
@@ -21,6 +23,7 @@ namespace Backend.Services
     {
         private readonly EventsDbContext _dbContext;
         private readonly IMapper _mapper;
+        private Random random = new Random();
         public WorkshopService(EventsDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
@@ -152,13 +155,13 @@ namespace Backend.Services
             WorkshopDescription wrkshopDescToSave = _mapper.Map<WorkshopDescription>(addWorkshop);
 
             workshopToSave.Tags = new List<WorkshopTag>();
+            workshopToSave.Rate = 0;
+            workshopToSave.Image = await uploadPhoto(addWorkshop.PhotoURL);
 
             try
             {
                 await _dbContext.AddAsync(workshopToSave);
                 await _dbContext.SaveChangesAsync();
-
-                Console.WriteLine("cos");
 
                 wrkshopDescToSave.WorkshopId = workshopToSave.Id;
                 await _dbContext.AddAsync(wrkshopDescToSave);
@@ -166,8 +169,10 @@ namespace Backend.Services
 
                 if (addWorkshop.Tags != null && addWorkshop.Tags.Any())
                 {
+                    Console.WriteLine("tags");
                     foreach (var tagDto in addWorkshop.Tags)
                     {
+                        Console.WriteLine(tagDto.Name);
                         var tag = await _dbContext.WorkshopTags.FindAsync(tagDto.Id);
                         if (tag != null)
                             workshopToSave.Tags.Add(tag);
@@ -181,6 +186,33 @@ namespace Backend.Services
             {
                 throw new Exception(e.Message);
             }
+            
+        }
+        public async Task<string> uploadPhoto(IFormFile file)
+        {
+            var stream = file.OpenReadStream();
+
+            // Construct FirebaseStorage with path to where you want to upload the file and put it there
+            var task = new FirebaseStorage("moto-event.appspot.com")
+             .Child("images")
+             .Child("workshops")
+             .Child(GenerateRandomString() + System.IO.Path.GetExtension(file.FileName))
+             .PutAsync(stream);
+
+            // Track progress of the upload
+            task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
+
+            // Await the task to wait until upload is completed and get the download url
+            var downloadUrl = await task;
+
+            return downloadUrl;
+        }
+
+        public string GenerateRandomString()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            return new string(Enumerable.Repeat(chars, 20)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

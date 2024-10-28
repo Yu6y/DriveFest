@@ -33,7 +33,7 @@ namespace Backend.Services
     {
         private readonly EventsDbContext _dbContext;
         private readonly IMapper _mapper;
-        private static Random random = new Random();
+        private Random random = new Random();
 
         public EventService(EventsDbContext dbContext, IMapper mapper)
         {

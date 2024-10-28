@@ -197,6 +197,8 @@ export class WorkshopStateService {
     form.append('tags', JSON.stringify(workshop.tags));
     form.append('desc', workshop.desc);
 
+    console.log(workshop.tags);
+
     return this.apiService.addWorkshop(form);
   }
 }

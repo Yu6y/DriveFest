@@ -113,7 +113,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddWorkshop([FromBody] AddWorkshopDto workshopDto)
+        public async Task<IActionResult> AddWorkshop([FromForm] AddWorkshopDto workshopDto)
         {
             try
             {
