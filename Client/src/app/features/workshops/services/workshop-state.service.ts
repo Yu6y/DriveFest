@@ -19,6 +19,7 @@ import { Comment } from '../../../shared/models/Comment';
 import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
 import { WorkshopDesc } from '../../../shared/models/WorkshopDesc';
 import { Router } from '@angular/router';
+import { WorkshopAddFormValue } from '../../add-forms/add-workshop/add-workshop.component';
 
 @Injectable({
   providedIn: 'root',
@@ -124,6 +125,10 @@ export class WorkshopStateService {
       .subscribe();
   }
 
+  getWorkshopsTags() {
+    return this.apiService.getWorkshopsTags();
+  }
+
   loadComments(workshopId: number) {
     this.commentsListSubject$.next({ state: 'loading' });
     this.apiService
@@ -179,5 +184,19 @@ export class WorkshopStateService {
       }),
       map((s) => (s ? true : false))
     );
+  }
+
+  addWorkshop(workshop: WorkshopAddFormValue) {
+    const form = new FormData();
+
+    form.append('name', workshop.name);
+    form.append('city', workshop.city);
+    form.append('address', workshop.address);
+    if (workshop.photoURL) form.append('photoURL', workshop.photoURL);
+    form.append('voivodeship', workshop.voivodeship);
+    form.append('tags', JSON.stringify(workshop.tags));
+    form.append('desc', workshop.desc);
+
+    return this.apiService.addWorkshop(form);
   }
 }

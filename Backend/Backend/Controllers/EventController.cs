@@ -168,7 +168,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEvent([FromBody] AddEventDto eventDto)
+        public async Task<IActionResult> AddEvent([FromForm] AddEventDto eventDto)
         {
             try
             {

@@ -30,9 +30,14 @@
     </div>
 
     <div class="mb-3 row">
-      <label for="photoURL" class="col-sm-3 col-form-label">Adres zdjęcia:</label>
+      <label for="photoURL" class="col-sm-3 col-form-label">Zdjęcie:</label>
       <div class="col-sm-9">
-        <input id="photoURL" class="form-control" formControlName="photoURL">
+        <input 
+        id="photoURL" 
+        type="file" 
+        class="form-control" 
+        accept=".jpg,.jpeg,.png,.bmp"
+        (change)="sendPhoto($event)">
       </div>
     </div>
 

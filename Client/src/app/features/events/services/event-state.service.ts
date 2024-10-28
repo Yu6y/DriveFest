@@ -23,6 +23,7 @@ import { EventListFiltersFormValue } from '../components/event-filters/event-fil
 import { state } from '@angular/animations';
 import { Router } from '@angular/router';
 import { elementSelectors } from '@angular/cdk/schematics';
+import { EventAddFormValue } from '../../add-forms/add-event/add-event.component';
 
 @Injectable({
   providedIn: 'root',
@@ -304,5 +305,21 @@ export class EventStateService {
         })
       )
       .subscribe();
+  }
+
+  addEvent(event: EventAddFormValue) {
+    const form = new FormData();
+
+    form.append('name', event.name);
+    form.append('date', event.date);
+    form.append('city', event.city);
+    form.append('address', event.address);
+    if (event.photoURL) form.append('PhotoURL', event.photoURL);
+    form.append('voivodeship', event.name);
+    form.append('tags', event.name);
+    form.append('desc', event.name);
+    form.append('tags', JSON.stringify(event.tags));
+
+    return this.apiService.addEvent(form);
   }
 }

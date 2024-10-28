@@ -7,7 +7,7 @@ namespace Backend.Models
         public string Date{ get; set; }
         public string City{ get; set; }
         public string Address{ get; set; }
-        public string PhotoURL{ get; set; }
+        public IFormFile PhotoURL{ get; set; }
         public string Voivodeship{ get; set; }
         public List<Tag> Tags{ get; set; }
         public string Desc{ get; set; }

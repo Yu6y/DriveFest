@@ -10,13 +10,14 @@ import {
 import { EventApiService } from '../../events/services/event-api.service';
 import { Router } from '@angular/router';
 import { FormValue } from '../../../shared/utils/FromValue';
+import { EventStateService } from '../../events/services/event-state.service';
 
 type EventAddForm = FormGroup<{
   name: FormControl<string>;
   date: FormControl<string>;
   city: FormControl<string>;
   address: FormControl<string>;
-  photoURL: FormControl<string>;
+  photoURL: FormControl<File | null>;
   voivodeship: FormControl<string>;
   tags: FormControl<Tag[]>;
   desc: FormControl<string>;
@@ -32,7 +33,7 @@ export type EventAddFormValue = FormValue<EventAddForm>;
   styleUrl: './add-event.component.scss',
 })
 export class AddEventComponent {
-  private eventService = inject(EventApiService);
+  private eventService = inject(EventStateService);
   private router = inject(Router);
   private formBuilder = inject(NonNullableFormBuilder);
   voivodeships = Voivodeships;
@@ -45,7 +46,7 @@ export class AddEventComponent {
     date: this.formBuilder.control<string>(''),
     city: this.formBuilder.control<string>(''),
     address: this.formBuilder.control<string>(''),
-    photoURL: this.formBuilder.control<string>(''),
+    photoURL: this.formBuilder.control<File | null>(null),
     voivodeship: this.formBuilder.control<string>(''),
     tags: this.formBuilder.control<Tag[]>(this.tagsList),
     desc: this.formBuilder.control<string>(''),
@@ -80,7 +81,7 @@ export class AddEventComponent {
     if (this.validateForm(this.eventForm.getRawValue())) {
       this.eventService.addEvent(this.eventForm.getRawValue()).subscribe(
         (response) => {
-          this.router.navigate([`event`]);
+          this.router.navigate([`home`]);
         },
         (error) => {
           console.log(error);
@@ -107,7 +108,7 @@ export class AddEventComponent {
       alert('Niepoprawna wartość w adresie!');
       return false;
     }
-    if (!form.photoURL.trim().length) {
+    if (!form.photoURL) {
       alert('Niepoprawne zdjęcie!');
       return false;
     }
@@ -130,5 +131,11 @@ export class AddEventComponent {
     const textarea = event.target as HTMLTextAreaElement;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  }
+
+  sendPhoto(event: any) {
+    this.eventForm.patchValue({
+      photoURL: event.target.files[0],
+    });
   }
 }

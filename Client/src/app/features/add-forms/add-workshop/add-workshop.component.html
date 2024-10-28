@@ -1,5 +1,5 @@
 <div class="container my-4 comments-container">
-  <p class="new-text text-center">Utwórz nowe wydarzenie</p>
+  <p class="new-text text-center">Utwórz nowy warsztat</p>
   <form [formGroup]="workshopForm" (ngSubmit)="submit()">
     <div class="mb-3 row">
       <label for="name" class="col-sm-3 col-form-label">Nazwa:</label>
@@ -23,9 +23,15 @@
     </div>
 
     <div class="mb-3 row">
-      <label for="photoURL" class="col-sm-3 col-form-label">Adres zdjęcia:</label>
+      <label for="photoURL" class="col-sm-3 col-form-label">Zdjęcie:</label>
       <div class="col-sm-9">
-        <input id="photoURL" class="form-control" formControlName="photoURL">
+        <input 
+        id="photoURL" 
+        type="file"
+        class="form-control"
+        accept=".jpg,.jpeg,.png,.bmp"
+        (change)="sendPhoto($event)"
+        >
       </div>
     </div>
 

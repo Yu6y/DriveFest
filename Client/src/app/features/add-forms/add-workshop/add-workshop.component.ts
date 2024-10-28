@@ -10,12 +10,13 @@ import {
 import { Voivodeships } from '../../../shared/models/voivodeships';
 import { Tag } from '../../../shared/models/Tag';
 import { FormValue } from '../../../shared/utils/FromValue';
+import { WorkshopStateService } from '../../workshops/services/workshop-state.service';
 
 type WorkshopAddForm = FormGroup<{
   name: FormControl<string>;
   city: FormControl<string>;
   address: FormControl<string>;
-  photoURL: FormControl<string>;
+  photoURL: FormControl<File | null>;
   voivodeship: FormControl<string>;
   tags: FormControl<Tag[]>;
   desc: FormControl<string>;
@@ -31,7 +32,7 @@ export type WorkshopAddFormValue = FormValue<WorkshopAddForm>;
   styleUrl: './add-workshop.component.scss',
 })
 export class AddWorkshopComponent {
-  private workshopService = inject(WorkshopApiService);
+  private workshopService = inject(WorkshopStateService);
   private router = inject(Router);
   private formBuilder = inject(NonNullableFormBuilder);
   voivodeships = Voivodeships;
@@ -43,7 +44,7 @@ export class AddWorkshopComponent {
     name: this.formBuilder.control<string>(''),
     city: this.formBuilder.control<string>(''),
     address: this.formBuilder.control<string>(''),
-    photoURL: this.formBuilder.control<string>(''),
+    photoURL: this.formBuilder.control<File | null>(null),
     voivodeship: this.formBuilder.control<string>(''),
     tags: this.formBuilder.control<Tag[]>(this.tagsList),
     desc: this.formBuilder.control<string>(''),
@@ -103,7 +104,7 @@ export class AddWorkshopComponent {
       alert('Niepoprawna wartość w adresie!');
       return false;
     }
-    if (!form.photoURL.trim().length) {
+    if (!form.photoURL) {
       alert('Niepoprawne zdjęcie!');
       return false;
     }
@@ -126,5 +127,11 @@ export class AddWorkshopComponent {
     const textarea = event.target as HTMLTextAreaElement;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  }
+
+  sendPhoto(event: any) {
+    this.workshopForm.patchValue({
+      photoURL: event.target.files[0],
+    });
   }
 }

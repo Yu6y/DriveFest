@@ -28,15 +28,15 @@ namespace Backend
             CreateMap<User, UserDto>();
 
             CreateMap<AddEventDto, Event>()
-                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.City))
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.PhotoURL));
+                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.City));
+                //.ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.PhotoURL));
 
             CreateMap<AddEventDto, EventDescription>()
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Desc));
 
             CreateMap<AddWorkshopDto, Workshop>()
-            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.City))
-            .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.PhotoURL));
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.City));
+            //.ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.PhotoURL));
 
             CreateMap<AddWorkshopDto, WorkshopDescription>()
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Desc));

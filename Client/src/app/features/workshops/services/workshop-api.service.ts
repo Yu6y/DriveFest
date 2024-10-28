@@ -49,9 +49,7 @@ export class WorkshopApiService {
     });
   }
 
-  addWorkshop(workshop: WorkshopAddFormValue) {
-    return this.httpClient.post(`${this.URL}`, workshop, {
-      responseType: 'text',
-    });
+  addWorkshop(workshop: FormData) {
+    return this.httpClient.post(`${this.URL}`, workshop);
   }
 }

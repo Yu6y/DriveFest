@@ -60,7 +60,7 @@ export class EventApiService {
     return this.httpClient.get<Tag[]>(`${this.URL}/tags`);
   }
 
-  addEvent(event: EventAddFormValue) {
-    return this.httpClient.post(`${this.URL}`, event, { responseType: 'text' });
+  addEvent(event: FormData) {
+    return this.httpClient.post(`${this.URL}`, event);
   }
 }
