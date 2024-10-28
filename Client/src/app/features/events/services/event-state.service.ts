@@ -308,6 +308,7 @@ export class EventStateService {
   }
 
   addEvent(event: EventAddFormValue) {
+    console.log(event);
     const form = new FormData();
 
     form.append('name', event.name);
@@ -315,11 +316,11 @@ export class EventStateService {
     form.append('city', event.city);
     form.append('address', event.address);
     if (event.photoURL) form.append('PhotoURL', event.photoURL);
-    form.append('voivodeship', event.name);
-    form.append('tags', event.name);
-    form.append('desc', event.name);
-    form.append('tags', JSON.stringify(event.tags));
+    form.append('voivodeship', event.voivodeship);
+    form.append('desc', event.desc);
+    form.append('eventTags', event.tags.map((tag) => tag.id).join(','));
 
+    console.log(form);
     return this.apiService.addEvent(form);
   }
 }

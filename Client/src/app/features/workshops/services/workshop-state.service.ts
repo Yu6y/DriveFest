@@ -194,7 +194,7 @@ export class WorkshopStateService {
     form.append('address', workshop.address);
     if (workshop.photoURL) form.append('photoURL', workshop.photoURL);
     form.append('voivodeship', workshop.voivodeship);
-    form.append('tags', JSON.stringify(workshop.tags));
+    form.append('workshopTags', workshop.tags.map((tag) => tag.id).join(','));
     form.append('desc', workshop.desc);
 
     console.log(workshop.tags);

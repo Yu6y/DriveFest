@@ -158,6 +158,27 @@ namespace Backend.Services
             workshopToSave.Rate = 0;
             workshopToSave.Image = await uploadPhoto(addWorkshop.PhotoURL);
 
+            List<int> tagsList = null;
+
+            if (addWorkshop.WorkshopTags != null)
+                tagsList = addWorkshop.WorkshopTags.Split(',').Select(int.Parse).ToList();
+
+            if (tagsList != null && tagsList.Any())
+            {
+                Console.WriteLine("dziaa");
+                foreach (var tagDto in tagsList)
+                {
+
+                    var tag = await _dbContext.WorkshopTags.FirstOrDefaultAsync(r => tagDto == r.Id);
+                    if (tag != null)
+                    {
+
+                        workshopToSave.Tags.Add(tag);
+                    }
+
+                }
+            }
+
             try
             {
                 await _dbContext.AddAsync(workshopToSave);
@@ -165,20 +186,6 @@ namespace Backend.Services
 
                 wrkshopDescToSave.WorkshopId = workshopToSave.Id;
                 await _dbContext.AddAsync(wrkshopDescToSave);
-
-
-                if (addWorkshop.Tags != null && addWorkshop.Tags.Any())
-                {
-                    Console.WriteLine("tags");
-                    foreach (var tagDto in addWorkshop.Tags)
-                    {
-                        Console.WriteLine(tagDto.Name);
-                        var tag = await _dbContext.WorkshopTags.FindAsync(tagDto.Id);
-                        if (tag != null)
-                            workshopToSave.Tags.Add(tag);
-
-                    }
-                }
 
                 await _dbContext.SaveChangesAsync();
                 return workshopToSave.Id;

@@ -9,7 +9,7 @@ namespace Backend.Models
         public string Address{ get; set; }
         public IFormFile PhotoURL{ get; set; }
         public string Voivodeship{ get; set; }
-        public List<Tag> Tags{ get; set; }
+        public string EventTags{ get; set; }
         public string Desc{ get; set; }
     }
 }

@@ -61,6 +61,7 @@ export class EventApiService {
   }
 
   addEvent(event: FormData) {
+    console.log(event);
     return this.httpClient.post(`${this.URL}`, event);
   }
 }

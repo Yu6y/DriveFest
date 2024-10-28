@@ -1,4 +1,4 @@
-﻿using Backend.Entities;
+﻿    using Backend.Entities;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using AutoMapper;
 using Backend.Models;
@@ -12,6 +12,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq.Expressions;
 using Firebase.Storage;
+using System.Text.Json;
+using Backend.Migrations;
 
 namespace Backend.Services
 {
@@ -351,6 +353,8 @@ namespace Backend.Services
 
         public async Task<int> AddEvent(AddEventDto addEvent)
         {
+            Console.WriteLine(addEvent.EventTags);
+            
             Event eventToSave = _mapper.Map<Event>(addEvent);
             EventDescription eventDescToSave = _mapper.Map<EventDescription>(addEvent);
 
@@ -359,6 +363,28 @@ namespace Backend.Services
             eventToSave.Tags = new List<Tag>();
             eventToSave.Image = await uploadPhoto(addEvent.PhotoURL);
 
+            List<int> tagsList = null;
+
+            if (addEvent.EventTags != null)
+                tagsList = addEvent.EventTags.Split(',').Select(int.Parse).ToList();
+
+            Console.WriteLine(tagsList.Count);
+
+            if (tagsList != null && tagsList.Any())
+            {
+                Console.WriteLine("dziaa");
+                foreach (var tagDto in tagsList)
+                {
+                    
+                    var tag = await _dbContext.Tags.FirstOrDefaultAsync(r => tagDto == r.Id);
+                    if (tag != null) {
+                        
+                        eventToSave.Tags.Add(tag);
+                    }
+
+                }
+            }
+
             try
             { 
                 await _dbContext.AddAsync(eventToSave);
@@ -366,18 +392,6 @@ namespace Backend.Services
 
                 eventDescToSave.EventId = eventToSave.Id;
                 await _dbContext.AddAsync(eventDescToSave);
-
-                if (addEvent.Tags != null && addEvent.Tags.Any())
-                {
-                    foreach (var tagDto in addEvent.Tags)
-                    {
-                        var tag = await _dbContext.Tags.FindAsync(tagDto.Id);
-                        if (tag != null)            
-                            eventToSave.Tags.Add(tag);
-                        
-                    }
-                }
-
                 await _dbContext.SaveChangesAsync();
 
                 return eventToSave.Id;
