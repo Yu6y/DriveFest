@@ -1,0 +1,13 @@
+fa-icon{
+  color: gray;
+  font-size: 24px;
+  cursor: pointer;
+
+  &.rated,
+  &:hover,
+  &:hover ~ fa-icon{
+    color:  rgb(218, 188, 22);
+  }
+
+  transition: color 0.3s ease-in-out;
+}

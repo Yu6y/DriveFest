@@ -14,6 +14,8 @@ namespace Backend.Entities
         public virtual List<Comment> Comments { get; set; }
         public virtual List<WorkshopComment> WorkshopComments {  get; set; }
         public virtual List<Event> LikedEvents { get; set; }
+        public virtual List<WorkshopRating> WorkshopRatings { get; set; }
+
         public virtual List<CarExpense> CarExpenses { get; set; }
         public virtual List<CarRegistry> CarRegistries { get; set; }
 

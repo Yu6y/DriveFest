@@ -126,5 +126,34 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpPost("rate")]
+        public async Task<IActionResult> RateWorkshop([FromBody] RateDto rateDto)
+        {
+
+            try
+            {
+                var result = await _workshopService.RateWorkshop(rateDto, GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
+        [HttpGet("rate/{workshopId}")]
+        public async Task<IActionResult> GetWorkshopRate([FromRoute]int workshopId)
+        {
+            try
+            {
+                var result = await _workshopService.GetWorkshopRate(workshopId, GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
     }
 }

@@ -8,4 +8,5 @@ export type WorkshopShort = {
   tags: Tag[];
   rate: number;
   image: string;
+  ratesCount: number;
 };

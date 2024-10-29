@@ -11,5 +11,6 @@ namespace Backend.Models
         public string Voivodeship { get; set; }
         public List<TagsDto> Tags { get; set; }
         public float Rate { get; set; }
+        public int RatesCount { get; set; }
     }
 }

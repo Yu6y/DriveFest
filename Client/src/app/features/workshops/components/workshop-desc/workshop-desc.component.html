@@ -23,6 +23,14 @@
           <div class="text-container col-12">
             <p class="description">{{ workshop.data.description }}</p>
           </div>
+
+          <div 
+          class="star-container col-12 d-flex align-items-center justify-content-center flex-column">
+            <app-star-rate [rating]="rate" (starClick)="handleRate($event)"></app-star-rate>
+            <p class="mt-2 mb-0">Ilość ocen: {{ workshop.data.ratesCount }}</p>
+            <p class="mt-1">Średnia ocena: {{ workshop.data.rate }}</p>
+          </div>
+
           <div class="comments-container col-12">   
             <app-comments-list [contextFlag]="'workshop'" [contextId]="workshop.data.workshopDescId"></app-comments-list>
           </div>

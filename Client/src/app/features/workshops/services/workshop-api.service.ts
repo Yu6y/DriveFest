@@ -52,4 +52,12 @@ export class WorkshopApiService {
   addWorkshop(workshop: FormData) {
     return this.httpClient.post(`${this.URL}`, workshop);
   }
+
+  rateWorkshop(rate: number, workshopId: number){
+    return this.httpClient.post<number>(`${this.URL}/rate`, {workshopId: workshopId, rate: rate});
+  }
+
+  getWorkshopRate(workshopId: number): Observable<number>{
+    return this.httpClient.get<number>(`${this.URL}/rate/${workshopId}`)
+  }
 }

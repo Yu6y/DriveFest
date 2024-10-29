@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Backend.Entities
 {
@@ -17,6 +18,7 @@ namespace Backend.Entities
         public DbSet<Workshop> Workshops { get; set; }
         public DbSet<WorkshopDescription> WorkshopDescriptions { get; set; }
         public DbSet<WorkshopTag> WorkshopTags { get; set; }
+        public DbSet<WorkshopRating> WorkshopRatings { get; set; }
         public DbSet<CarRegistry> CarRegistries { get; set; }
         public DbSet<CarExpense> CarExpenses { get; set; }
             
@@ -107,7 +109,21 @@ namespace Backend.Entities
                     j.HasKey("WorkshopId", "TagId"); // Klucz główny tabeli łączącej
                 }
             );
+
+            modelBuilder.Entity<WorkshopRating>()
+                .HasKey(k => new { k.UserId, k.WorkshopId });
+
+            modelBuilder.Entity<WorkshopRating>()
+                .HasOne(wr => wr.User)
+                .WithMany(u => u.WorkshopRatings)
+                .HasForeignKey(wr => wr.UserId);
+
+            modelBuilder.Entity<WorkshopRating>()
+                .HasOne(wr => wr.Workshop)
+                .WithMany(w => w.WorkshopRatings)
+                .HasForeignKey(wr => wr.WorkshopId);
         }
+    
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

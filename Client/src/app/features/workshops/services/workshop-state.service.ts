@@ -20,6 +20,7 @@ import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
 import { WorkshopDesc } from '../../../shared/models/WorkshopDesc';
 import { Router } from '@angular/router';
 import { WorkshopAddFormValue } from '../../add-forms/add-workshop/add-workshop.component';
+import { EventDesc } from '../../../shared/models/EventDesc';
 
 @Injectable({
   providedIn: 'root',
@@ -200,5 +201,23 @@ export class WorkshopStateService {
     console.log(workshop.tags);
 
     return this.apiService.addWorkshop(form);
+  }
+
+  rateWorkshop(rate: number){
+    let workshop: WorkshopDesc;
+    if(this.workshopDescSubject$.value.state === 'success'){
+      workshop = this.workshopDescSubject$.value.data;
+      this.apiService.rateWorkshop(rate, this.workshopDescSubject$.value.data.id).pipe(
+        tap((res) => {
+          workshop.rate = res;
+          workshop.ratesCount++;
+          this.workshopDescSubject$.next({state: 'success', data: workshop})
+    }))
+    .subscribe(() => console.log('Dodano ocene.'), (error) => console.log(error));
+  }
+  } 
+
+  getWorkshopRate(workshopId: number){
+    return this.apiService.getWorkshopRate(workshopId);
   }
 }

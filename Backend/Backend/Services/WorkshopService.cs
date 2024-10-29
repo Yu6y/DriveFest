@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Backend.Exceptions;
 using System;
 using Firebase.Storage;
+using Microsoft.Identity.Client;
 
 namespace Backend.Services
 {
@@ -17,6 +18,8 @@ namespace Backend.Services
         Task<IEnumerable<CommentDto>> GetComments(int workshopId);
         Task<CommentDto> AddComment(int workshopId, string content, int userId, string username, string userPic);
         Task<int> AddWorkshop(AddWorkshopDto addWorkshop);
+        Task<float> RateWorkshop(RateDto rateDto, int userId);
+        Task<float> GetWorkshopRate(int workshopId, int userId);
     }
 
     public class WorkshopService : IWorkshopService
@@ -220,6 +223,66 @@ namespace Backend.Services
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             return new string(Enumerable.Repeat(chars, 20)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        public async Task<float> RateWorkshop(RateDto rateDto, int userId)
+        {
+            var rating = await _dbContext
+                .WorkshopRatings
+                .FirstOrDefaultAsync(w => w.UserId == userId && w.WorkshopId == rateDto.WorkshopId);
+
+            var user = await _dbContext
+                .Users
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                throw new Exception("Nie znaleziono użytkownika");
+
+            var workshop = await _dbContext
+                .Workshops
+                .FirstOrDefaultAsync(w => w.Id == rateDto.WorkshopId);
+            if (workshop == null) throw new Exception("Nie znaleziono warsztatu");
+
+            try
+            {
+                if (rating == null)
+                {
+                    var newRate = new WorkshopRating
+                    {
+                        UserId = userId,
+                        WorkshopId = rateDto.WorkshopId,
+                        Rating = rateDto.Rate
+                    };
+                    await _dbContext.AddAsync(newRate);
+                    
+                }
+                else
+                {
+                    rating.Rating = rateDto.Rate;
+                }
+                workshop.RatesCount++;
+                workshop.Rate = (float)Math.Round(((workshop.Rate * (workshop.RatesCount - 1)) + rateDto.Rate) / workshop.RatesCount, 1);  
+                await _dbContext.SaveChangesAsync();
+
+                return workshop.Rate;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Nie udało się ocenić warsztatu!");
+            }
+           
+        }
+
+        public async Task<float> GetWorkshopRate(int workshopId, int userId)
+        {
+            var rate = await _dbContext
+                .WorkshopRatings
+                .Where(u => u.UserId == userId && u.WorkshopId == workshopId)
+                .FirstOrDefaultAsync();
+
+            if (rate == null)
+                return 0;
+            return rate.Rating;
         }
     }
 }
