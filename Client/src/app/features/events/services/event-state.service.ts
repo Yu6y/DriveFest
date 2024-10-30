@@ -172,7 +172,7 @@ export class EventStateService {
 
   handleEventFollow(eventId: number, flag: string | null): Observable<boolean> {
     const currentEventsState = this.eventsListSubject$.value;
-
+    console.log(currentEventsState.state);
     if (currentEventsState.state !== 'success' || !currentEventsState.data) {
       return of(false);
     }

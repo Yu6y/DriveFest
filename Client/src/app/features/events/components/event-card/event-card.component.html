@@ -21,14 +21,14 @@
         <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite"
         (click)="follow.emit(this.event); $event.stopPropagation()"
         >@if(event.isFavorite)
-          { Obserwujesz<mat-icon class="cos" color="white">favorite</mat-icon> }
+          { Obserwujesz<mat-icon color="white">favorite</mat-icon> }
           @else{
             Obserwuj<mat-icon color="orange">favorite</mat-icon>
           }
         </button>
       </div>
       <div class="follow-text-container">
-        <p class="follow-text">Followers: {{ this.event.followersCount }}</p>
+        <span class="follow-text">Followers: {{ this.event.followersCount }}</span>
       </div>
     </div>
   </div>

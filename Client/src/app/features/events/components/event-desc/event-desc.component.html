@@ -32,7 +32,7 @@
               <button [class.followed-btn]="event.data.isFavorite" [class.follow-btn]="!event.data.isFavorite"
                 (click)="followClick(event.data)">
                 @if(event.data.isFavorite){
-                  Obserwujesz<mat-icon class="cos" color="white">favorite</mat-icon>
+                  Obserwujesz<mat-icon color="white">favorite</mat-icon>
                 }@else{
                   Obserwuj<mat-icon color="orange">favorite</mat-icon>
                 }

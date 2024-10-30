@@ -49,6 +49,7 @@
   padding-left: 3px;
 }
 
+.follow-text-container,
 .location-container{
   display: flex;
   align-items: center;
@@ -114,6 +115,8 @@ button{
 }
 
 .follow-text-container{
+  margin: 0;
+  padding: 0;
   padding-right: 5px;
   display: flex;
   justify-content: flex-end;

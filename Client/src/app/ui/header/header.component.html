@@ -40,6 +40,13 @@
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link"
+          routerLink="workshops"
+          (click)="navClick()">Rejestr pojazdu</a>
+        </div>
+        <div  class="nav-item px-lg-5">
+          <a 
+          [class.navbar-container]="!isCollapsed" 
+          class="nav-link"
           routerLink="add-event"
           (click)="navClick()">Dodaj wydarzenie</a>
         </div>

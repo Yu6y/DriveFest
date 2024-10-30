@@ -1,31 +1,32 @@
-.navbar{
+.navbar {
   padding: 0;
 }
 
-.header-container{
+.header-container {
   background-color: orange;
 }
 
-.navbar-toggler{
+.navbar-toggler {
   border-width: 0;
 }
-.navbar-toggler:focus{
+
+.navbar-toggler:focus {
   outline: none;
-  box-shadow: none; 
-  border: none; 
+  box-shadow: none;
+  border: none;
 }
 
-.navbar-nav{
+.navbar-nav {
   display: flex;
+  align-items: center; /* Dodano wyrównanie pionowe */
   text-align: center;
 }
 
-.navbar-container{
+.navbar-container {
   padding: 5px 5px;
 }
 
-.nav-link{
-  padding-bottom: 5px;
+.nav-link {
+  padding: 5px; /* Ustawiono równomierne odstępy */
   cursor: pointer;
 }
-
