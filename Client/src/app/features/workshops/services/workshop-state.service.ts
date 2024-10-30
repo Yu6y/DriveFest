@@ -21,6 +21,7 @@ import { WorkshopDesc } from '../../../shared/models/WorkshopDesc';
 import { Router } from '@angular/router';
 import { WorkshopAddFormValue } from '../../add-forms/add-workshop/add-workshop.component';
 import { EventDesc } from '../../../shared/models/EventDesc';
+import { ToastService } from '../../../shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,7 @@ export class WorkshopStateService {
   private apiService = inject(WorkshopApiService);
   private datePipe = inject(DateCustomPipe);
   private router = inject(Router);
+  private toastState = inject(ToastService);
   private workshopsListSubject$ = new BehaviorSubject<
     LoadingState<WorkshopShort[]>
   >({
@@ -174,12 +176,14 @@ export class WorkshopStateService {
     return this.apiService.postComment(workshopId, comment).pipe(
       tap((response) => {
         response.timestamp = this.datePipe.transform(response.timestamp);
+        this.toastState.showToast('Dodano komentarz.', 'success');
         this.commentsListSubject$.next({
           state: 'success',
           data: [response, ...currentCommentsState.data],
         });
       }),
       catchError((error) => {
+        this.toastState.showToast('Nie udało się dodać komentarza.', 'error');
         console.error('Nie udało się dodać komentarza.', error);
         return of(false);
       }),
@@ -213,7 +217,8 @@ export class WorkshopStateService {
           workshop.ratesCount++;
           this.workshopDescSubject$.next({state: 'success', data: workshop})
     }))
-    .subscribe(() => console.log('Dodano ocene.'), (error) => console.log(error));
+    .subscribe(() => this.toastState.showToast('Dodano ocenę.', 'success'), (error) => {
+      this.toastState.showToast('Nie udało się ocenić warsztatu.', 'error');});
   }
   } 
 

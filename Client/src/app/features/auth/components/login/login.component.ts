@@ -13,11 +13,12 @@ import { AuthStateService } from '../../services/auth-state.service';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../../shared/models/LoadingState';
 import { AsyncPipe } from '@angular/common';
+import { DxLoadIndicatorComponent, DxLoadIndicatorModule } from 'devextreme-angular';
 
-@Component({
+@Component({  
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule, AsyncPipe, DxLoadIndicatorModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

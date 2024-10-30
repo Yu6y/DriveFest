@@ -11,6 +11,7 @@ import { EventApiService } from '../../events/services/event-api.service';
 import { Router } from '@angular/router';
 import { FormValue } from '../../../shared/utils/FromValue';
 import { EventStateService } from '../../events/services/event-state.service';
+import { ToastService } from '../../../shared/services/toast.service';
 
 type EventAddForm = FormGroup<{
   name: FormControl<string>;
@@ -36,6 +37,7 @@ export class AddEventComponent {
   private eventService = inject(EventStateService);
   private router = inject(Router);
   private formBuilder = inject(NonNullableFormBuilder);
+  private toastState = inject(ToastService);
   voivodeships = Voivodeships;
 
   tagsList!: Tag[];
@@ -81,11 +83,12 @@ export class AddEventComponent {
     if (this.validateForm(this.eventForm.getRawValue())) {
       this.eventService.addEvent(this.eventForm.getRawValue()).subscribe(
         (response) => {
+          this.toastState.showToast('Dodano wydarzenie', 'success');
           this.router.navigate([`home`]);
         },
         (error) => {
           console.log(error);
-          alert(error);
+          this.toastState.showToast('Nie udało się dodać wydarzenia.', 'error');
         }
       );
     }

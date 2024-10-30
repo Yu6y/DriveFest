@@ -10,10 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { WorkshopStateService } from '../../../features/workshops/services/workshop-state.service';
 import { LoadingState } from '../../models/LoadingState';
+import { DxLoadIndicatorModule } from 'devextreme-angular';
 @Component({
   selector: 'app-comments-list',
   standalone: true,
-  imports: [CommentCardComponent, AsyncPipe],
+  imports: [CommentCardComponent, AsyncPipe, DxLoadIndicatorModule],
   templateUrl: './comments-list.component.html',
   styleUrl: './comments-list.component.scss',
 })

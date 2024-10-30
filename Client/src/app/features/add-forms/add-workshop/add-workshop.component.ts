@@ -11,6 +11,7 @@ import { Voivodeships } from '../../../shared/models/voivodeships';
 import { Tag } from '../../../shared/models/Tag';
 import { FormValue } from '../../../shared/utils/FromValue';
 import { WorkshopStateService } from '../../workshops/services/workshop-state.service';
+import { ToastService } from '../../../shared/services/toast.service';
 
 type WorkshopAddForm = FormGroup<{
   name: FormControl<string>;
@@ -35,6 +36,7 @@ export class AddWorkshopComponent {
   private workshopService = inject(WorkshopStateService);
   private router = inject(Router);
   private formBuilder = inject(NonNullableFormBuilder);
+  private toastService = inject(ToastService);
   voivodeships = Voivodeships;
 
   tagsList!: Tag[];
@@ -81,11 +83,12 @@ export class AddWorkshopComponent {
         .addWorkshop(this.workshopForm.getRawValue())
         .subscribe(
           (response) => {
+            this.toastService.showToast('Dodano warsztatu.', 'success');
             this.router.navigate([`workshops`]);
           },
           (error) => {
             console.log(error);
-            alert(error);
+            this.toastService.showToast('Nie udało się dodać warsztatu.', 'error');
           }
         );
     }

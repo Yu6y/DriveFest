@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthStateService } from '../../services/auth-state.service';
 import { AsyncPipe } from '@angular/common';
+import { DxLoadIndicatorModule } from 'devextreme-angular';
 
 type RegisterError = {
   username?: string;
@@ -21,7 +22,7 @@ type RegisterError = {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule, AsyncPipe, DxLoadIndicatorModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })

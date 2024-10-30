@@ -3,7 +3,14 @@
   @if(eventsList$ | async; as list){
     @switch(list.state){
       @case('loading'){
-        <p>Loading...dw</p>
+        <div class="load-container container d-flex justify-content-center align-items-center">
+          <dx-load-indicator
+            [visible]="true"
+            id="large-indicator"
+            [height]="40"
+            [width]="40">
+          </dx-load-indicator>
+        </div>
       }
       @case('success'){
         <div class="row justify-content-center align-items-center">
@@ -30,7 +37,14 @@
   @if(workshopsList$ | async; as list){
     @switch(list.state){
       @case('loading'){
-        <p>Loading...dw</p>
+        <div class="load-container container d-flex justify-content-center align-items-center">
+          <dx-load-indicator
+            [visible]="true"
+            id="large-indicator"
+            [height]="40"
+            [width]="40">
+          </dx-load-indicator>
+        </div>
       }
       @case('success'){
         <div class="row justify-content-center align-items-center">

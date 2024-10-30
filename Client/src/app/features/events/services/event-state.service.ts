@@ -24,6 +24,7 @@ import { state } from '@angular/animations';
 import { Router } from '@angular/router';
 import { elementSelectors } from '@angular/cdk/schematics';
 import { EventAddFormValue } from '../../add-forms/add-event/add-event.component';
+import { ToastService } from '../../../shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class EventStateService {
   private apiService = inject(EventApiService);
   private datePipe = inject(DateCustomPipe);
   private router = inject(Router);
+  private toastState = inject(ToastService);
 
   private eventsListSubject$ = new BehaviorSubject<LoadingState<EventShort[]>>({
     state: 'idle',
@@ -153,12 +155,14 @@ export class EventStateService {
     return this.apiService.postComment(eventId, comment).pipe(
       tap((response) => {
         response.timestamp = this.datePipe.transform(response.timestamp);
+        this.toastState.showToast('Dodano komentarz.', 'success');
         this.commentsListSubject$.next({
           state: 'success',
           data: [response, ...currentCommentsState.data],
         });
       }),
       catchError((error) => {
+        this.toastState.showToast('Nie udało się dodać komentarza.', 'error');
         console.error('Nie udało się dodać komentarza.', error);
         return of(false);
       }),
@@ -187,6 +191,7 @@ export class EventStateService {
 
     return action$.pipe(
       tap(() => {
+        
         const updatedEvent: EventShort = {
           ...event,
           isFavorite: !isCurrentlyFollowed,
@@ -194,7 +199,10 @@ export class EventStateService {
             ? event.followersCount - 1 //Math.max(0, event.followersCount - 1)
             : event.followersCount + 1,
         };
-
+        if(updatedEvent.isFavorite)
+          this.toastState.showToast('Zaobserwowano wydarzenie', 'success');
+        else 
+          this.toastState.showToast('Odobserwowano wydarzenie', 'info');
         /* const updatedEvents = [...currentEventsState.data];
         updatedEvents[eventIndex] = updatedEvent;*/
 
@@ -226,6 +234,7 @@ export class EventStateService {
         });
       }),
       catchError((error) => {
+        this.toastState.showToast('Wystąpił błąd. Spróbuj ponownie później', 'error');
         console.error('Error following/unfollowing event:', error);
         return of(false);
       }),

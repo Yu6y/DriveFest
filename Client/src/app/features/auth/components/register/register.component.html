@@ -58,14 +58,15 @@
               >Zarejestruj się</button>
               @if(registerState$ | async; as state){
                 @switch(state.state){
-                  @case('error'){
-                    <p>Error</p>
-                  }
                   @case('loading'){
-                    <p>Loading</p>
-                  }
-                  @case('success'){
-                    <p>{{state.data}}</p>
+                    <div class="load-container container d-flex justify-content-center align-items-center">
+                      <dx-load-indicator
+                        [visible]="true"
+                        id="large-indicator"
+                        [height]="40"
+                        [width]="40">
+                      </dx-load-indicator>
+                    </div>
                   }
                 }
           

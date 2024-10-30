@@ -2,7 +2,14 @@
   @if(workshop$ | async; as workshop){
     @switch (workshop.state) {
       @case('loading'){
-        <p>Loading...</p>
+        <div class="load-container container d-flex justify-content-center align-items-center">
+          <dx-load-indicator
+            [visible]="true"
+            id="large-indicator"
+            [height]="40"
+            [width]="40">
+          </dx-load-indicator>
+        </div>
       }
       @case('success'){
         <div class="image-container row justify-content-center">
@@ -13,7 +20,7 @@
           <div class="icons-container col-12">
             <div class="location-container">
               <mat-icon color="orange">location_on</mat-icon>
-              <span class="desc-text">{{ workshop.data.location + ', ' + workshop.data.address  }}</span>
+              <p class="desc-text">{{ workshop.data.location + ', ' + workshop.data.address  }}</p>
             </div>
             <div class="tags-container">
               <mat-icon class="tag" color="orange">label</mat-icon>

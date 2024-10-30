@@ -17,6 +17,7 @@ import { RegisterCredentials } from '../models/RegisterCredentials';
 import { LoadingState } from '../../../shared/models/LoadingState';
 import { toLoadingState } from '../../../shared/utils/CreateState';
 import { RegisterError, RegisterState } from '../models/RegistrationState';
+import { ToastService } from '../../../shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +26,14 @@ export class AuthStateService {
   private userLoggedSubject$ = new BehaviorSubject<boolean>(false);
   private router = inject(Router);
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private loginStateSubject$ = new BehaviorSubject<LoadingState<string>>({
     state: 'idle',
   });
   private registerStateSubject$ = new BehaviorSubject<RegisterState<string>>({
     state: 'idle',
   });
+
 
   userLogged$ = this.userLoggedSubject$.asObservable();
 
@@ -55,10 +58,12 @@ export class AuthStateService {
               localStorage.setItem('auth_token', res);
               console.log(res);
               this.userLoggedSubject$.next(true);
+              this.toastService.showToast('Logowanie przebiegło pomyślnie.', 'success');
               setTimeout(() => this.router.navigate(['/home']), 2000);
             });
         }),
         catchError((error: HttpErrorResponse) => {
+          this.toastService.showToast('Nie udało się zalogować.', 'error');
           this.loginStateSubject$.next({
             state: 'error',
             error: error.message,
@@ -83,10 +88,12 @@ export class AuthStateService {
                 data: res.success,
               });
               console.log(res);
+              this.toastService.showToast('Rejestracja przebiegła pomyślnie.', 'success');
               setTimeout(() => this.router.navigate(['/login']), 2000);
             });
         }),
         catchError((error: HttpErrorResponse) => {
+          this.toastService.showToast('Rejestracja nie powiodła się.', 'error');
           this.registerStateSubject$.next({
             state: 'error',
             error: error.error.errors as RegisterError,

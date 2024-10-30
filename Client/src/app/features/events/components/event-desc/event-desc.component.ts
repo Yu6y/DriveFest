@@ -9,11 +9,12 @@ import { Observable, ObservedValueOf, tap } from 'rxjs';
 import { Comment } from '../../../../shared/models/Comment';
 import { AsyncPipe } from '@angular/common';
 import { LoadingState } from '../../../../shared/models/LoadingState';
+import { DxLoadIndicatorModule } from 'devextreme-angular';
 
 @Component({
   selector: 'app-event-desc',
   standalone: true,
-  imports: [MatIconModule, CommentsListComponent, AsyncPipe],
+  imports: [MatIconModule, CommentsListComponent, AsyncPipe, DxLoadIndicatorModule],
   templateUrl: './event-desc.component.html',
   styleUrl: './event-desc.component.scss',
 })

@@ -1,4 +1,13 @@
 @if((userLogged$ | async) && !(router.url.includes('login') || router.url.includes('register'))){
   <app-header (logout)="logout()"></app-header>
 }
+<dx-toast
+  #globalToast
+  [message]="'Default message'"
+  [visible]="false"
+  [maxWidth]="400"
+  [height]="70"
+  [type]="'info'"
+  [position]="{ at: 'right top', my: 'right top', offset: '0 20' }">
+</dx-toast>
 <router-outlet></router-outlet>

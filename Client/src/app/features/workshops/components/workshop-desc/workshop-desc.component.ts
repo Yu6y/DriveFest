@@ -9,11 +9,12 @@ import { Observable } from 'rxjs';
 import { LoadingState } from '../../../../shared/models/LoadingState';
 import { AsyncPipe } from '@angular/common';
 import { StarRateComponent } from "../star-rate/star-rate.component";
+import { DxLoadIndicatorModule } from 'devextreme-angular';
 
 @Component({
   selector: 'app-workshop-desc',
   standalone: true,
-  imports: [CommentsListComponent, MatIcon, AsyncPipe, StarRateComponent],
+  imports: [CommentsListComponent, MatIcon, AsyncPipe, StarRateComponent, DxLoadIndicatorModule],
   templateUrl: './workshop-desc.component.html',
   styleUrl: './workshop-desc.component.scss',
 })

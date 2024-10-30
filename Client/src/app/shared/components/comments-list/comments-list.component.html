@@ -5,7 +5,14 @@
     @if(comments$ | async; as comments){
       @switch(comments.state){
         @case('loading'){
-          <p>Loadign...</p>
+          <div class="load-container container d-flex justify-content-center align-items-center">
+            <dx-load-indicator
+              [visible]="true"
+              id="large-indicator"
+              [height]="40"
+              [width]="40">
+            </dx-load-indicator>
+          </div>
         }
         @case('success'){
           @for(comment of comments.data; track comment.id){
