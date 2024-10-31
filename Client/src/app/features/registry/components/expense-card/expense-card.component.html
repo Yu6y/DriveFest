@@ -1,0 +1,38 @@
+<div class="card-container container-fluid my-1">
+  <div class="d-flex align-items-center">
+    <div class="icon-container me-2 flex-shrink-0 d-flex align-items-center">
+      @switch(value.type){
+        @case('Tankowanie'){
+          <mat-icon class="green">local_gas_station</mat-icon>
+        }
+        @case('Serwis'){
+          <mat-icon class="black">build</mat-icon>
+        }
+        @case('Parking'){
+          <mat-icon class="blue">local_parking</mat-icon>
+        }
+        @case('Inne'){
+          <mat-icon class="red">credit_card</mat-icon>
+        }
+      }
+      
+    </div>
+    <div class="card flex-grow-1">
+      <div class="info">
+        <span class="type">{{ value.type }}</span>
+        <span class="date ms-3">{{ value.date }}</span>
+      </div>
+      <div class="price-text">
+        <p class="price">Kwota: {{ value.price }} zł</p>
+      </div>
+      <div class="description">
+        <p class="desc">{{ value.description }}</p>
+      </div>
+      <div class="buttons-container ms-3">
+        <span class="buttons" (click)="editExpense()"><mat-icon
+        class="orange">edit</mat-icon></span>
+        <span class="buttons" (click)="deleteExpense()" ><mat-icon  class="red">delete_forever</mat-icon></span>
+      </div>
+    </div>
+  </div>
+</div>

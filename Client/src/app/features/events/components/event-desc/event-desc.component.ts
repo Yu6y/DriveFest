@@ -14,7 +14,12 @@ import { DxLoadIndicatorModule } from 'devextreme-angular';
 @Component({
   selector: 'app-event-desc',
   standalone: true,
-  imports: [MatIconModule, CommentsListComponent, AsyncPipe, DxLoadIndicatorModule],
+  imports: [
+    MatIconModule,
+    CommentsListComponent,
+    AsyncPipe,
+    DxLoadIndicatorModule,
+  ],
   templateUrl: './event-desc.component.html',
   styleUrl: './event-desc.component.scss',
 })
@@ -35,18 +40,6 @@ export class EventDescComponent {
   }
 
   followClick(event: EventDesc) {
-    this.eventService
-      .handleEventFollow(event.id, 'description')
-      .subscribe
-      //(result) => {
-      //   if (result) {
-      //     if (this.event.isFavorite) this.event.followersCount--;
-      //     else this.event.followersCount++;
-      //     this.event.isFavorite = !this.event.isFavorite;
-      //   } else {
-      //     console.log('Operation failed.');
-      //   }
-      // }
-      ();
+    this.eventService.handleEventDescFollow(event.id).subscribe();
   }
 }

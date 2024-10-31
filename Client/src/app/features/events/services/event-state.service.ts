@@ -170,7 +170,7 @@ export class EventStateService {
     );
   }
 
-  handleEventFollow(eventId: number, flag: string | null): Observable<boolean> {
+  handleEventFollow(eventId: number, flag: string): Observable<boolean> {
     const currentEventsState = this.eventsListSubject$.value;
     console.log(currentEventsState.state);
     if (currentEventsState.state !== 'success' || !currentEventsState.data) {
@@ -191,34 +191,19 @@ export class EventStateService {
 
     return action$.pipe(
       tap(() => {
-        
         const updatedEvent: EventShort = {
           ...event,
           isFavorite: !isCurrentlyFollowed,
           followersCount: isCurrentlyFollowed
-            ? event.followersCount - 1 //Math.max(0, event.followersCount - 1)
+            ? event.followersCount - 1
             : event.followersCount + 1,
         };
-        if(updatedEvent.isFavorite)
+        if (updatedEvent.isFavorite)
           this.toastState.showToast('Zaobserwowano wydarzenie', 'success');
-        else 
-          this.toastState.showToast('Odobserwowano wydarzenie', 'info');
-        /* const updatedEvents = [...currentEventsState.data];
-        updatedEvents[eventIndex] = updatedEvent;*/
+        else this.toastState.showToast('Odobserwowano wydarzenie', 'info');
 
         let updatedEvents: EventShort[];
-        if (flag === 'description') {
-          let newDesc = this.eventDescSubject$.value;
-          let response: EventDesc;
-          if (newDesc.state === 'success') {
-            response = newDesc.data;
-            if (newDesc.data.isFavorite) newDesc.data.followersCount--;
-            else newDesc.data.followersCount++;
-            newDesc.data.isFavorite = !newDesc.data.isFavorite;
 
-            this.eventDescSubject$.next({ state: 'success', data: response });
-          }
-        }
         if (flag === 'favorites')
           updatedEvents = currentEventsState.data.filter(
             (x) => x.id !== updatedEvent.id
@@ -234,7 +219,49 @@ export class EventStateService {
         });
       }),
       catchError((error) => {
-        this.toastState.showToast('Wystąpił błąd. Spróbuj ponownie później', 'error');
+        this.toastState.showToast(
+          'Wystąpił błąd. Spróbuj ponownie później',
+          'error'
+        );
+        console.error('Error following/unfollowing event:', error);
+        return of(false);
+      }),
+      map(() => true)
+    );
+  }
+
+  handleEventDescFollow(eventId: number): Observable<boolean> {
+    const currentEventState = this.eventDescSubject$.value;
+    if (currentEventState.state !== 'success' || !currentEventState.data) {
+      return of(false);
+    }
+
+    const isCurrentlyFollowed = currentEventState.data.isFavorite;
+
+    const action$ = isCurrentlyFollowed
+      ? this.apiService.unFollowEvent(eventId)
+      : this.apiService.followEvent(eventId);
+
+    return action$.pipe(
+      tap(() => {
+        if (isCurrentlyFollowed)
+          this.toastState.showToast('Zaobserwowano wydarzenie', 'success');
+        else this.toastState.showToast('Odobserwowano wydarzenie', 'info');
+
+        if (isCurrentlyFollowed) currentEventState.data.followersCount--;
+        else currentEventState.data.followersCount++;
+        currentEventState.data.isFavorite = !currentEventState.data.isFavorite;
+
+        this.eventDescSubject$.next({
+          state: 'success',
+          data: currentEventState.data,
+        });
+      }),
+      catchError((error) => {
+        this.toastState.showToast(
+          'Wystąpił błąd. Spróbuj ponownie później',
+          'error'
+        );
         console.error('Error following/unfollowing event:', error);
         return of(false);
       }),

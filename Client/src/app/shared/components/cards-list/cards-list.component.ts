@@ -16,7 +16,12 @@ import { DxLoadIndicatorModule } from 'devextreme-angular';
 @Component({
   selector: 'app-cards-list',
   standalone: true,
-  imports: [EventCardComponent, AsyncPipe, WorkshopCardComponent, DxLoadIndicatorModule],
+  imports: [
+    EventCardComponent,
+    AsyncPipe,
+    WorkshopCardComponent,
+    DxLoadIndicatorModule,
+  ],
   templateUrl: './cards-list.component.html',
   styleUrl: './cards-list.component.scss',
 })
@@ -25,10 +30,8 @@ export class CardsListComponent {
   private router = inject(Router);
   private eventsStateService = inject(EventStateService);
   private workshopsStateService = inject(WorkshopStateService);
-  private toastService = inject(ToastService);
   eventsList$!: Observable<LoadingState<EventShort[]>>;
   workshopsList$!: Observable<LoadingState<WorkshopShort[]>>;
-  cos: boolean = false;
 
   ngOnInit() {
     if (this.flag === 'events') {

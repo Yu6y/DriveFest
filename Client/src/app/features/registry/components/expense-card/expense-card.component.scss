@@ -1,0 +1,52 @@
+.card-container{
+  border-radius: 7px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: orange;
+  width: 360px;
+}
+
+.type{
+  left: 0;
+  font-weight: 500;
+}
+
+.date{
+  float: right;
+}
+
+.card{
+  border-width: 0;
+}
+
+.icon-container {
+  width: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.buttons{
+  float: right;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.mat-icon.orange{
+  color: rgb(182, 123, 13);
+}
+
+.mat-icon.red{
+  color: red;
+}
+
+.mat-icon.green{
+  color: green;
+}
+
+.mat-icon.blue{
+  color: blue;
+}
+
+.mat-icon.black{
+  color: black;
+}

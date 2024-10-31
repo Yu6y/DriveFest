@@ -10,6 +10,7 @@ import { WorkshopsComponent } from './features/workshops/workshops.component';
 import { WorkshopDescComponent } from './features/workshops/components/workshop-desc/workshop-desc.component';
 import { AddEventComponent } from './features/add-forms/add-event/add-event.component';
 import { AddWorkshopComponent } from './features/add-forms/add-workshop/add-workshop.component';
+import { RegistryComponent } from './features/registry/registry.component';
 
 export const routes: Routes = [
   {
@@ -71,6 +72,13 @@ export const routes: Routes = [
     path: 'add-workshop',
     component: AddWorkshopComponent,
     title: 'Dodaj warsztat',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'registry',
+    component: RegistryComponent,
+    title: 'Rejestr',
+    canActivate: [authGuard],
   },
   {
     path: '**',

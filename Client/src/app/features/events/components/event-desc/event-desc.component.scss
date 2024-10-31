@@ -62,11 +62,18 @@ button {
   cursor: pointer;
 }
 
-.follow-btn-container {
+.follow-btn-container{
   padding-top: 3px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-right: 5px;
+  .mat-icon.mat-orange, .mat-icon.mat-white{
+    margin-left: 10px;
+    vertical-align: middle;
+    margin-bottom: 3px;
+  }
+
 }
 
 .follow-btn, .followed-btn {

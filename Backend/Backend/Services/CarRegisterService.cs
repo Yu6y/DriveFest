@@ -5,15 +5,18 @@ using Microsoft.EntityFrameworkCore;
 using Backend.Exceptions;
 using Microsoft.Extensions.FileProviders.Physical;
 using Backend.Migrations;
+using Microsoft.OpenApi.Writers;
 
 namespace Backend.Services
 {
     public interface ICarRegisterService
     {
         Task<IEnumerable<CarExpenseDto>> GetAllExpenses(int userId);
-        Task<int> AddExpense(AddCarExpenseDto expense, int userId);
+        Task<CarExpenseDto> AddExpense(AddCarExpenseDto expense, int userId);
         Task<CarRegistryDto> GetCarRegistry(int userId);
         Task<int> AddCarRegistry(AddCarRegistryDto dto, int userId);
+        Task<CarExpenseDto> PatchExpense(UpdateCarExpenseDto expense);
+        Task<string> DeleteExpense(int id);
     }
 
     public class CarRegisterService : ICarRegisterService
@@ -37,26 +40,77 @@ namespace Backend.Services
             return _mapper.Map<List<CarExpenseDto>>(list);
         }
 
-        public async Task<int> AddExpense(AddCarExpenseDto expense, int userId)
+        public async Task<CarExpenseDto> AddExpense(AddCarExpenseDto expense, int userId)
         {
             CarExpense carExpense = new CarExpense();
 
             carExpense.UserId = userId;
             carExpense.Type = expense.Type;
-            carExpense.Price = expense.Price;
-            carExpense.Date = DateTime.Parse(expense.Date).AddHours(12);
+            carExpense.Price = (float)Math.Round(expense.Price, 2);
+            carExpense.Date = DateTime.Parse(expense.Date);
             carExpense.Description = expense.Description;
 
             try
             {
                 _dbContext.Add(carExpense);
                 _dbContext.SaveChanges();
-
-                return carExpense.Id;
             }catch(Exception e)
             {
                 throw new Exception(e.Message);
             }
+
+            return _mapper.Map<CarExpenseDto>(carExpense);
+        }
+
+        public async Task<CarExpenseDto> PatchExpense(UpdateCarExpenseDto expense)
+        {
+            var carExpense = await _dbContext
+                .CarExpenses
+                .Where(r => r.Id == expense.Id)
+                .FirstOrDefaultAsync();
+
+            if (carExpense == null)
+                throw new Exception("Nie znaleziono wydatku.");
+            carExpense.Type = expense.Type;
+            carExpense.Price = (float)Math.Round(expense.Price, 2);
+            carExpense.Date = expense.Date;
+            carExpense.Description = expense.Description;
+
+
+            try
+            {
+                _dbContext.Add(carExpense);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return _mapper.Map<CarExpenseDto>(carExpense);
+        }
+
+        public async Task<string> DeleteExpense(int id)
+        {
+            var carExpense = await _dbContext
+                .CarExpenses
+                .Where(r => r.Id == id)
+                .FirstOrDefaultAsync();
+
+
+            if (carExpense == null)
+                throw new Exception("Nie znaleziono wydatku.");
+
+            try
+            {
+                _dbContext.Remove(carExpense);
+                _dbContext.SaveChanges();
+            }catch(Exception e)
+            {
+                throw new Exception("Nie udało się usunąć wpisu.");
+            }
+
+            return "Usunięto wpis.";
         }
 
         public async Task<CarRegistryDto> GetCarRegistry(int userId)

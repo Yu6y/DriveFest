@@ -6,7 +6,7 @@ namespace Backend.Entities
     public class EventsDbContext : DbContext
     {
         private string _connectionString =
-            "Server=USER-KOMPUTER;Database=DriveFestDb;Trusted_Connection=True;TrustServerCertificate=True; MultipleActiveResultSets=True";
+            "Server=DESKTOP-O2VP0PF;Database=DriveFestDb;Trusted_Connection=True;TrustServerCertificate=True; MultipleActiveResultSets=True";
 
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments {get; set; }

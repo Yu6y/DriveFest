@@ -1,0 +1,56 @@
+<div class="container-fluid mt-3">
+  <!-- Large screens layout -->
+  <div class="row d-none d-lg-flex" style="min-height: 600px;">
+    <!-- Left column for DANE 1 -->
+    <div class="col-lg-auto" style="width: 400px; border-right: 1px solid black; display: flex; flex-direction: column; align-items: flex-start; padding: 10px; margin: auto;">
+      <!-- Left align button and popup in DANE 1 -->
+      <button (click)="showPopup()">click</button>
+      <dx-scroll-view
+      [height]="1000">
+      <div class="expense-container mt-2">
+        <app-expenses-list></app-expenses-list>
+      </div>
+      <app-popup
+        [isVisible]="isPopupVisible"
+        (onClose)="hidePopup()"
+      >
+      </app-popup>
+    </dx-scroll-view>
+    </div>
+
+    <!-- Right column with DANE 2 on top and WYKRES below -->
+    <div class="col d-flex flex-column" style="width: 100%;">
+      <!-- DANE 2 at the top of right column -->
+      <div style="height: 400px; border-bottom: 1px solid black; display: flex; justify-content: flex-start; align-items: center; padding-left: 10px;">
+        <p>DANE 2</p>
+      </div>
+      <!-- WYKRES at the bottom of right column -->
+      <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; width: 100%;">
+        <p>WYKRES</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Small screens layout -->
+  <div class="row d-lg-none">
+    <!-- DANE 2 at the top -->
+    <div class="col-12 border-bottom d-flex justify-content-start align-items-center" style="height: 200px; padding-left: 10px;">
+      <p>DANE 2</p>
+    </div>
+    <!-- WYKRES in the middle -->
+    <div class="col-12 d-flex justify-content-center align-items-center" style="height: 200px;">
+      <p>WYKRES</p>
+    </div>
+    <!-- DANE 1 at the bottom -->
+    <div class="col-12 border-top d-flex flex-column align-items-start" style="height: 200px; padding: 10px;">
+      <button (click)="showPopup()">click</button>
+      <div class="expense-container mt-2">
+        <app-expenses-list></app-expenses-list>
+      </div>
+      <app-popup
+        [isVisible]="isPopupVisible"
+        (onClose)="hidePopup()"
+      ></app-popup>
+    </div>
+  </div>
+</div>

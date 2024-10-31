@@ -23,8 +23,14 @@ namespace Backend.Controllers
         [HttpGet("expense")]
         public async Task<IActionResult> GetAllExpenses()
         {
-            var expensesList = await _registerService.GetAllExpenses(GetUserId());
-            return new ObjectResult(expensesList) { StatusCode = 200 };
+            try
+            {
+                var expensesList = await _registerService.GetAllExpenses(GetUserId());
+                return new ObjectResult(expensesList) { StatusCode = 200 };
+            }catch(Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
         }
 
         [HttpPost("expense")]
@@ -35,9 +41,37 @@ namespace Backend.Controllers
                 var result = await _registerService.AddExpense(expense, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
-            catch (NotFoundException e)
+            catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
+        [HttpPatch("expense")]
+        public async Task<IActionResult> UpdateExpense([FromBody]UpdateCarExpenseDto expense)
+        {
+            try
+            {
+                var result = await _registerService.PatchExpense(expense);
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
+        [HttpDelete("expense/{id}")]
+        public async Task<IActionResult> DeleteExpense([FromRoute]int id)
+        {
+            try
+            {
+                var result = await _registerService.DeleteExpense(id);
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
 

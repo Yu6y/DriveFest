@@ -1,6 +1,6 @@
 ﻿namespace Backend.Models
 {
-    public class CarExpenseDto
+    public class UpdateCarExpenseDto
     {
         public int Id { get; set; }
         public string Type { get; set; }

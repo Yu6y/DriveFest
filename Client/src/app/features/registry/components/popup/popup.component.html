@@ -1,0 +1,56 @@
+<dx-popup
+  [(visible)]="isVisible"
+  [maxWidth]="500"
+  [maxHeight]="480"
+  title="Mój Popup"
+  class="custom-popup mt-2"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  (onHidden)="close()">
+  <div class="container">
+    <form [formGroup]="expenseForm" (ngSubmit)="submit()">
+    <div class="expense-container container mb-1">
+      <p>Typ wydatku</p>
+      <div class="form-check">
+        <input class="form-check-input" id="tankowanie" name="type" type="radio"  value="Tankowanie" formControlName="type">
+        <label class="form-check-label" for="tankowanie">Tankowanie</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" id="serwis" name="type" type="radio" value="Serwis" formControlName="type">
+        <label class="form-check-label" for="serwis">Serwis</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" id="parking" name="type" type="radio" value="Parking" formControlName="type">
+        <label class="form-check-label" for="parking">Parking</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" id="inne" name="type" type="radio" value="Inne" formControlName="type" >
+        <label class="form-check-label" for="inne">Inne</label>
+      </div>
+    </div>
+
+    <div class="container container-price mb-1">
+      <label class="price-text">Kwota</label>
+      <input class="form-control" formControlName="price"> 
+    </div>
+
+    <div class="container container-date mb-1">
+      <label class="date-text">Data</label>
+      <input class="form-control" type="date" onkeydown="return false" formControlName="date"> 
+    </div>
+    
+    <div class="container container-date mb-2">
+      <label class="date-text">Krótki opis</label>
+      <textarea
+        class="form-control"
+        rows="2"
+        formControlName="description"></textarea>
+    </div>
+
+    <div class="container button-container d-flex justify-content-end">
+      <button class="btn btn-success me-4" type="submit" [disabled]="!expenseForm.valid">Ok</button>
+      <button class="btn btn-danger" type="button" (click)="close()">Anuluj</button>
+    </div>
+  </form>
+  </div>   
+</dx-popup>
