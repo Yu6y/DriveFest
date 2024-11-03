@@ -1,0 +1,65 @@
+@if(dataCombined$ | async; as data){
+  @switch(data.chart.state){
+    @case('idle'){
+      <div class="load-container container d-flex justify-content-center align-items-center">
+        <dx-load-indicator
+          [visible]="true"
+          id="large-indicator"
+          [height]="40"
+          [width]="40">
+        </dx-load-indicator>
+      </div>
+    }
+    @case('success'){
+      <div id="chart-demo" class="container">
+        <dx-chart palette="Violet" [dataSource]="data.chart.data">
+          @for(energy of data.desc; track energy.name){
+          <dxi-series
+            [valueField]="energy.value"
+            [name]="energy.name"
+            [color]="energy.color"
+          >
+          </dxi-series>
+        }
+          <dxo-common-series-settings
+            #seriesSettings
+            argumentField="month"
+            type="line"
+          >
+          </dxo-common-series-settings>
+          <dxo-margin [bottom]="20"></dxo-margin>
+          <dxo-argument-axis
+            [valueMarginsEnabled]="false"
+            discreteAxisDivisionMode="crossLabels"
+          >
+            <dxo-grid [visible]="true"></dxo-grid>
+            <dxo-label overlappingBehavior="rotate" [rotationAngle]="45"></dxo-label>
+          </dxo-argument-axis>
+         
+          <dxo-legend
+            verticalAlignment="bottom"
+            horizontalAlignment="center"
+            itemTextPosition="bottom"
+          >
+          </dxo-legend>
+          <dxo-title text="Energy Consumption in 2004">
+            <dxo-subtitle text="(Millions of Tons, Oil Equivalent)"> </dxo-subtitle>
+          </dxo-title>
+          <dxo-export [enabled]="true"></dxo-export>
+          <dxo-tooltip [enabled]="true"></dxo-tooltip>
+          
+      
+        </dx-chart>
+      
+        <select class="custom-select" (change)="changeYear($event)" [(ngModel)]="data.currYear">
+          @for(year of data.years; track year){
+            <option [value]="year">{{ year }}</option>
+          }
+        </select>
+      </div>
+    }
+    @case('error'){
+      <p class="text-center">{{ data.chart.error }}</p>
+    }
+}
+}

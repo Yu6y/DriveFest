@@ -3,3 +3,28 @@
  margin-top: 10px;
  margin-bottom: 10px;
 }
+
+summary{
+  color: orange;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: orange;
+}
+
+.add-btn{
+  border-color: orange;
+  border-radius: 10px;
+  border-width: 1px;
+  font-size: 20px;
+  float: left;
+  left: 0;
+  color: #495057;
+}
+
+.del-btn{
+  border-radius: 10px;
+  border-width: 1px;
+  font-size: 20px;
+}

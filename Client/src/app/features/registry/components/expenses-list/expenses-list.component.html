@@ -1,4 +1,30 @@
-<div class="row justify-content-center align-items-center">
+<div class="row">
+  <div class="container d-flex justify-content-between">
+    <button class="btn add-btn" (click)="add()">Dodaj</button>
+    <button class="btn add-btn " (click)="filter()">Filtruj</button>
+    <button class="btn btn-danger del-btn " (click)="deleteAll()">Wyczyść</button>
+    
+    </div>
+  <div class="col-12 my-2">     
+      <div class="types-container-div">
+        <div class="container">
+            <input type="checkbox" [id]="expenseTypes.FUEL" [name]="expenseTypes.FUEL" (change)="checkboxChange(expenseTypes.FUEL)" checked/>
+            <label class="tag-name ms-1">{{ expenseTypes.FUEL }}</label>
+        </div>
+        <div class="container">
+            <input type="checkbox" [id]="expenseTypes.SERVICE" [name]="expenseTypes.SERVICE" (change)="checkboxChange(expenseTypes.SERVICE)" checked/>
+            <label class="tag-name ms-1">{{ expenseTypes.SERVICE }}</label>
+        </div>
+        <div class="container">
+            <input type="checkbox" [id]="expenseTypes.PARKING" [name]="expenseTypes.PARKING" (change)="checkboxChange(expenseTypes.PARKING)" checked/>
+            <label class="tag-name ms-1">{{ expenseTypes.PARKING }}</label>
+        </div>
+        <div class="container">
+            <input type="checkbox" [id]="expenseTypes.OTHER" [name]="expenseTypes.OTHER" (change)="checkboxChange(expenseTypes.OTHER)" checked/>
+            <label class="tag-name ms-1">{{ expenseTypes.OTHER }}</label>
+        </div>
+      </div>   
+  </div>
   @if(list$ | async; as list){
     @switch(list.state){
       @case('loading'){

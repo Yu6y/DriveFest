@@ -1,31 +1,34 @@
+@if(combined$ | async; as conditions){
+  @if(conditions.flag === flags.ADD || conditions.flag === flags.EDIT){
 <dx-popup
-  [(visible)]="isVisible"
+  [visible]="conditions.isVisible"
   [maxWidth]="500"
   [maxHeight]="480"
-  title="Mój Popup"
+  title="Wydatek"
   class="custom-popup mt-2"
   [dragEnabled]="false"
-  [hideOnOutsideClick]="true"
+  [showCloseButton]="false"
+  [hideOnOutsideClick]="false"
   (onHidden)="close()">
   <div class="container">
     <form [formGroup]="expenseForm" (ngSubmit)="submit()">
     <div class="expense-container container mb-1">
       <p>Typ wydatku</p>
       <div class="form-check">
-        <input class="form-check-input" id="tankowanie" name="type" type="radio"  value="Tankowanie" formControlName="type">
-        <label class="form-check-label" for="tankowanie">Tankowanie</label>
+        <input class="form-check-input" id="fuel" name="type" type="radio"  [value]="expenseTypes.FUEL" formControlName="type">
+        <label class="form-check-label" for="fuel">Tankowanie</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" id="serwis" name="type" type="radio" value="Serwis" formControlName="type">
-        <label class="form-check-label" for="serwis">Serwis</label>
+        <input class="form-check-input" id="service" name="type" type="radio" [value]="expenseTypes.SERVICE" formControlName="type">
+        <label class="form-check-label" for="service">Serwis</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" id="parking" name="type" type="radio" value="Parking" formControlName="type">
+        <input class="form-check-input" id="parking" name="type" type="radio" [value]="expenseTypes.PARKING" formControlName="type">
         <label class="form-check-label" for="parking">Parking</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" id="inne" name="type" type="radio" value="Inne" formControlName="type" >
-        <label class="form-check-label" for="inne">Inne</label>
+        <input class="form-check-input" id="other" name="type" type="radio" [value]="expenseTypes.OTHER" formControlName="type" >
+        <label class="form-check-label" for="other">Inne</label>
       </div>
     </div>
 
@@ -48,9 +51,83 @@
     </div>
 
     <div class="container button-container d-flex justify-content-end">
-      <button class="btn btn-success me-4" type="submit" [disabled]="!expenseForm.valid">Ok</button>
-      <button class="btn btn-danger" type="button" (click)="close()">Anuluj</button>
+      <button class="btn btn-success me-4" type="submit" [disabled]="!expenseForm.valid || conditions.flag === flags.EDIT && expenseForm.pristine">Ok</button>
+      <button class="btn btn-danger" type="button" (click)="closePopup()">Anuluj</button>
     </div>
   </form>
   </div>   
 </dx-popup>
+}
+@else if(conditions.flag === flags.DELETE || conditions.flag === flags.DELETEREGISTRY){
+  <dx-popup
+  [visible]="conditions.isVisible"
+  [maxWidth]="400"
+  [maxHeight]="180"
+  title="Chcesz kontynuować?"
+  class="custom-popup mt-2"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  (onHidden)="close()">
+  <div class="container">
+    <div class="container">
+      <p>Czy na pewno chcesz usunąć dane?</p>
+    </div>
+    <div class="container button-container d-flex justify-content-end">
+      <button class="btn btn-success me-4" (click)="submit()">Tak</button>
+      <button class="btn btn-danger" type="button" (click)="closePopup()">Nie</button>
+    </div>
+  </div>   
+</dx-popup>
+}@else if(conditions.flag === flags.EDITREGISTRY){
+  <dx-popup
+  [visible]="conditions.isVisible"
+  [maxWidth]="500"
+  [maxHeight]="480"
+  title="Dziennik"
+  class="custom-popup mt-2"
+  [dragEnabled]="false"
+  [showCloseButton]="false"
+  [hideOnOutsideClick]="false"
+  (onHidden)="close()">
+  <div class="container">
+    <form [formGroup]="registryForm" (ngSubmit)="submit()">
+    
+    <div class="container container-price mb-1">
+      <label class="course-text">Przebieg</label>
+      <input class="form-control" formControlName="course"> 
+    </div>
+
+    <div class="container container-date mb-1">
+      <label class="insurance-text">Ubezpieczenie</label>
+      <input class="form-control" type="date" onkeydown="return false" formControlName="insurance"> 
+    </div>
+    
+    <div class="container container-date mb-1">
+      <label class="tech-text">Przegląd techniczny</label>
+      <input class="form-control" type="date" onkeydown="return false" formControlName="tech"> 
+    </div>
+    
+    <div class="container container-price mb-1">
+      <label class="engine-text">Olej silnikowy</label>
+      <input class="form-control" formControlName="engineOil"> 
+    </div>
+    
+    <div class="container container-price mb-1">
+      <label class="transmission-text">Olej w skrzyni biegów</label>
+      <input class="form-control" formControlName="transmissionOil"> 
+    </div>
+    
+    <div class="container container-price mb-1">
+      <label class="brakes-text">Płyn hamulcowy</label>
+      <input class="form-control" formControlName="brakes"> 
+    </div>
+
+    <div class="container button-container d-flex justify-content-end">
+      <button class="btn btn-success me-4" type="submit" [disabled]="!registryForm.valid || conditions.flag === flags.EDITREGISTRY && registryForm.pristine">Ok</button>
+      <button class="btn btn-danger" type="button" (click)="closePopup()">Anuluj</button>
+    </div>
+  </form>
+  </div>   
+</dx-popup>
+}
+}

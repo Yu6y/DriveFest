@@ -1,4 +1,41 @@
+.expenses-container-big{
+  width: 400px; 
+  border-right: 1px solid rgb(226, 224, 224); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start; 
+  padding: 10px; 
+  margin: auto;
+}
+
+
+.registry-container-big{
+  border-bottom: 1px solid rgb(219, 216, 216); 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding-left: 10px;
+}
+
+// .chart-container-big{
+//   flex-grow: 1; 
+//    display: flex; 
+//   // width: 100%;
+//   margin: 0;
+// }
+
+.chart-container-big {
+  // display: flex;
+   flex: 1 1 auto;      /* Allows the container to grow and shrink responsively */
+  // justify-content: center;
+  // align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+
 .custom-popup .dx-popup-content {
   border: 2px solid #ff5733; /* Wybierz odpowiedni kolor */
   border-radius: 8px; /* Opcjonalnie zaokrąglone rogi */
 }
+

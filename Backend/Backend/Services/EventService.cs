@@ -368,7 +368,7 @@ namespace Backend.Services
             if (addEvent.EventTags != null)
                 tagsList = addEvent.EventTags.Split(',').Select(int.Parse).ToList();
 
-            Console.WriteLine(tagsList.Count);
+            
 
             if (tagsList != null && tagsList.Any())
             {

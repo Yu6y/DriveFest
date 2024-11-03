@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ExpensesListComponent } from './components/expenses-list/expenses-list.component';
 import {
@@ -7,6 +7,10 @@ import {
   DxScrollViewModule,
 } from 'devextreme-angular';
 import { PopupComponent } from './components/popup/popup.component';
+import { PopupService } from '../../shared/services/popup.service';
+import { POPUP_TYPE } from '../../shared/models/PopupType';
+import { CarRegistryComponent } from './components/car-registry/car-registry.component';
+import { ExpensesChartComponent } from './components/expenses-chart/expenses-chart.component';
 
 @Component({
   selector: 'app-registry',
@@ -16,18 +20,21 @@ import { PopupComponent } from './components/popup/popup.component';
     ExpensesListComponent,
     DxScrollViewModule,
     PopupComponent,
+    CarRegistryComponent,
+    ExpensesChartComponent,
   ],
   templateUrl: './registry.component.html',
   styleUrl: './registry.component.scss',
 })
 export class RegistryComponent {
-  isPopupVisible: boolean = false;
+  isLargeScreen: boolean = window.innerWidth >= 992;
 
-  showPopup() {
-    this.isPopupVisible = true;
+  ngOnInit() {
+    this.isLargeScreen = window.innerWidth >= 992;
   }
 
-  hidePopup() {
-    this.isPopupVisible = false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isLargeScreen = event.target.innerWidth >= 992;
   }
 }

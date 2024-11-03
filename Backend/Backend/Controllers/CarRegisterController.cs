@@ -4,7 +4,9 @@ using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 namespace Backend.Controllers
 {
@@ -21,11 +23,11 @@ namespace Backend.Controllers
         }
 
         [HttpGet("expense")]
-        public async Task<IActionResult> GetAllExpenses()
+        public async Task<IActionResult> GetAllExpenses([FromQuery] string? filters)
         {
             try
             {
-                var expensesList = await _registerService.GetAllExpenses(GetUserId());
+                var expensesList = await _registerService.GetAllExpenses(filters, GetUserId());
                 return new ObjectResult(expensesList) { StatusCode = 200 };
             }catch(Exception e)
             {
@@ -75,11 +77,58 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpDelete("expense")]
+        public async Task<IActionResult> DeleteAllExpenses(){
+            try
+            {
+                var result = await _registerService.DeleteAllExpenses(GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
+        [HttpGet("expense/years")]
+        public async Task<IActionResult> GetExpensesYears([FromQuery] string filters)
+        {
+            try
+            {
+                var result = await _registerService.GetExpensesYears(filters, GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
+        [HttpGet("expense/chart")]
+        public async Task<IActionResult> GetChartData([FromQuery]string filters, [FromQuery]int year)
+        {
+            try
+            {
+                var result = await _registerService.GetChart(filters, year, GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
         [HttpGet("registry")]
         public async Task<IActionResult> GetRegistry()
         {
-            var registry = await _registerService.GetCarRegistry(GetUserId());
-            return new ObjectResult(registry) { StatusCode = 200 };
+            try
+            {
+                var registry = await _registerService.GetCarRegistry(GetUserId());
+                return new ObjectResult(registry) { StatusCode = 200 };
+            }catch(Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
         }
 
         [HttpPost("registry")]
@@ -90,9 +139,26 @@ namespace Backend.Controllers
                 var result = await _registerService.AddCarRegistry(dto, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
-            catch (NotFoundException e)
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
+        [HttpDelete("registry")]
+        public async Task<IActionResult> DeleteRegistry()
+        {
+            try
+            {
+                var result = await _registerService.DeleteCarRegistry(GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }catch(NotFoundException e)
             {
                 return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
     }

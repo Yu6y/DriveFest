@@ -1,6 +1,6 @@
 import { ExpenseType } from './ExpenseType';
 
-export type Expense = {
+export type EditExpense = {
   id: number;
   type: ExpenseType;
   price: number;

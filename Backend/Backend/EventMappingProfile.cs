@@ -49,6 +49,7 @@ namespace Backend
             CreateMap<CarExpense, CarExpenseDto>();
 
             CreateMap<CarRegistry, CarRegistryDto>();
+            CreateMap<AddCarRegistryDto, CarRegistry>();
         }
     }
 }

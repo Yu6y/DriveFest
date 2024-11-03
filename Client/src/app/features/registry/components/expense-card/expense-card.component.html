@@ -2,16 +2,16 @@
   <div class="d-flex align-items-center">
     <div class="icon-container me-2 flex-shrink-0 d-flex align-items-center">
       @switch(value.type){
-        @case('Tankowanie'){
+        @case(types.FUEL){
           <mat-icon class="green">local_gas_station</mat-icon>
         }
-        @case('Serwis'){
+        @case(types.SERVICE){
           <mat-icon class="black">build</mat-icon>
         }
-        @case('Parking'){
+        @case(types.PARKING){
           <mat-icon class="blue">local_parking</mat-icon>
         }
-        @case('Inne'){
+        @case(types.OTHER){
           <mat-icon class="red">credit_card</mat-icon>
         }
       }

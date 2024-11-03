@@ -32,7 +32,7 @@ namespace Backend.Controllers
                 return new ObjectResult(eventsList) { StatusCode = 200 };
             }catch(Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
 

@@ -1,0 +1,95 @@
+<div class="container-fluid d-flex flex-column align-items-center filters-container">
+  <div class="collapse d-md-block position-relative">
+    <p class="reg-text text-center">Dziennik pojazdowy</p>
+    @if(registry$ | async; as registry){
+      @switch(registry.state){
+        @case('error'){
+          <p class="text-center">{{ registry.error }}</p>
+        }
+        @case('loading'){
+          <div class="load-container container d-flex justify-content-center align-items-center">
+            <dx-load-indicator
+              [visible]="true"
+              id="large-indicator"
+              [height]="40"
+              [width]="40">
+            </dx-load-indicator>
+          </div>
+        }
+
+        @case('success'){
+    <div class="row g-3">
+      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+        <label class="form-label text-center">Aktualny przebieg</label>
+        <input 
+          class="form-control custom-input text-input"
+          placeholder="0 km"
+          disabled
+          [value]="registry.data.course + ' km'"
+        >
+      </div>
+
+      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+        <label class="form-label text-center">Data końca ubezpieczenia</label>
+        <input 
+          class="form-control custom-input"
+          type="text"
+          placeholder="rrrr-mm-dd"
+          disabled
+          [value]="registry.data.insurance ? registry.data.insurance : ''"
+        >
+      </div>
+
+      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+        <label class="form-label text-center">Data końca przeglądu</label>
+        <input 
+          class="form-control custom-input"
+          type="text"
+          placeholder="rrrr-mm-dd"
+          disabled
+          [value]="registry.data.tech ? registry.data.tech : ''"
+        >
+      </div>
+
+      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+        <label class="form-label text-center">Wymiana oleju silnikowego</label>
+        <input 
+          class="form-control custom-input"
+          type="text"
+          placeholder="0 km"
+          disabled
+          [value]="registry.data.engineOil + ' km'"
+        >
+      </div>
+
+      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+        <label class="form-label text-center">Olej w skrzyni biegów</label>
+        <input 
+          class="form-control custom-input"
+          type="text"
+          placeholder="0 km"
+          disabled
+          [value]="registry.data.transmissionOil + ' km'"
+        >
+      </div>
+      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+        <label class="form-label text-center">Płyn hamulcowy</label>
+        <input 
+          class="form-control custom-input"
+          type="text"
+          placeholder="0 km"
+          disabled
+          [value]="registry.data.brakes + ' km'"
+        >
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end my-3">
+      <button class="btn btn-search me-2" (click)="edit()">Edytuj dane</button>
+      <button class="btn btn-danger" (click)="clear()">Wyczyść dane</button>
+    </div>
+  }
+  }
+  }
+  </div>
+</div>
