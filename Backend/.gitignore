@@ -20,6 +20,5 @@ Desktop.ini
 # Ignorowanie plików tymczasowych, zależności i buildów
 *.tmp
 *.temp
-*.bak
 *.swp
 
