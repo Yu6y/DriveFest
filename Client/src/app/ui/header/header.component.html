@@ -14,54 +14,54 @@
       #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed"
       class="collapse navbar-collapse" 
       id="navbarNav">
-      <div class="navbar-nav px-lg-5">
-        <div class="nav-item px-lg-5">
+      <div class="navbar-nav d-flex w-100">
+        <div class="nav-item mx-lg-2">
           <a 
             [class.navbar-container]="!isCollapsed" 
             class="nav-link" 
             routerLink="home"
             (click)="navClick()">Wydarzenia</a>
         </div>
-        <div  class="nav-item px-lg-5">
+        <div  class="nav-item mx-lg-2">
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link" 
           routerLink="favorites"
           (click)="navClick()">Ulubione</a>
         </div>
-        <div  class="nav-item px-lg-5">
+        <div  class="nav-item mx-lg-2">
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link"
           routerLink="workshops"
           (click)="navClick()">Warsztaty</a>
         </div>
-        <div  class="nav-item px-lg-5">
+        <div  class="nav-item mx-lg-2">
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link"
           routerLink="registry"
           (click)="navClick()">Rejestr pojazdu</a>
         </div>
-        <div  class="nav-item px-lg-5">
+        <div  class="nav-item mx-lg-2">
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link"
           routerLink="add-event"
           (click)="navClick()">Dodaj wydarzenie</a>
         </div>
-        <div  class="nav-item px-lg-5">
+        <div  class="nav-item mx-lg-2">
           <a 
           [class.navbar-container]="!isCollapsed" 
           class="nav-link"
           routerLink="add-workshop"
           (click)="navClick()">Dodaj warsztat</a>
         </div>
-        <div class="nav-item ms-lg-5 ps-lg-5">
+        <div class="nav-item ms-lg-auto">
           <a 
             (click)="logout.emit()"
             [class.navbar-container]="!isCollapsed" 
-            class="nav-link text-white  ms-lg-5 pt-5 pt-lg-2" 
+            class="nav-link text-white  pt-5 pt-lg-2" 
             >Wyloguj się</a>
         </div>
       </div>

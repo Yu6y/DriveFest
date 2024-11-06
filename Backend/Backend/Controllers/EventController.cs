@@ -50,9 +50,13 @@ namespace Backend.Controllers
                 var eventsList = await _eventService.GetEventsFiltered(searchTerm, dateFrom, dateTo, sortBy, tags, voivodeships, GetUserId());
                 return new ObjectResult(eventsList) { StatusCode = 200 };
             }
-            catch(Exception e)
+            catch (NotFoundException e)
             {
                 return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
             
         }
@@ -66,10 +70,7 @@ namespace Backend.Controllers
                 var eventDesc = await _eventService.GetEventDesc(eventId, GetUserId());
                 return new ObjectResult(eventDesc) { StatusCode = 200 };
             }
-            catch (NotFoundException e)
-            {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
-            }catch(Exception e)
+            catch(Exception e)
             {
                 return new ObjectResult(e.Message) { StatusCode = 500 };
             }
@@ -83,9 +84,9 @@ namespace Backend.Controllers
                 var eventTags = await _eventService.GetEventTags();
                 return new ObjectResult(eventTags) { StatusCode = 200 };
             }
-            catch (NotFoundException e)
+            catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
 
@@ -97,13 +98,9 @@ namespace Backend.Controllers
                 var eventComments = await _eventService.GetComments(eventId);
                 return new ObjectResult(eventComments) { StatusCode = 200 };
             }
-            catch (NotFoundException e)
-            {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
-            }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 402 };
+                return new ObjectResult(e.Message) { StatusCode = 404 };
             }
         }
 
@@ -133,9 +130,9 @@ namespace Backend.Controllers
                 var events = await _eventService.GetFavEvents(GetUserId());
                 return new ObjectResult(events) { StatusCode = 200 };
             }
-            catch (NotFoundException e)
+            catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
 
@@ -151,6 +148,10 @@ namespace Backend.Controllers
             {
                 return new ObjectResult(e.Message) { StatusCode = 404 };
             }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 402 };
+            }
         }
 
         [HttpDelete("favorites/{eventId}")]
@@ -165,6 +166,10 @@ namespace Backend.Controllers
             {
                 return new ObjectResult(e.Message) { StatusCode = 404 };
             }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 402 };
+            }
         }
 
         [HttpPost]
@@ -177,7 +182,7 @@ namespace Backend.Controllers
             }
             catch (Exception e)
             {
-                return new ObjectResult("Nie udało się dodać wydarzenia!") { StatusCode = 500 };
+                return new ObjectResult("Nie udało się dodać wydarzenia!") { StatusCode = 402 };
             }
         }
     }

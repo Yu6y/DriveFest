@@ -3,7 +3,7 @@
     <p class="p-name">{{ this.workshop.name }}</p>
   </div>
   <div class="img-container">
-    <img class="card-img-top workshop-image" [src]="this.workshop.image" alt="Workshop Image">
+    <img class="card-img-top workshop-image" [src]="this.workshop.image" alt="Wystąpił błąd podczas ładowania zdjęcia" onerror="this.src='workshopalt.jpg';">
   </div>
   <div class="card-body desc-container">
     <div class="icons-container d-flex justify-content-between align-items-center">

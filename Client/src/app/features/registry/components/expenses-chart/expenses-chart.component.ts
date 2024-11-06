@@ -31,7 +31,7 @@ import { ExpenseDescription } from '../../../../shared/models/ExpenseDesc';
 })
 export class ExpensesChartComponent {
   private registryService = inject(RegistryStateService);
-  years!: string[];
+  
   dataCombined$!: Observable<{
     currYear: string;
     chart: LoadingState<ChartData[]>;
@@ -41,10 +41,7 @@ export class ExpensesChartComponent {
 
   ngOnInit() {
     this.dataCombined$ = this.registryService.combinedConditions$;
-    this.registryService.getYears().subscribe((res) => {
-      console.log(res);
-      this.years = res;
-    });
+    // this.registryService.getYears();
   }
 
   changeYear(year: Event) {

@@ -13,10 +13,10 @@
       }
       @case('success'){
         <div class="image-container row justify-content-center">
-          <img class="image col-lg-12 col-md-6" [src]="event.data.image"/>
+          <img class="image col-lg-12 col-md-6" [src]="event.data.image" alt="Wystąpił błąd podczas ładowania zdjęcia" onerror="this.src='eventalt.jpg';"/>
         </div>
         <div class="desc-container row">
-          <p class="event-name col-lg-12 col-md-6">{{ event.data.name }}</p>
+          <p class="event-name col-lg-12">{{ event.data.name }}</p>
           <div class="icons-container col-12">
             <div class="location-container">
               <mat-icon color="orange">event</mat-icon>

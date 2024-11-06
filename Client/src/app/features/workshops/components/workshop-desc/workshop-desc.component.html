@@ -13,10 +13,10 @@
       }
       @case('success'){
         <div class="image-container row justify-content-center">
-          <img class="image col-lg-12 col-md-6" [src]="workshop.data.image"/>
+          <img class="image col-lg-12 col-md-6" [src]="workshop.data.image" alt="Wystąpił błąd podczas ładowania zdjęcia" onerror="this.src='workshopalt.jpg';">
         </div>
         <div class="desc-container row">
-          <p class="workshop-name col-lg-12 col-md-6">{{ workshop.data.name }}</p>
+          <p class="workshop-name col-lg-12">{{ workshop.data.name }}</p>
           <div class="icons-container col-12">
             <div class="location-container">
               <mat-icon color="orange">location_on</mat-icon>
@@ -24,7 +24,7 @@
             </div>
             <div class="tags-container">
               <mat-icon class="tag" color="orange">label</mat-icon>
-              <span class="desc-text"># {{ makeTags(workshop.data.tags) }}</span>
+              <p class="desc-text"># {{ makeTags(workshop.data.tags) }}</p>
             </div>
           </div>
           <div class="text-container col-12">

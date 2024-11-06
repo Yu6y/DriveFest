@@ -121,6 +121,7 @@ export class RegistryStateService {
             .subscribe((res) => {
               this.expensesListSubject$.next({ state: 'success', data: res });
               console.log(res);
+              this.getYears();
             });
         }),
         catchError((error: HttpErrorResponse) => {
@@ -154,7 +155,7 @@ export class RegistryStateService {
           this.getExpenses();
 
           //this.getChartData();
-          this.getYears().subscribe();
+          this.getYears();
         }),
         catchError((error) => {
           this.toastService.showToast('Nie udało się dodać wydatku.', 'error');
@@ -166,6 +167,7 @@ export class RegistryStateService {
   }
 
   deleteAllExpenses() {
+    console.log('alldelete')
     if (this.expensesListSubject$.value.state === 'success') {
       if (this.expensesListSubject$.value.data.length === 0) return;
 
@@ -180,7 +182,7 @@ export class RegistryStateService {
             });
 
             // this.getChartData();
-            this.getYears().subscribe();
+            this.getYears();
           }),
           catchError((error) => {
             this.toastService.showToast(
@@ -196,6 +198,7 @@ export class RegistryStateService {
   }
 
   deleteExpense(id: number) {
+    console.log('delete' + id)
     const currentExpensesState = this.expensesListSubject$.value;
     if (
       currentExpensesState.state !== 'success' ||
@@ -216,7 +219,7 @@ export class RegistryStateService {
             data: currList.filter((x) => x.id !== id),
           });
           //this.getChartData();
-          this.getYears().subscribe();
+          this.getYears();
         }),
         catchError((error) => {
           this.toastService.showToast('Nie udało się usunąć wydatku.', 'error');
@@ -243,7 +246,7 @@ export class RegistryStateService {
           this.toastService.showToast('Zaaktualizowano wydatek.', 'success');
           this.getExpenses();
           //this.getChartData();
-          this.getYears().subscribe();
+          this.getYears();
         }),
         catchError((error) => {
           this.toastService.showToast(
@@ -260,14 +263,17 @@ export class RegistryStateService {
   getYears() {
     return this.apiService.getYears(this.expensesFilters).pipe(
       tap((years) => {
-        if (years.length > 0) this.currYearDataSubject$.next(years[0]);
+        if (years.length > 0){
+          this.currYearDataSubject$.next(years[0]);
+          this.yearsDataSubject$.next(years);
+        }
         this.getChartData();
       }),
       catchError((err) => {
         console.log(err);
         return throwError(err);
       })
-    );
+    ).subscribe();
   }
 
   setYear(year: string) {

@@ -1,21 +1,19 @@
 <div class="container-fluid mt-3">
   @if(isLargeScreen){
-  <div class="row d-none d-lg-flex" style="min-height: 600px;">
+  <div class="row d-none d-lg-flex min-h-600">
     
     <div class="col-lg-auto d-flex justify-content-center align-items-center expenses-container-big">
-    
-       
-      <dx-scroll-view
-      [height]="1000">
+       <!--<dx-scroll-view
+      [height]="1000">-->
       <div class="expense-container mt-2">
-        <app-expenses-list [ca]="'pierwsz'"></app-expenses-list>
+        <app-expenses-list></app-expenses-list>
       </div>
       <app-popup></app-popup>
-    </dx-scroll-view>
+     <!--</dx-scroll-view>--> 
     </div>
 
     
-    <div class="col d-flex flex-column" style="width: 100%;">
+    <div class="col d-flex flex-column">
       
       <div class="registry-container-big">
         <app-car-registry></app-car-registry>
@@ -24,26 +22,24 @@
       <div class="chart-container-big"> 
         <app-expenses-chart></app-expenses-chart>
       </div>
- 
-  </div>
+    </div>
   </div>
 }
 @if(!isLargeScreen){
-  <!-- Small screens layout -->
   <div class="row d-lg-none">
-    <!-- DANE 2 at the top -->
-    <div class="col-12 border-bottom d-flex justify-content-start align-items-center" style="height: 200px; padding-left: 10px;">
-      <p>DANE 2</p>
+
+    <div class="col-12 border-bottom d-flex justify-content-start align-items-center registry-container-small">
+      <app-car-registry></app-car-registry>
     </div>
-    <!-- WYKRES in the middle -->
+
     <div class="col-12" >
        <app-expenses-chart></app-expenses-chart>
     </div>
-    <!-- DANE 1 at the bottom -->
-    <div class="col-12 border-top d-flex flex-column align-items-center" style="height: 200px; padding: 10px;">
+
+    <div class="col-12 border-top d-flex flex-column align-items-center list-container-small">
      
       <div class="expense-container mt-2">
-        <app-expenses-list [ca]="'drugi'"></app-expenses-list>
+        <app-expenses-list></app-expenses-list>
       </div>
       <app-popup></app-popup>
     </div>

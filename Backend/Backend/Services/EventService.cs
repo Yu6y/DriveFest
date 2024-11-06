@@ -68,7 +68,7 @@ namespace Backend.Services
 
             return eventsReturn;
         }
-        //??????????????????????????????????????????????????
+
         public async Task<IEnumerable<EventDto>> GetEventsFiltered(string searchTerm, string dateFrom, string dateTo, string sortBy, string tags, string voivodeships, int userId)
         {
             DateTime dateFromNew, dateToNew;
@@ -82,8 +82,7 @@ namespace Backend.Services
                 tagsList = tags.Split(',').Select(int.Parse).ToList();
             if(voivodeships != null)
                 voivodeshipsList = voivodeships.Split(',').ToList();
-            /*
-            //List<Event> query;
+            
             var query = _dbContext
                     .Events
                     .Include(e => e.Tags)
@@ -101,78 +100,15 @@ namespace Backend.Services
             }
 
 
-            if (sortBy == "NONE")
-                query.ToList();
-
-            else if (sortBy == "ASC")
-                query.OrderBy(c => c.Date).ToList();
-            else
-                query.OrderByDescending(c => c.Date).ToList();*/
-
             List<Event> list;
-            if (sortBy == "NONE") {
-                var query = _dbContext
-                     .Events
-                     .Include(e => e.Tags)
-                     .Where(r => r.Date > dateFromNew && r.Date < dateToNew)
-                     .Where(c => EF.Functions.Like(c.Name, $"%{searchTerm}%"));
 
+            if (sortBy == "NONE")
+               list = await query.ToListAsync();
 
-                if (tagsList != null)
-                {
-                    query = query.Where(e => e.Tags.Any(t => tagsList.Contains(t.Id)));
-                }
-
-                if (voivodeshipsList != null)
-                {
-                    query = query.Where(e => voivodeshipsList.Contains(e.Voivodeship));
-                }
-                list = query.ToList();
-            }
             else if (sortBy == "ASC")
-            {
-                    var query = _dbContext
-                         .Events
-                         .Include(e => e.Tags)
-                         .Where(r => r.Date > dateFromNew && r.Date < dateToNew)
-                         .Where(c => EF.Functions.Like(c.Name, $"%{searchTerm}%"));
-
-
-                    if (tagsList != null)
-                    {
-                        query = query.Where(e => e.Tags.Any(t => tagsList.Contains(t.Id)));
-                    }
-
-                    if (voivodeshipsList != null)
-                    {
-                        query = query.Where(e => voivodeshipsList.Contains(e.Voivodeship));
-                    }
-                list = query.OrderBy(c => c.Date).ToList();
-          
-            }
-
+               list = await query.OrderBy(c => c.Date).ToListAsync();
             else
-            {
-                var query = _dbContext
-                         .Events
-                         .Include(e => e.Tags)
-                         .Where(r => r.Date > dateFromNew && r.Date < dateToNew)
-                         .Where(c => EF.Functions.Like(c.Name, $"%{searchTerm}%"));
-
-
-                if (tagsList != null)
-                {
-                    query = query.Where(e => e.Tags.Any(t => tagsList.Contains(t.Id)));
-                }
-
-                if (voivodeshipsList != null)
-                {
-                    query = query.Where(e => voivodeshipsList.Contains(e.Voivodeship));
-                }
-                list = query.OrderByDescending(c => c.Date).ToList();
-
-            }
-
+               list = await query.OrderByDescending(c => c.Date).ToListAsync();
 
             var favorites = _dbContext
                 .Events
@@ -180,7 +116,7 @@ namespace Backend.Services
                 .ToList();
 
             var eventsReturn = _mapper.Map<List<EventDto>>(list);
-            
+
             eventsReturn.ForEach(e =>
             {
                 favorites.ForEach(f =>
@@ -190,15 +126,14 @@ namespace Backend.Services
                 });
             });
 
-            return eventsReturn;
-
+            return eventsReturn; 
         }
 
         public async Task<EventDescDto> GetEventDesc(int eventId, int userId)
         {
             var eventExist = await _dbContext.EventDescriptions.AnyAsync(e => e.EventId == eventId);
             if(!eventExist)
-                throw new NotFoundException("Resource not found");
+                throw new Exception("Resource not found");
 
             var eventDesc = _dbContext
                 .Events
@@ -312,7 +247,7 @@ namespace Backend.Services
                 await _dbContext.SaveChangesAsync();
             }catch(Exception e)
             {
-                throw new NotFoundException(e.Message);
+                throw new Exception(e.Message);
             }
             
             return favAdd.Id;
@@ -345,7 +280,7 @@ namespace Backend.Services
             }
             catch (Exception e)
             {
-                throw new NotFoundException(e.Message);
+                throw new Exception(e.Message);
             }
 
             return favDelete.Id;
@@ -353,7 +288,6 @@ namespace Backend.Services
 
         public async Task<int> AddEvent(AddEventDto addEvent)
         {
-            Console.WriteLine(addEvent.EventTags);
             
             Event eventToSave = _mapper.Map<Event>(addEvent);
             EventDescription eventDescToSave = _mapper.Map<EventDescription>(addEvent);
@@ -372,7 +306,6 @@ namespace Backend.Services
 
             if (tagsList != null && tagsList.Any())
             {
-                Console.WriteLine("dziaa");
                 foreach (var tagDto in tagsList)
                 {
                     
@@ -407,17 +340,14 @@ namespace Backend.Services
         {
             var stream = file.OpenReadStream();
 
-            // Construct FirebaseStorage with path to where you want to upload the file and put it there
-            var task = new FirebaseStorage("moto-event.appspot.com")
+            var task = new FirebaseStorage("")
              .Child("images")
              .Child("events")
              .Child(GenerateRandomString() + System.IO.Path.GetExtension(file.FileName))
              .PutAsync(stream);
 
-            // Track progress of the upload
-            task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
+            //task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
 
-            // Await the task to wait until upload is completed and get the download url
             var downloadUrl = await task;
 
             return downloadUrl;

@@ -1,5 +1,5 @@
 <div class="container-fluid d-flex flex-column align-items-center filters-container">
-  <div class="collapse d-md-block position-relative">
+  <div class="d-md-block position-relative">
     <p class="reg-text text-center">Dziennik pojazdowy</p>
     @if(registry$ | async; as registry){
       @switch(registry.state){
@@ -7,7 +7,7 @@
           <p class="text-center">{{ registry.error }}</p>
         }
         @case('loading'){
-          <div class="load-container container d-flex justify-content-center align-items-center">
+          <div class="load-container container d-flex justify-content-center">
             <dx-load-indicator
               [visible]="true"
               id="large-indicator"
@@ -19,7 +19,7 @@
 
         @case('success'){
     <div class="row g-3">
-      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+      <div class="col-xl-4 col-lg-6 col-md-6 d-flex flex-column align-items-center">
         <label class="form-label text-center">Aktualny przebieg</label>
         <input 
           class="form-control custom-input text-input"
@@ -29,7 +29,7 @@
         >
       </div>
 
-      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+      <div class="col-xl-4 col-lg-6 col-md-6 d-flex flex-column align-items-center">
         <label class="form-label text-center">Data końca ubezpieczenia</label>
         <input 
           class="form-control custom-input"
@@ -40,7 +40,7 @@
         >
       </div>
 
-      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+      <div class="col-xl-4 col-lg-6 col-md-6 d-flex flex-column align-items-center">
         <label class="form-label text-center">Data końca przeglądu</label>
         <input 
           class="form-control custom-input"
@@ -51,7 +51,7 @@
         >
       </div>
 
-      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+      <div class="col-xl-4 col-lg-6 col-md-6 d-flex flex-column align-items-center">
         <label class="form-label text-center">Wymiana oleju silnikowego</label>
         <input 
           class="form-control custom-input"
@@ -62,7 +62,7 @@
         >
       </div>
 
-      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+      <div class="col-xl-4 col-lg-6 col-md-6 d-flex flex-column align-items-center">
         <label class="form-label text-center">Olej w skrzyni biegów</label>
         <input 
           class="form-control custom-input"
@@ -72,7 +72,7 @@
           [value]="registry.data.transmissionOil + ' km'"
         >
       </div>
-      <div class="col-xl-4 col-lg-6 d-flex flex-column align-items-center">
+      <div class="col-xl-4 col-lg-6 col-md-6 d-flex flex-column align-items-center">
         <label class="form-label text-center">Płyn hamulcowy</label>
         <input 
           class="form-control custom-input"

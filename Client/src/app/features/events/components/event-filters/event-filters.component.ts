@@ -85,7 +85,7 @@ export class EventFiltersComponent {
     });
   }
 
-  // do poprawy, ladniej
+
   inputChange(option: Tag) {
     if (this.selectedTags.includes(option))
       this.selectedTags.splice(
@@ -94,7 +94,7 @@ export class EventFiltersComponent {
       );
     else this.selectedTags.push(option);
   }
-  //do poprawy
+
   voivChange(voiv: string) {
     if (this.selectedVoivodeships.includes(voiv))
       this.selectedVoivodeships.splice(

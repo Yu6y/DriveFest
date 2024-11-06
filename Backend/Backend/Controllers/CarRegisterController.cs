@@ -45,7 +45,7 @@ namespace Backend.Controllers
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 404 };
             }
         }
 
@@ -57,9 +57,13 @@ namespace Backend.Controllers
                 var result = await _registerService.PatchExpense(expense);
                 return new ObjectResult(result) { StatusCode = 200 };
             }
+            catch (NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
 
@@ -71,9 +75,13 @@ namespace Backend.Controllers
                 var result = await _registerService.DeleteExpense(id);
                 return new ObjectResult(result) { StatusCode = 200 };
             }
+            catch (NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
 
@@ -86,7 +94,7 @@ namespace Backend.Controllers
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
 
@@ -139,9 +147,13 @@ namespace Backend.Controllers
                 var result = await _registerService.AddCarRegistry(dto, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
+            catch(NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
 
@@ -158,7 +170,7 @@ namespace Backend.Controllers
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
     }

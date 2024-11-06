@@ -16,7 +16,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginUser([FromBody]LoginDto loginDto)
+        public async Task<IActionResult> LoginUser([FromBody] LoginDto loginDto)
         {
             try
             {
@@ -26,11 +26,11 @@ namespace Backend.Controllers
             catch (Exception ex)
             {
                 return new ObjectResult(ex.Message) { StatusCode = 404 };
-            }   
+            }
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterUser([FromBody]RegisterDto registerDto)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterDto registerDto)
         {
             try
             {
@@ -39,9 +39,10 @@ namespace Backend.Controllers
                     return new ObjectResult(new Dictionary<string, string> { { "success", "Konto pomyślnie utworzone." } }) { StatusCode = 200 };
                 else
                     return new ObjectResult(userRegistered[false]) { StatusCode = 400 };
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                return new ObjectResult(ex.Message) { StatusCode = 500 };
+                return new ObjectResult(ex.Message) { StatusCode = 404 };
             }
         }
 
@@ -52,14 +53,12 @@ namespace Backend.Controllers
             try
             {
                 var user = await _accountService.GetUserInfo(userId);
-                return new ObjectResult(user){ StatusCode = 200};
-            }catch(Exception e)
+                return new ObjectResult(user) { StatusCode = 200 };
+            }
+            catch (Exception e)
             {
-                return new ObjectResult(e.Message){ StatusCode = 404};
+                return new ObjectResult(e.Message) { StatusCode = 404 };
             }
         }
     }
-    //////// w contorllerach try catch i do jsona 
-    //////// JWT
-    //////// HASH HASLA
 }

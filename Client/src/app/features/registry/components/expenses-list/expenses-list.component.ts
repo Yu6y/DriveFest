@@ -35,10 +35,8 @@ export class ExpensesListComponent {
     EXPENSE_TYPE.PARKING,
     EXPENSE_TYPE.OTHER,
   ];
-  @Input() ca!: string;
 
   ngOnInit() {
-    console.log(this.ca);
     this.registryService.getExpenses();
   }
 

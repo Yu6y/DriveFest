@@ -24,11 +24,19 @@ export class WorkshopDescComponent {
   private router = inject(Router);
   workshop$!: Observable<LoadingState<WorkshopDesc>>;
   rate!: number;
+  isRated: boolean = false;
+
   ngOnInit() {
     this.stateService.getWorkshopDesc(+this.route.snapshot.params['id']);
     this.stateService.getWorkshopRate(+this.route.snapshot.params['id']).subscribe(
       (response) => {
         this.rate = response;
+        if(response > 0){
+          console.log(response);
+          this.isRated = true;
+        }
+      }, (err) => {
+        console.log(err);
       }
     )
     this.workshop$ = this.stateService.workshopDesc$;
@@ -40,6 +48,7 @@ export class WorkshopDescComponent {
   }
 
   handleRate(rate: number){
-    this.stateService.rateWorkshop(rate);
+    this.stateService.rateWorkshop(rate, this.isRated);
+    this.isRated = true;
   }
 }

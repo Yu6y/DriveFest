@@ -50,6 +50,7 @@ export class PopupService {
   }
 
   setData(data: Expense | null) {
+    console.log(data);
     this.popupDataSubject$.next(data);
   }
 

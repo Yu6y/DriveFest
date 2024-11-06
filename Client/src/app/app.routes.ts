@@ -67,6 +67,7 @@ export const routes: Routes = [
     path: 'add-event',
     component: AddEventComponent,
     title: 'Dodaj wydarzenie',
+    canActivate: [authGuard]
   },
   {
     path: 'add-workshop',

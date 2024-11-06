@@ -245,8 +245,8 @@ export class EventStateService {
     return action$.pipe(
       tap(() => {
         if (isCurrentlyFollowed)
-          this.toastState.showToast('Zaobserwowano wydarzenie', 'success');
-        else this.toastState.showToast('Odobserwowano wydarzenie', 'info');
+          this.toastState.showToast('Odobserwowano wydarzenie', 'info');
+        else this.toastState.showToast('Zaobserwowano wydarzenie', 'success');
 
         if (isCurrentlyFollowed) currentEventState.data.followersCount--;
         else currentEventState.data.followersCount++;

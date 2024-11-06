@@ -1,7 +1,7 @@
 @if(dataCombined$ | async; as data){
   @switch(data.chart.state){
     @case('idle'){
-      <div class="load-container container d-flex justify-content-center align-items-center">
+      <div class="load-container container d-flex justify-content-center">
         <dx-load-indicator
           [visible]="true"
           id="large-indicator"
@@ -42,8 +42,7 @@
             itemTextPosition="bottom"
           >
           </dxo-legend>
-          <dxo-title text="Energy Consumption in 2004">
-            <dxo-subtitle text="(Millions of Tons, Oil Equivalent)"> </dxo-subtitle>
+          <dxo-title text="Wykres wydatków">
           </dxo-title>
           <dxo-export [enabled]="true"></dxo-export>
           <dxo-tooltip [enabled]="true"></dxo-tooltip>

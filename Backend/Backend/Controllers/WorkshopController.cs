@@ -48,7 +48,7 @@ namespace Backend.Controllers
 
 
         [HttpGet("filters")]
-        public async Task<IActionResult> GetEventsFiltered(
+        public async Task<IActionResult> GetWorkshopsFiltered(
             [FromQuery] string searchTerm,
             [FromQuery] string sortBy,
             [FromQuery] string? tags,
@@ -56,12 +56,12 @@ namespace Backend.Controllers
         {
             try
             {
-                var workshopsList = await _workshopService.GetFilteredWorkshops(searchTerm, sortBy, tags, voivodeships, GetUserId());
+                var workshopsList = await _workshopService.GetFilteredWorkshops(searchTerm, sortBy, tags, voivodeships);
                 return new ObjectResult(workshopsList) { StatusCode = 200 };
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
 
         }
@@ -90,7 +90,7 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                return new ObjectResult(ex.Message) { StatusCode = 500 };
+                return new ObjectResult(ex.Message) { StatusCode = 404 };
             }
         }
         
@@ -101,8 +101,7 @@ namespace Backend.Controllers
             {
                 var workshop = await _workshopService.AddComment(workshopId, comment.content, GetUserId(), GetUsername(), GetUserPic());
                 return new ObjectResult(workshop) { StatusCode = 200 };
-            }
-            catch (NotFoundException e)
+            }catch(NotFoundException e)
             {
                 return new ObjectResult(e.Message) { StatusCode = 404 };
             }
@@ -122,7 +121,7 @@ namespace Backend.Controllers
             }
             catch (Exception e)
             {
-                return new ObjectResult("Nie udało się dodać warsztatu!") { StatusCode = 500 };
+                return new ObjectResult("Nie udało się dodać warsztatu!") { StatusCode = 402 };
             }
         }
 
@@ -137,7 +136,7 @@ namespace Backend.Controllers
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
 
@@ -151,7 +150,7 @@ namespace Backend.Controllers
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 500 };
+                return new ObjectResult(e.Message) { StatusCode = 402 }; //
             }
         }
 

@@ -69,7 +69,7 @@ export class PopupComponent {
     price: this.formBuilder.control<number>(0, [
       Validators.required,
       Validators.min(0),
-      Validators.pattern(/^(0|[1-9]\d*)(\.\d{1,2})?$/),
+      Validators.pattern(/^(0|[1-9]\d{0,9})(\.\d{1,2})?$/),
     ]),
     description: this.formBuilder.control<string>('', Validators.required),
   });
@@ -77,21 +77,21 @@ export class PopupComponent {
   registryForm: EditRegistryForm = this.formBuilder.group({
     course: this.formBuilder.control<string>('', [
       Validators.required,
-      Validators.pattern(/^0|[1-9]\d*$/),
+      Validators.pattern(/^(0|[1-9]\d{0,6})$/),
     ]),
     insurance: this.formBuilder.control<string | null>(null),
     tech: this.formBuilder.control<string | null>(null),
     engineOil: this.formBuilder.control<string>('', [
       Validators.required,
-      Validators.pattern(/^0|[1-9]\d*$/),
+      Validators.pattern(/^(0|[1-9]\d{0,6})$/),
     ]),
     transmissionOil: this.formBuilder.control<string>('', [
       Validators.required,
-      Validators.pattern(/^0|[1-9]\d*$/),
+      Validators.pattern(/^(0|[1-9]\d{0,6})$/),
     ]),
     brakes: this.formBuilder.control<string>('', [
       Validators.required,
-      Validators.pattern(/^0|[1-9]\d*$/),
+      Validators.pattern(/^(0|[1-9]\d{0,6})$/),
     ]),
   });
 
@@ -109,8 +109,9 @@ export class PopupComponent {
           description: res.data.description,
         });
         this.data = res.data;
-      }
-      if (res.registry && this.flag === POPUP_TYPE.EDITREGISTRY) {
+      }else if(this.flag === POPUP_TYPE.DELETE)
+        this.data = res.data;
+      else if (res.registry && this.flag === POPUP_TYPE.EDITREGISTRY) {
         console.log('edit');
         this.registryForm.patchValue({
           course: res.registry.course,

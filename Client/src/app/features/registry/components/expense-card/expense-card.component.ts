@@ -17,15 +17,15 @@ export class ExpenseCardComponent {
   protected types = EXPENSE_TYPE;
   @Input({ required: true }) value!: Expense;
 
-  deleteExpense() {
-    this.popupService.showPopup();
+  deleteExpense() {    
     this.popupService.setFlag(POPUP_TYPE.DELETE);
     this.popupService.setData(this.value);
+    this.popupService.showPopup();
   }
 
   editExpense() {
-    this.popupService.showPopup();
     this.popupService.setFlag(POPUP_TYPE.EDIT);
     this.popupService.setData(this.value);
+    this.popupService.showPopup();
   }
 }

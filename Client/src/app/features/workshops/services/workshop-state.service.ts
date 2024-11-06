@@ -207,14 +207,15 @@ export class WorkshopStateService {
     return this.apiService.addWorkshop(form);
   }
 
-  rateWorkshop(rate: number){
+  rateWorkshop(rate: number, isRated: boolean){ // sciagac z api obiekt, liczba i ocena
     let workshop: WorkshopDesc;
     if(this.workshopDescSubject$.value.state === 'success'){
       workshop = this.workshopDescSubject$.value.data;
       this.apiService.rateWorkshop(rate, this.workshopDescSubject$.value.data.id).pipe(
         tap((res) => {
           workshop.rate = res;
-          workshop.ratesCount++;
+          if(!isRated)
+            workshop.ratesCount++;
           this.workshopDescSubject$.next({state: 'success', data: workshop})
     }))
     .subscribe(() => this.toastState.showToast('Dodano ocenę.', 'success'), (error) => {

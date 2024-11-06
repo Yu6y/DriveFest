@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -8,9 +8,11 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  private router = inject(Router);
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -18,9 +20,16 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An error occurred';
-        if (error.status === 401) errorMessage = 'Nieautoryzowany dostęp.';
-        else if (error.status === 0)
+        if (error.status === 401)
+          errorMessage = 'Nieautoryzowany dostęp.';
+        else if (error.status === 0){
           errorMessage = 'Serwer jest niedostępny. Spróbuj później.';
+          this.router.navigate(['/error'])
+        }
+        else if(error.status === 500){
+          errorMessage = 'Server error!';
+          this.router.navigate(['/error']);
+        }
         /* if (error.error instanceof ErrorEvent) {
           // Client-side error
           errorMessage = `Error: ${error.error.message}`;

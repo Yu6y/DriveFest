@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.Entities;
 using Backend.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,12 +23,14 @@ namespace Backend.Services
         private EventsDbContext _dbContext;
         private IMapper _mapper;
         private AuthenticationSettings _authenticationSettings;
+        private PasswordHasher<object> _passwordHasher;
 
         public AccountService(EventsDbContext dbContext, IMapper mapper, AuthenticationSettings authenticationSettings)
         {
             _mapper = mapper;
             _dbContext = dbContext;
             _authenticationSettings = authenticationSettings;
+            _passwordHasher = new PasswordHasher<object>();
         }
 
         public async Task<string> LoginUser(LoginDto loginDto)
@@ -39,7 +42,7 @@ namespace Backend.Services
             if (user is null)
                 throw new Exception("Credentials incorrect");
 
-            if (user.HashPassword != loginDto.Password)
+            if (!checkPassword(user.HashPassword, loginDto.Password))
                 throw new Exception("Credentials incorrect");
 
             var claims = new List<Claim>()
@@ -63,6 +66,12 @@ namespace Backend.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
+        }
+
+        public bool checkPassword(string hash, string password)
+        {
+            var result = _passwordHasher.VerifyHashedPassword(null, hash, password);
+            return result == PasswordVerificationResult.Success;
         }
 
         public async Task<Dictionary<bool, RegistrationError>> RegisterUser(RegisterDto registerDto)
@@ -91,7 +100,7 @@ namespace Backend.Services
             {
                 Username = registerDto.Username,
                 Email = registerDto.Email,
-                HashPassword = registerDto.Password,
+                HashPassword = _passwordHasher.HashPassword(null, registerDto.Password),
                 UserPic = "",
                 CreatedAt = DateTime.Now
             };
@@ -120,5 +129,7 @@ namespace Backend.Services
 
             return _mapper.Map<UserDto>(user);
         }
+
+
     }
 }

@@ -3,7 +3,7 @@
     <p class="p-name">{{ this.event.name }}</p>
   </div>
   <div class="img-container">
-    <img class="event-image" [src]="this.event.image">
+    <img class="event-image" [src]="this.event.image"  alt="Wystąpił błąd podczas ładowania zdjęcia" onerror="this.src='eventalt.jpg';">
   </div>
   <div class="desc-container">
     <div class="icons-container">

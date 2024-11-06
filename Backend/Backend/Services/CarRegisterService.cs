@@ -38,8 +38,6 @@ namespace Backend.Services
 
         public async Task<IEnumerable<CarExpenseDto>> GetAllExpenses(string filters, int userId)
         {
-            Console.WriteLine(filters);
-
             List<string> types = null;
 
             if (filters != null)
@@ -85,7 +83,7 @@ namespace Backend.Services
                 .FirstOrDefaultAsync();
 
             if (carExpense == null)
-                throw new Exception("Nie znaleziono wydatku.");
+                throw new NotFoundException("Nie znaleziono wydatku.");
 
             carExpense.Type = expense.Type;
             carExpense.Price = expense.Price;
@@ -115,7 +113,7 @@ namespace Backend.Services
 
 
             if (carExpense == null)
-                throw new Exception("Nie znaleziono wydatku.");
+                throw new NotFoundException("Nie znaleziono wydatku.");
 
             try
             {

@@ -13,7 +13,7 @@ namespace Backend.Services
     {
         Task<IEnumerable<WorkshopDto>> GetAllWorkshops();
         Task<IEnumerable<TagsDto>> GetWorkshopTags();
-        Task<IEnumerable<WorkshopDto>> GetFilteredWorkshops(string searchTerm, string sortBy, string tags, string voivodeships, int userId);
+        Task<IEnumerable<WorkshopDto>> GetFilteredWorkshops(string searchTerm, string sortBy, string tags, string voivodeships);
         Task<WorkshopDescDto> GetWorkshopDesc(int id);
         Task<IEnumerable<CommentDto>> GetComments(int workshopId);
         Task<CommentDto> AddComment(int workshopId, string content, int userId, string username, string userPic);
@@ -52,7 +52,7 @@ namespace Backend.Services
             return _mapper.Map<IEnumerable<TagsDto>>(tags);
         }
 
-        public async Task<IEnumerable<WorkshopDto>> GetFilteredWorkshops(string searchTerm, string sortBy, string tags, string voivodeships, int userId)
+        public async Task<IEnumerable<WorkshopDto>> GetFilteredWorkshops(string searchTerm, string sortBy, string tags, string voivodeships)
         {
             List<int> tagsList = null;
             List<string> voivodeshipsList = null;
@@ -61,8 +61,7 @@ namespace Backend.Services
                 tagsList = tags.Split(',').Select(int.Parse).ToList();
             if (voivodeships != null)
                 voivodeshipsList = voivodeships.Split(',').ToList();
-            
-            //List<Event> query;
+
             var query = _dbContext
                     .Workshops
                     .Include(e => e.Tags)
@@ -78,16 +77,16 @@ namespace Backend.Services
                query = query.Where(e => voivodeshipsList.Contains(e.Voivodeship));
             }
 
-
+            List<Workshop> list;
             if (sortBy == "NONE")
-                await query.ToListAsync();
+                list = await query.ToListAsync();
 
             else if (sortBy == "ASC")
-                await query.OrderBy(c => c.Rate).ToListAsync();
+                list = await query.OrderBy(c => c.Rate).ToListAsync();
             else
-                await query.OrderByDescending(c => c.Rate).ToListAsync();
+                list = await query.OrderByDescending(c => c.Rate).ToListAsync();
 
-            return _mapper.Map<List<WorkshopDto>>(query);
+            return _mapper.Map<List<WorkshopDto>>(list);
         }
 
         public async Task<WorkshopDescDto> GetWorkshopDesc(int id)
@@ -97,7 +96,7 @@ namespace Backend.Services
                 .AnyAsync(r => r.WorkshopId == id);
             
             if (!workshop)
-                throw new NotFoundException("Resource not found");
+                throw new Exception("Resource not found");
 
             var workshopDesc = await _dbContext
                 .Workshops
@@ -168,7 +167,6 @@ namespace Backend.Services
 
             if (tagsList != null && tagsList.Any())
             {
-                Console.WriteLine("dziaa");
                 foreach (var tagDto in tagsList)
                 {
 
@@ -202,17 +200,14 @@ namespace Backend.Services
         {
             var stream = file.OpenReadStream();
 
-            // Construct FirebaseStorage with path to where you want to upload the file and put it there
-            var task = new FirebaseStorage("moto-event.appspot.com")
+            var task = new FirebaseStorage("")
              .Child("images")
              .Child("workshops")
              .Child(GenerateRandomString() + System.IO.Path.GetExtension(file.FileName))
              .PutAsync(stream);
 
-            // Track progress of the upload
-            task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
+            //task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
 
-            // Await the task to wait until upload is completed and get the download url
             var downloadUrl = await task;
 
             return downloadUrl;
@@ -227,9 +222,6 @@ namespace Backend.Services
 
         public async Task<float> RateWorkshop(RateDto rateDto, int userId)
         {
-            var rating = await _dbContext
-                .WorkshopRatings
-                .FirstOrDefaultAsync(w => w.UserId == userId && w.WorkshopId == rateDto.WorkshopId);
 
             var user = await _dbContext
                 .Users
@@ -237,6 +229,10 @@ namespace Backend.Services
 
             if (user == null)
                 throw new Exception("Nie znaleziono użytkownika");
+
+            var rating = await _dbContext
+                .WorkshopRatings
+                .FirstOrDefaultAsync(w => w.UserId == userId && w.WorkshopId == rateDto.WorkshopId);
 
             var workshop = await _dbContext
                 .Workshops
@@ -254,14 +250,22 @@ namespace Backend.Services
                         Rating = rateDto.Rate
                     };
                     await _dbContext.AddAsync(newRate);
-                    
+                    workshop.RatesCount++;
                 }
                 else
                 {
                     rating.Rating = rateDto.Rate;
                 }
-                workshop.RatesCount++;
-                workshop.Rate = (float)Math.Round(((workshop.Rate * (workshop.RatesCount - 1)) + rateDto.Rate) / workshop.RatesCount, 1);  
+                await _dbContext.SaveChangesAsync();
+
+                var rates = await _dbContext
+                    .WorkshopRatings
+                    .Where(c => c.WorkshopId == rateDto.WorkshopId)
+                    .ToListAsync();
+
+                workshop.Rate = rates.Any() ? (float)Math.Round(rates.Average(c => c.Rating), 2) : 0;
+
+             
                 await _dbContext.SaveChangesAsync();
 
                 return workshop.Rate;

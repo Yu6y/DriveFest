@@ -58,7 +58,7 @@
                 [id]="option.id"
                 (change)="checkboxChange(option)"
               />
-              <label class="form-check-label">{{ option.name }}</label>
+              <label class="form-check-label" [htmlFor]="option.id">{{ option.name }}</label>
             </div>
           }
           

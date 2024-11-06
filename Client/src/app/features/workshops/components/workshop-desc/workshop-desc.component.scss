@@ -30,10 +30,11 @@
   margin-top: 50px;
   text-align: center;
   white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .mat-icon.mat-orange{
-  
   color: rgb(182, 123, 13);
 }
 
@@ -42,16 +43,31 @@
 }
 
 .icons-container {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
   padding-left: 3px;
   margin-bottom: 30px;
 }
 
-.location-container, .date-container {
+.location-container, .tags-container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.location-container .desc-text, .tags-container .desc-text {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  max-width: calc(100% - 40px);
+}
+
+.desc-text {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  margin-left: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  max-width: calc(100% - 40px);
 }
 
 .follow-container {
@@ -108,14 +124,6 @@ button {
 
 .text-container{
   margin-bottom: 50px;
-}
-
-.desc-text {
-  font-size: 20px;
-  margin-left: 10px;
-  margin: 0;
-  padding: 0;
-  white-space: normal;
 }
 
 .comments-container {

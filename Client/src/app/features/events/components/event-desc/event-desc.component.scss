@@ -30,6 +30,8 @@
   margin-top: 50px;
   text-align: center;
   white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .mat-icon.mat-orange{
@@ -38,8 +40,6 @@
 }
 
 .icons-container {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
   padding-left: 3px;
   margin-bottom: 30px;
 }
@@ -48,6 +48,22 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.location-container .desc-text, .date-container .desc-text {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  max-width: calc(100% - 40px);
+}
+
+.desc-text {
+  font-size: 20px;
+  margin-left: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  max-width: calc(100% - 40px);
 }
 
 .follow-container {
@@ -113,10 +129,6 @@ button {
   margin-bottom: 50px;
 }
 
-.desc-text {
-  font-size: 20px;
-  margin-left: 10px;
-}
 
 .comments-container {
   padding-top: 50px;

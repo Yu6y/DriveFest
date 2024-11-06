@@ -42,7 +42,7 @@
                 @else{
                   <input type="checkbox" [id]="tag.id" [name]="tag.name" (change)="inputChange(tag)"/>
                 }
-              <label class="tag-name">{{ tag.name }}</label>
+              <label class="tag-name"[htmlFor]="tag.id" >{{ tag.name }}</label>
             </div>
           }
           </div>
@@ -55,12 +55,12 @@
             @for(voivodeship of voivodeships; track voivodeship){
             <div>
               @if(selectedVoivodeships.includes(voivodeship)){
-                <input type="checkbox" [name]="voivodeship" (change)="voivChange(voivodeship)" checked/>
+                <input type="checkbox" [id]="voivodeship" [name]="voivodeship" (change)="voivChange(voivodeship)" checked/>
                 }
                 @else{
-                  <input type="checkbox" [name]="voivodeship" (change)="voivChange(voivodeship)"/>
+                  <input type="checkbox" [id]="voivodeship" [name]="voivodeship" (change)="voivChange(voivodeship)"/>
                 }
-              <label class="tag-name">{{ voivodeship }}</label>
+              <label class="tag-name" [htmlFor]="voivodeship">{{ voivodeship }}</label>
             </div>
           }
           </div>

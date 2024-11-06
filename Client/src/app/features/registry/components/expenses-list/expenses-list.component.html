@@ -9,26 +9,26 @@
       <div class="types-container-div">
         <div class="container">
             <input type="checkbox" [id]="expenseTypes.FUEL" [name]="expenseTypes.FUEL" (change)="checkboxChange(expenseTypes.FUEL)" checked/>
-            <label class="tag-name ms-1">{{ expenseTypes.FUEL }}</label>
+            <label class="tag-name ms-1" [htmlFor]="expenseTypes.FUEL">{{ expenseTypes.FUEL }}</label>
         </div>
         <div class="container">
             <input type="checkbox" [id]="expenseTypes.SERVICE" [name]="expenseTypes.SERVICE" (change)="checkboxChange(expenseTypes.SERVICE)" checked/>
-            <label class="tag-name ms-1">{{ expenseTypes.SERVICE }}</label>
+            <label class="tag-name ms-1" [for]="expenseTypes.SERVICE">{{ expenseTypes.SERVICE }}</label>
         </div>
         <div class="container">
             <input type="checkbox" [id]="expenseTypes.PARKING" [name]="expenseTypes.PARKING" (change)="checkboxChange(expenseTypes.PARKING)" checked/>
-            <label class="tag-name ms-1">{{ expenseTypes.PARKING }}</label>
+            <label class="tag-name ms-1" [htmlFor]="expenseTypes.PARKING">{{ expenseTypes.PARKING }}</label>
         </div>
         <div class="container">
             <input type="checkbox" [id]="expenseTypes.OTHER" [name]="expenseTypes.OTHER" (change)="checkboxChange(expenseTypes.OTHER)" checked/>
-            <label class="tag-name ms-1">{{ expenseTypes.OTHER }}</label>
+            <label class="tag-name ms-1" [htmlFor]="expenseTypes.OTHER">{{ expenseTypes.OTHER }}</label>
         </div>
       </div>   
   </div>
   @if(list$ | async; as list){
     @switch(list.state){
       @case('loading'){
-        <div class="load-container container d-flex justify-content-center align-items-center">
+        <div class="load-container container d-flex justify-content-center">
           <dx-load-indicator
             [visible]="true"
             id="large-indicator"
@@ -38,11 +38,25 @@
         </div>
       }
       @case('success'){
+       <div class="container d-none d-lg-block">
+        <dx-scroll-view
+        height="700">
         @for(expense of list.data; track expense.id){
           <app-expense-card [value]="expense"></app-expense-card>
         }@empty{
           <p>Brak wpisów!</p>
         }
+        </dx-scroll-view>
+      </div>
+      <div class="container d-lg-none">
+     
+        @for(expense of list.data; track expense.id){
+          <app-expense-card [value]="expense"></app-expense-card>
+        }@empty{
+          <p>Brak wpisów!</p>
+        }
+  
+      </div>
       }
     }
   }
