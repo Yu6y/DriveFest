@@ -1,26 +1,25 @@
 <div class="container-fluid mt-3">
   @if(isLargeScreen){
-  <div class="row d-none d-lg-flex min-h-600">
-    
-    <div class="col-lg-auto d-flex justify-content-center align-items-center expenses-container-big">
+  <div class="row">
+    <div class="col-xl-4  col-lg-5 streched">
        <!--<dx-scroll-view
       [height]="1000">-->
-      <div class="expense-container mt-2">
+      <div class="expense-container">
         <app-expenses-list></app-expenses-list>
       </div>
       <app-popup></app-popup>
      <!--</dx-scroll-view>--> 
     </div>
 
-    
-    <div class="col d-flex flex-column">
-      
-      <div class="registry-container-big">
-        <app-car-registry></app-car-registry>
-      </div>
-    
-      <div class="chart-container-big"> 
-        <app-expenses-chart></app-expenses-chart>
+    <div class="col-xl-8 col-lg-7">
+      <div class="row">      
+        <div class="registry-container-big">
+          <app-car-registry></app-car-registry>
+        </div>
+
+        <div class="chart-container-big"> 
+          <app-expenses-chart></app-expenses-chart>
+        </div>
       </div>
     </div>
   </div>

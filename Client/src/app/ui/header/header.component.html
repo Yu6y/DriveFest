@@ -57,11 +57,18 @@
           routerLink="add-workshop"
           (click)="navClick()">Dodaj warsztat</a>
         </div>
-        <div class="nav-item ms-lg-auto">
+        <div class="nav-item ms-lg-auto d-none d-lg-block">
           <a 
             (click)="logout.emit()"
             [class.navbar-container]="!isCollapsed" 
-            class="nav-link text-white  pt-5 pt-lg-2" 
+            class="nav-link text-white" 
+            >Wyloguj się</a>
+        </div>
+        <div class="nav-item d-lg-none">
+          <a 
+            (click)="logout.emit()"
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link text-white pt-5" 
             >Wyloguj się</a>
         </div>
       </div>

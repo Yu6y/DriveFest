@@ -1,4 +1,5 @@
 <div class="row">
+  <p class="text-center title-text">Wydatki  </p>
   <div class="container d-flex justify-content-between">
     <button class="btn add-btn" (click)="add()">Dodaj</button>
     <button class="btn add-btn " (click)="filter()">Filtruj</button>
@@ -44,7 +45,7 @@
         @for(expense of list.data; track expense.id){
           <app-expense-card [value]="expense"></app-expense-card>
         }@empty{
-          <p>Brak wpisów!</p>
+          <p class="text-center">Brak wpisów!</p>
         }
         </dx-scroll-view>
       </div>
@@ -53,7 +54,7 @@
         @for(expense of list.data; track expense.id){
           <app-expense-card [value]="expense"></app-expense-card>
         }@empty{
-          <p>Brak wpisów!</p>
+          <p class="text-center">Brak wpisów!</p>
         }
   
       </div>
