@@ -167,10 +167,8 @@ export class RegistryStateService {
   }
 
   deleteAllExpenses() {
-    console.log('alldelete')
+    console.log('alldelete');
     if (this.expensesListSubject$.value.state === 'success') {
-      if (this.expensesListSubject$.value.data.length === 0) return;
-
       this.apiService
         .deleteAllExpenses()
         .pipe(
@@ -189,7 +187,7 @@ export class RegistryStateService {
               'Nie udało się usunąć wydatków.',
               'error'
             );
-            console.error('Nie udało się dodać wydatku.', error);
+            console.error('Nie udało się usunąć wydatków.', error);
             return throwError(error);
           })
         )
@@ -198,7 +196,7 @@ export class RegistryStateService {
   }
 
   deleteExpense(id: number) {
-    console.log('delete' + id)
+    console.log('delete' + id);
     const currentExpensesState = this.expensesListSubject$.value;
     if (
       currentExpensesState.state !== 'success' ||
@@ -261,19 +259,27 @@ export class RegistryStateService {
   }
 
   getYears() {
-    return this.apiService.getYears(this.expensesFilters).pipe(
-      tap((years) => {
-        if (years.length > 0){
-          this.currYearDataSubject$.next(years[0]);
-          this.yearsDataSubject$.next(years);
-        }
-        this.getChartData();
-      }),
-      catchError((err) => {
-        console.log(err);
-        return throwError(err);
-      })
-    ).subscribe();
+    //
+    if (this.expensesFilters.length === 0) {
+      this.expenseDescSubject$.next([]);
+      return;
+    }
+    return this.apiService
+      .getYears(this.expensesFilters)
+      .pipe(
+        tap((years) => {
+          if (years.length > 0) {
+            this.currYearDataSubject$.next(years[0]);
+            this.yearsDataSubject$.next(years);
+          }
+          this.getChartData();
+        }),
+        catchError((err) => {
+          console.log(err);
+          return throwError(err);
+        })
+      )
+      .subscribe();
   }
 
   setYear(year: string) {

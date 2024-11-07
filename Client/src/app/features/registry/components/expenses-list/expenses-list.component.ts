@@ -52,7 +52,6 @@ export class ExpensesListComponent {
 
   filter() {
     this.registryService.changeFilters(this.expensesFilters);
-    //this.registryService.getExpenses();
   }
 
   checkboxChange(type: ExpenseType) {

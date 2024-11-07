@@ -15,10 +15,6 @@ export class PopupService {
   private popupRegistryDataSubject$ = new BehaviorSubject<CarRegistry | null>(
     null
   );
-  public popup$ = this.popupSubject$.asObservable();
-  public flag$ = this.popupFlagSubject$.asObservable();
-  public data$ = this.popupDataSubject$.asObservable();
-  public registryData$ = this.popupRegistryDataSubject$.asObservable();
 
   combinedConditions$ = combineLatest([
     this.popupSubject$,

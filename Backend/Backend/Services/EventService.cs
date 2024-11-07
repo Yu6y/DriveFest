@@ -72,6 +72,7 @@ namespace Backend.Services
         public async Task<IEnumerable<EventDto>> GetEventsFiltered(string searchTerm, string dateFrom, string dateTo, string sortBy, string tags, string voivodeships, int userId)
         {
             DateTime dateFromNew, dateToNew;
+            
             if (!(DateTime.TryParse(dateFrom, out dateFromNew) && DateTime.TryParse(dateTo, out dateToNew)))
                 throw new NotFoundException("Given date error");
 
@@ -82,11 +83,11 @@ namespace Backend.Services
                 tagsList = tags.Split(',').Select(int.Parse).ToList();
             if(voivodeships != null)
                 voivodeshipsList = voivodeships.Split(',').ToList();
-            
+
             var query = _dbContext
                     .Events
                     .Include(e => e.Tags)
-                    .Where(r => r.Date > dateFromNew && r.Date < dateToNew)
+                    .Where(r => r.Date.Date >= dateFromNew && r.Date.Date <= dateToNew)
                     .Where(c => EF.Functions.Like(c.Name, $"%{searchTerm}%"));
 
             if (tagsList != null)
