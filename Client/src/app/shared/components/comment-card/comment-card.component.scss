@@ -1,11 +1,21 @@
 .username{
   left: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.date{
-  float: right;
-}
+// .date{
+//   float: right;
+// }
 
 .card{
   border-width: 0;
+}
+
+img{
+  width: 40px; height: 40px;
+}
+
+.container-img{
+  max-width: 70px;
 }

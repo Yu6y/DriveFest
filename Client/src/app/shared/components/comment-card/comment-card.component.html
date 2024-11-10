@@ -1,11 +1,20 @@
 <div class="comment-card-container">
   <div class="card">
-    <div class="comment-info">
-      <span class="username">{{ value.username }}</span>
-      <span class="date">{{ value.timestamp }}</span>
+    <div class="row d-flex">
+      <div class="col container-img ms-2 d-flex justify-content-center align-items-center ">
+        <img src="m4k.jpg">
+      </div>
+        <div class="col">
+      <div class="comment-info">
+        <span class="username">{{ value.username }}</span>
+      </div>
+      <div class="date col">
+        <span class="date">{{ value.timestamp }}</span>
+      </div>
     </div>
+  </div>
     <div class="comment-text">
-      <p class="comment">{{ value.content }}</p>
+      <p class="comment px-3">{{ value.content }}</p>
     </div>
   </div>
 </div>
