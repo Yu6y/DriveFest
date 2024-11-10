@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { RegistryApiService } from './registry-api.service';
 import {
   AddExpenseFormValue,
+  EditCarFormValue,
   EditRegistryFromValue,
 } from '../components/popup/popup.component';
 import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
@@ -25,6 +26,7 @@ import { EXPENSE_TYPE, ExpenseType } from '../../../shared/models/ExpenseType';
 import { ChartData } from '../../../shared/models/ChartData';
 import { ExpenseDescription } from '../../../shared/models/ExpenseDesc';
 import { state } from '@angular/animations';
+import { Car } from '../../../shared/models/Car';
 
 @Injectable({
   providedIn: 'root',
@@ -57,12 +59,12 @@ export class RegistryStateService {
     { value: 'sum', name: 'Suma', color: 'orange' },
   ]);
   private yearsDataSubject$ = new BehaviorSubject<string[]>([]);
+  private carsListSubject$ = new BehaviorSubject<LoadingState<Car[]>>({
+    state: 'idle',
+  });
 
   expensesList$ = this.expensesListSubject$.asObservable();
   registry$ = this.registrySubject$.asObservable();
-  chartData$ = this.chartDataSubject$.asObservable();
-  yearData$ = this.currYearDataSubject$.asObservable();
-  expenseDesc$ = this.expenseDescSubject$.asObservable();
 
   combinedConditions$ = combineLatest([
     this.currYearDataSubject$,
@@ -77,6 +79,9 @@ export class RegistryStateService {
       years,
     }))
   );
+
+  carsList$ = this.carsListSubject$.asObservable();
+  currCarId!: number;
 
   changeFilters(filters: ExpenseType[]) {
     if (filters.length === 0) {
@@ -103,10 +108,127 @@ export class RegistryStateService {
     this.getExpenses();
   }
 
+  loadCars() {
+    this.carsListSubject$.next({ state: 'loading' });
+    this.apiService
+      .getCars()
+      .pipe(
+        tap((res) => {
+          this.carsListSubject$.next({ state: 'success', data: res });
+        }),
+        catchError((error) => {
+          console.error('Error', error);
+          this.carsListSubject$.next({ state: 'error', error: error });
+          return of(false);
+        })
+      )
+      .subscribe();
+  }
+
+  addCar(car: EditCarFormValue) {
+    car.name = car.name.trim();
+    const currentState = this.carsListSubject$.value;
+
+    if (currentState.state !== 'success' || !currentState.data) {
+      this.toastService.showToast('Niepowodzenie.', 'error');
+      return;
+    }
+
+    const form = new FormData();
+    form.append('Name', car.name);
+    form.append('PhotoURL', car.photoURL ? car.photoURL : '');
+
+    this.carsListSubject$.next({ state: 'loading' });
+
+    this.apiService
+      .addCar(form)
+      .pipe(
+        tap((res) => {
+          this.carsListSubject$.next({
+            state: 'success',
+            data: [...currentState.data, res],
+          });
+          this.toastService.showToast('Dodano pojazd.', 'success');
+        }),
+        catchError((error) => {
+          this.toastService.showToast('Nie udało się dodać pojazdu.', 'error');
+          console.log(error);
+          this.loadCars();
+          return throwError(error);
+        })
+      )
+      .subscribe();
+  }
+
+  editCar(car: EditCarFormValue, id: string) {
+    car.name = car.name.trim();
+    const currentState = this.carsListSubject$.value;
+
+    if (currentState.state !== 'success' || !currentState.data) {
+      this.toastService.showToast('Niepowodzenie.', 'error');
+      return;
+    }
+
+    const form = new FormData();
+    form.append('Id', id);
+    form.append('Name', car.name);
+    form.append('PhotoURL', car.photoURL ? car.photoURL : '');
+
+    this.carsListSubject$.next({ state: 'loading' });
+
+    this.apiService
+      .editCar(form)
+      .pipe(
+        tap(() => {
+          this.loadCars();
+          this.toastService.showToast('Zaaktualizowano pojazd.', 'success');
+        }),
+        catchError((error) => {
+          this.toastService.showToast(
+            'Nie udało się zaaktualizować pojazdu.',
+            'error'
+          );
+          console.log(error);
+          this.loadCars();
+          return throwError(error);
+        })
+      )
+      .subscribe();
+  }
+
+  deleteCar(id: number) {
+    const currentState = this.carsListSubject$.value;
+
+    if (currentState.state !== 'success' || !currentState.data) {
+      this.toastService.showToast('Niepowodzenie.', 'error');
+      return;
+    }
+
+    this.carsListSubject$.next({ state: 'loading' });
+
+    this.apiService
+      .deleteCar(id)
+      .pipe(
+        tap(() => {
+          this.carsListSubject$.next({
+            state: 'success',
+            data: currentState.data.filter((x) => x.id != id),
+          });
+          this.toastService.showToast('Usunięto pojazd.', 'success');
+        }),
+        catchError((error) => {
+          this.toastService.showToast('Nie udało się usunąć pojazdu.', 'error');
+          console.log(error);
+          return throwError(error);
+        })
+      )
+      .subscribe();
+  }
+
   getExpenses() {
     this.expensesListSubject$.next({ state: 'loading' });
     this.apiService
-      .getExpenses(this.expensesFilters)
+      .getExpenses(this.expensesFilters, this.currCarId)
       .pipe(
         map((data) => {
           data.forEach((x) => {
@@ -147,14 +269,12 @@ export class RegistryStateService {
     }
 
     this.apiService
-      .addExpense(expense)
+      .addExpense(expense, this.currCarId)
       .pipe(
         tap((response) => {
           response.date = this.datePipe.transform(response.date);
           this.toastService.showToast('Dodano wydatek.', 'success');
           this.getExpenses();
-
-          //this.getChartData();
           this.getYears();
         }),
         catchError((error) => {
@@ -167,10 +287,9 @@ export class RegistryStateService {
   }
 
   deleteAllExpenses() {
-    console.log('alldelete');
     if (this.expensesListSubject$.value.state === 'success') {
       this.apiService
-        .deleteAllExpenses()
+        .deleteAllExpenses(this.currCarId)
         .pipe(
           tap(() => {
             this.toastService.showToast('Usunięto wydatki.', 'success');
@@ -265,7 +384,7 @@ export class RegistryStateService {
       return;
     }
     return this.apiService
-      .getYears(this.expensesFilters)
+      .getYears(this.expensesFilters, this.currCarId)
       .pipe(
         tap((years) => {
           if (years.length > 0) {
@@ -296,7 +415,11 @@ export class RegistryStateService {
     this.chartDataSubject$.next({ state: 'loading' });
 
     this.apiService
-      .getChart(this.expensesFilters, +this.currYearDataSubject$.value)
+      .getChart(
+        this.expensesFilters,
+        +this.currYearDataSubject$.value,
+        this.currCarId
+      )
       .pipe(
         tap((res) => {
           this.chartDataSubject$.next({ state: 'success', data: res });
@@ -314,7 +437,7 @@ export class RegistryStateService {
     this.registrySubject$.next({ state: 'loading' });
 
     this.apiService
-      .getRegistry()
+      .getRegistry(this.currCarId)
       .pipe(
         tap((res) => {
           if (res.insurance)
@@ -338,7 +461,7 @@ export class RegistryStateService {
   deleteCarRegistry() {
     this.registrySubject$.next({ state: 'loading' });
 
-    this.apiService.deleteRegistry().subscribe(
+    this.apiService.deleteRegistry(this.currCarId).subscribe(
       (res) => {
         this.getCarRegistry();
       },
@@ -352,7 +475,7 @@ export class RegistryStateService {
     this.registrySubject$.next({ state: 'loading' });
 
     this.apiService
-      .editRegistry(registry)
+      .editRegistry(registry, this.currCarId)
       .pipe(
         tap((res) => {
           if (res.insurance)
@@ -371,5 +494,9 @@ export class RegistryStateService {
         })
       )
       .subscribe();
+  }
+
+  setCarId(id: number) {
+    this.currCarId = id;
   }
 }

@@ -18,6 +18,7 @@ namespace Backend.Entities
 
         public virtual List<CarExpense> CarExpenses { get; set; }
         public virtual List<CarRegistry> CarRegistries { get; set; }
+        public virtual List<UserCar> UserCars { get; set; }
 
     }
 }

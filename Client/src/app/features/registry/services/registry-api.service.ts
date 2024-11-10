@@ -4,6 +4,7 @@ import { Expense } from '../../../shared/models/Expense';
 import { Observable } from 'rxjs';
 import {
   AddExpenseFormValue,
+  EditCarFormValue,
   EditRegistryFromValue,
 } from '../components/popup/popup.component';
 import { EditExpense } from '../../../shared/models/EditExpense';
@@ -11,6 +12,7 @@ import { isExpressionStatement } from 'typescript';
 import { CarRegistry } from '../../../shared/models/CarRegistry';
 import { ExpenseType } from '../../../shared/models/ExpenseType';
 import { ChartData } from '../../../shared/models/ChartData';
+import { Car } from '../../../shared/models/Car';
 
 @Injectable({
   providedIn: 'root',
@@ -19,20 +21,23 @@ export class RegistryApiService {
   private httpClient = inject(HttpClient);
   private URL = 'http://localhost:5253/api/register';
 
-  getExpenses(types: ExpenseType[]): Observable<Expense[]> {
-    return this.httpClient.get<Expense[]>(`${this.URL}/expense`, {
+  getExpenses(types: ExpenseType[], carId: number): Observable<Expense[]> {
+    return this.httpClient.get<Expense[]>(`${this.URL}/${carId}/expense`, {
       params: {
         filters: types.map((v) => v).join(','),
       },
     });
   }
 
-  addExpense(expense: AddExpenseFormValue): Observable<Expense> {
-    return this.httpClient.post<Expense>(`${this.URL}/expense`, expense);
+  addExpense(expense: AddExpenseFormValue, carId: number): Observable<Expense> {
+    return this.httpClient.post<Expense>(
+      `${this.URL}/${carId}/expense`,
+      expense
+    );
   }
 
-  deleteAllExpenses(): Observable<string> {
-    return this.httpClient.delete(`${this.URL}/expense`, {
+  deleteAllExpenses(carId: number): Observable<string> {
+    return this.httpClient.delete(`${this.URL}/${carId}/expense`, {
       responseType: 'text',
     });
   }
@@ -53,33 +58,57 @@ export class RegistryApiService {
     });
   }
 
-  getYears(types: ExpenseType[]) {
-    return this.httpClient.get<string[]>(`${this.URL}/expense/years`, {
+  getYears(types: ExpenseType[], carId: number) {
+    return this.httpClient.get<string[]>(`${this.URL}/${carId}/expense/years`, {
       params: {
         filters: types.map((v) => v).join(','),
       },
     });
   }
 
-  getChart(types: ExpenseType[], year: number) {
-    return this.httpClient.get<ChartData[]>(`${this.URL}/expense/chart`, {
-      params: {
-        filters: types.map((v) => v).join(','),
-        year: year,
-      },
+  getChart(types: ExpenseType[], year: number, carId: number) {
+    return this.httpClient.get<ChartData[]>(
+      `${this.URL}/${carId}/expense/chart`,
+      {
+        params: {
+          filters: types.map((v) => v).join(','),
+          year: year,
+        },
+      }
+    );
+  }
+
+  getRegistry(carId: number) {
+    return this.httpClient.get<CarRegistry>(`${this.URL}/${carId}/registry`);
+  }
+
+  editRegistry(registry: EditRegistryFromValue, carId: number) {
+    return this.httpClient.post<CarRegistry>(
+      `${this.URL}/${carId}/registry`,
+      registry
+    );
+  }
+
+  deleteRegistry(carId: number) {
+    return this.httpClient.delete(`${this.URL}/${carId}/registry`, {
+      responseType: 'text',
     });
   }
 
-  getRegistry() {
-    return this.httpClient.get<CarRegistry>(`${this.URL}/registry`);
+  getCars() {
+    return this.httpClient.get<Car[]>(`${this.URL}/cars`);
   }
 
-  editRegistry(registry: EditRegistryFromValue) {
-    return this.httpClient.post<CarRegistry>(`${this.URL}/registry`, registry);
+  addCar(car: FormData) {
+    return this.httpClient.post<Car>(`${this.URL}/cars`, car);
   }
 
-  deleteRegistry() {
-    return this.httpClient.delete(`${this.URL}/registry`, {
+  editCar(car: FormData) {
+    return this.httpClient.patch<Car>(`${this.URL}/cars`, car);
+  }
+
+  deleteCar(id: number) {
+    return this.httpClient.delete(`${this.URL}/cars/${id}`, {
       responseType: 'text',
     });
   }

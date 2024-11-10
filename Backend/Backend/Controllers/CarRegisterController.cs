@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
+using System.Runtime.CompilerServices;
 
 namespace Backend.Controllers
 {
@@ -22,12 +23,12 @@ namespace Backend.Controllers
             _registerService = registerService;
         }
 
-        [HttpGet("expense")]
-        public async Task<IActionResult> GetAllExpenses([FromQuery] string? filters)
+        [HttpGet("{carId}/expense")]
+        public async Task<IActionResult> GetAllExpenses([FromQuery] string? filters, [FromRoute]int carId)
         {
             try
             {
-                var expensesList = await _registerService.GetAllExpenses(filters, GetUserId());
+                var expensesList = await _registerService.GetAllExpenses(filters, carId, GetUserId());
                 return new ObjectResult(expensesList) { StatusCode = 200 };
             }catch(Exception e)
             {
@@ -35,12 +36,12 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("expense")]
-        public async Task<IActionResult> AddExpense([FromBody] AddCarExpenseDto expense)
+        [HttpPost("{carId}/expense")]
+        public async Task<IActionResult> AddExpense([FromBody] AddCarExpenseDto expense, [FromRoute]int carId)
         {
             try
             {
-                var result = await _registerService.AddExpense(expense, GetUserId());
+                var result = await _registerService.AddExpense(expense, carId, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch (Exception e)
@@ -54,7 +55,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var result = await _registerService.PatchExpense(expense);
+                var result = await _registerService.PatchExpense(expense, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch (NotFoundException e)
@@ -72,7 +73,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var result = await _registerService.DeleteExpense(id);
+                var result = await _registerService.DeleteExpense(id, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch (NotFoundException e)
@@ -85,11 +86,11 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpDelete("expense")]
-        public async Task<IActionResult> DeleteAllExpenses(){
+        [HttpDelete("{carId}/expense")]
+        public async Task<IActionResult> DeleteAllExpenses([FromRoute]int carId){
             try
             {
-                var result = await _registerService.DeleteAllExpenses(GetUserId());
+                var result = await _registerService.DeleteAllExpenses(carId, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch (Exception e)
@@ -98,12 +99,12 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("expense/years")]
-        public async Task<IActionResult> GetExpensesYears([FromQuery] string filters)
+        [HttpGet("{carId}/expense/years")]
+        public async Task<IActionResult> GetExpensesYears([FromQuery] string filters, [FromRoute] int carId)
         {
             try
             {
-                var result = await _registerService.GetExpensesYears(filters, GetUserId());
+                var result = await _registerService.GetExpensesYears(filters, carId, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch (Exception e)
@@ -112,12 +113,12 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("expense/chart")]
-        public async Task<IActionResult> GetChartData([FromQuery]string filters, [FromQuery]int year)
+        [HttpGet("{carId}/expense/chart")]
+        public async Task<IActionResult> GetChartData([FromQuery]string filters, [FromQuery]int year, [FromRoute]int carId)
         {
             try
             {
-                var result = await _registerService.GetChart(filters, year, GetUserId());
+                var result = await _registerService.GetChart(filters, carId, year, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch (Exception e)
@@ -126,12 +127,12 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("registry")]
-        public async Task<IActionResult> GetRegistry()
+        [HttpGet("{carId}/registry")]
+        public async Task<IActionResult> GetRegistry([FromRoute]int carId)
         {
             try
             {
-                var registry = await _registerService.GetCarRegistry(GetUserId());
+                var registry = await _registerService.GetCarRegistry(carId, GetUserId());
                 return new ObjectResult(registry) { StatusCode = 200 };
             }catch(Exception e)
             {
@@ -139,12 +140,12 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("registry")]
-        public async Task<IActionResult> AddRegistry([FromBody] AddCarRegistryDto dto)
+        [HttpPost("{carId}/registry")]
+        public async Task<IActionResult> AddRegistry([FromBody] AddCarRegistryDto dto, [FromRoute]int carId)
         {
             try
             {
-                var result = await _registerService.AddCarRegistry(dto, GetUserId());
+                var result = await _registerService.AddCarRegistry(dto, carId, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch(NotFoundException e)
@@ -157,21 +158,86 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpDelete("registry")]
-        public async Task<IActionResult> DeleteRegistry()
+        [HttpDelete("{carId}/registry")]
+        public async Task<IActionResult> DeleteRegistry([FromRoute] int carId)
         {
             try
             {
-                var result = await _registerService.DeleteCarRegistry(GetUserId());
+                var result = await _registerService.DeleteCarRegistry(carId, GetUserId());
                 return new ObjectResult(result) { StatusCode = 200 };
-            }catch(NotFoundException e)
-            {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
             }
             catch (Exception e)
             {
                 return new ObjectResult(e.Message) { StatusCode = 402 };
             }
         }
+
+        [HttpGet("cars")]
+        public async Task<IActionResult> GetCars()
+        {
+            try
+            {
+                var cars = await _registerService.GetUserCars(GetUserId());
+                return new ObjectResult(cars) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+        
+        [HttpPost("cars")]
+        public async Task<IActionResult> AddCar([FromForm]AddUserCarDto car)
+        {
+            try
+            {
+                var result = await _registerService.AddUserCar(car, GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+        
+        [HttpPatch("cars")]
+        public async Task<IActionResult> EditCar([FromForm]EditUserCarDto car)
+        {
+            try
+            {
+                var result = await _registerService.EditUserCar(car, GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
+
+        [HttpDelete("cars/{carId}")]
+        public async Task<IActionResult> DeleteCar([FromRoute]int carId)
+        {
+            try
+            {
+                var result = await _registerService.DeleteUserCar(carId, GetUserId());
+                return new ObjectResult(result) { StatusCode = 200 };
+            }
+            catch (NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        } 
     }
 }

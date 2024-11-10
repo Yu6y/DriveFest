@@ -1,47 +1,5 @@
-<div class="container-fluid mt-3">
-  @if(isLargeScreen){
-  <div class="row">
-    <div class="col-xl-4 col-lg-5 streched border-end">
-       <!--<dx-scroll-view
-      [height]="1000">-->
-      <div class="expense-container">
-        <app-expenses-list></app-expenses-list>
-      </div>
-      <app-popup></app-popup>
-     <!--</dx-scroll-view>--> 
-    </div>
 
-    <div class="col-xl-8 col-lg-7">
-      <div class="row">      
-        <div class="registry-container-big">
-          <app-car-registry></app-car-registry>
-        </div>
-
-        <div class="chart-container-big"> 
-          <app-expenses-chart></app-expenses-chart>
-        </div>
-      </div>
-    </div>
-  </div>
-}
-@if(!isLargeScreen){
-  <div class="row d-lg-none">
-
-    <div class="col-12 border-bottom d-flex justify-content-start align-items-center registry-container-small">
-      <app-car-registry></app-car-registry>
-    </div>
-
-    <div class="col-12" >
-       <app-expenses-chart></app-expenses-chart>
-    </div>
-
-    <div class="col-12 border-top d-flex flex-column align-items-center list-container-small">
-     
-      <div class="expense-container mt-2">
-        <app-expenses-list></app-expenses-list>
-      </div>
-      <app-popup></app-popup>
-    </div>
-  </div>
-}
+<div class="container">
+  <app-cars-list></app-cars-list>
+  <app-popup></app-popup>
 </div>

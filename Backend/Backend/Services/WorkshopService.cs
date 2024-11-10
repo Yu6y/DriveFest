@@ -158,7 +158,14 @@ namespace Backend.Services
 
             workshopToSave.Tags = new List<WorkshopTag>();
             workshopToSave.Rate = 0;
-            workshopToSave.Image = await uploadPhoto(addWorkshop.PhotoURL);
+            try
+            {
+                workshopToSave.Image = await uploadPhoto(addWorkshop.PhotoURL);
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
 
             List<int> tagsList = null;
 
@@ -200,7 +207,7 @@ namespace Backend.Services
         {
             var stream = file.OpenReadStream();
 
-            var task = new FirebaseStorage("")
+            var task = new FirebaseStorage(DatabaseLink.StorageAddress)
              .Child("images")
              .Child("workshops")
              .Child(GenerateRandomString() + System.IO.Path.GetExtension(file.FileName))

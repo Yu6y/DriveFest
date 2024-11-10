@@ -3,7 +3,7 @@
 <dx-popup
   [visible]="conditions.isVisible"
   [maxWidth]="500"
-  [maxHeight]="480"
+  [maxHeight]="500"
   title="Wydatek"
   class="custom-popup mt-2"
   [dragEnabled]="false"
@@ -58,7 +58,7 @@
   </div>   
 </dx-popup>
 }
-@else if(conditions.flag === flags.DELETE || conditions.flag === flags.DELETEREGISTRY){
+@else if(conditions.flag === flags.DELETE || conditions.flag === flags.DELETEREGISTRY || conditions.flag === flags.DELETECAR){
   <dx-popup
   [visible]="conditions.isVisible"
   [maxWidth]="400"
@@ -126,6 +126,45 @@
       <button class="btn btn-success me-4" type="submit" [disabled]="!registryForm.valid || registryForm.pristine">Ok</button>
       <button class="btn btn-danger" type="button" (click)="closePopup()">Anuluj</button>
     </div>
+  </form>
+  </div>   
+</dx-popup>
+}@else if(conditions.flag === flags.ADDCAR || conditions.flag === flags.EDITCAR){
+  <dx-popup
+  [visible]="conditions.isVisible"
+  [maxWidth]="500"
+  [maxHeight]="280"
+  title="Pojazd"
+  class="custom-popup mt-2"
+  [dragEnabled]="false"
+  [showCloseButton]="false"
+  [hideOnOutsideClick]="false"
+  (onHidden)="close()">
+  <div class="container">
+    <form [formGroup]="carForm" (ngSubmit)="submit()">
+    
+    <div class="container mb-1">
+      <label class="name-text">Nazwa</label>
+      <input class="form-control" formControlName="name" maxlength="25"> 
+    </div>
+
+    <div class="container mb-1">
+      <label class="photo">Zdjęcie</label>
+      <input 
+        id="photoURL" 
+        type="file" 
+        class="form-control" 
+        formControlName="photoURL"
+        accept=".jpg,.jpeg,.png,.bmp"
+        (change)="sendPhoto($event)">
+    </div>
+
+    
+    <div class="container button-container d-flex justify-content-end mt-4">
+      <button class="btn btn-success me-4" type="submit" [disabled]="!carForm.valid || (conditions.flag === flags.EDITCAR && carForm.pristine)">Ok</button>
+      <button class="btn btn-danger" type="button" (click)="closePopup()">Anuluj</button>
+    </div>
+    
   </form>
   </div>   
 </dx-popup>

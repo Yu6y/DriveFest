@@ -289,14 +289,19 @@ namespace Backend.Services
 
         public async Task<int> AddEvent(AddEventDto addEvent)
         {
-            
             Event eventToSave = _mapper.Map<Event>(addEvent);
             EventDescription eventDescToSave = _mapper.Map<EventDescription>(addEvent);
 
             eventToSave.FollowersCount = 0;
             eventToSave.Date = DateTime.Parse(addEvent.Date).AddHours(12);
             eventToSave.Tags = new List<Tag>();
-            eventToSave.Image = await uploadPhoto(addEvent.PhotoURL);
+            try
+            {
+                eventToSave.Image = await uploadPhoto(addEvent.PhotoURL);
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
 
             List<int> tagsList = null;
 
@@ -341,7 +346,7 @@ namespace Backend.Services
         {
             var stream = file.OpenReadStream();
 
-            var task = new FirebaseStorage("")
+            var task = new FirebaseStorage(DatabaseLink.StorageAddress)
              .Child("images")
              .Child("events")
              .Child(GenerateRandomString() + System.IO.Path.GetExtension(file.FileName))

@@ -1,0 +1,42 @@
+@if(carsList$ | async; as carsList){
+<div class="container text-center my-5">
+  
+  <div class="container add-btn-container d-flex justify-content-center align-items-center my-5">
+    <button class="add-btn" (click)="addCar()">
+      <img class="img-btn" src="addbtn.png" style="width: 100px; height: 100px;">
+    </button>
+    <p class="text-center">Dodaj pojazd</p>
+  </div>
+
+  @switch(carsList.state){
+    @case('loading'){
+      <div class="container d-flex justify-content-center align-items-center">
+        <dx-load-indicator
+          [visible]="true"
+          id="large-indicator"
+          [height]="40"
+          [width]="40">
+        </dx-load-indicator>
+      </div>
+    }
+    @case('success'){
+      <div class="row justify-content-center align-items-center">
+        @for(car of carsList.data; track car.id){
+          <div class="custom-width col-lg-4 col-md-6 my-3">
+            <app-car-card
+              [value]="car"
+              (click)="moveToRegistry(car.id)"
+              (iconClick)="iconClick($event, car)"
+            ></app-car-card>
+          </div>                      
+      }
+      </div>
+    }
+    @case('error'){
+      <div class="container d-flex justify-content-center align-items-center">
+        <p class="text-center">Nie udało się załadować danych.</p>
+      </div>
+    }
+  }
+</div>
+}
