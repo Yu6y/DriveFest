@@ -1,0 +1,30 @@
+.add-btn-container{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-btn{
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: inherit;
+  transition: transform .7s ease-in-out;
+  margin-bottom: 5px;
+}
+
+.add-btn:hover{
+  transform: rotate(360deg);
+}
+
+.img-btn{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.custom-width{
+  flex: 1 0 auto; 
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

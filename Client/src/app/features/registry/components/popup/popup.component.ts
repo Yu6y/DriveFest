@@ -17,6 +17,7 @@ import { POPUP_TYPE, PopupType } from '../../../../shared/models/PopupType';
 import { EXPENSE_TYPE } from '../../../../shared/models/ExpenseType';
 import { CarRegistry } from '../../../../shared/models/CarRegistry';
 import { transform } from 'typescript';
+import { Car } from '../../../../shared/models/Car';
 
 type AddExpenseForm = FormGroup<{
   type: FormControl<string>;
@@ -38,6 +39,13 @@ type EditRegistryForm = FormGroup<{
 
 export type EditRegistryFromValue = FormValue<EditRegistryForm>;
 
+type EditCarForm = FormGroup<{
+  name: FormControl<string>;
+  photoURL: FormControl<File | null>;
+}>;
+
+export type EditCarFormValue = FormValue<EditCarForm>;
+
 @Component({
   selector: 'app-popup',
   standalone: true,
@@ -56,9 +64,11 @@ export class PopupComponent {
     flag: PopupType;
     data: Expense | null;
     registry: CarRegistry | null;
+    car: Car | null;
   }>;
   flag!: PopupType;
   data: Expense | null = null;
+  car: Car | null = null;
 
   expenseForm: AddExpenseForm = this.formBuilder.group({
     type: this.formBuilder.control<string>(
@@ -95,13 +105,23 @@ export class PopupComponent {
     ]),
   });
 
+  carForm: EditCarForm = this.formBuilder.group({
+    name: this.formBuilder.control<string>('', [
+      Validators.required,
+      Validators.maxLength(25),
+    ]),
+    photoURL: this.formBuilder.control<File | null>(null),
+  });
+
   ngOnInit() {
     this.combined$ = this.popupService.combinedConditions$;
 
     this.combined$.subscribe((res) => {
+      this.carForm.reset();
+      console.log(res.flag);
+      this.car = null;
       this.flag = res.flag;
       if (res.data && this.flag === POPUP_TYPE.EDIT) {
-        console.log('edit');
         this.expenseForm.patchValue({
           type: res.data.type,
           date: res.data.date,
@@ -109,10 +129,8 @@ export class PopupComponent {
           description: res.data.description,
         });
         this.data = res.data;
-      }else if(this.flag === POPUP_TYPE.DELETE)
-        this.data = res.data;
+      } else if (this.flag === POPUP_TYPE.DELETE) this.data = res.data;
       else if (res.registry && this.flag === POPUP_TYPE.EDITREGISTRY) {
-        console.log('edit');
         this.registryForm.patchValue({
           course: res.registry.course,
           insurance: res.registry.insurance ? res.registry.insurance : null,
@@ -121,6 +139,13 @@ export class PopupComponent {
           transmissionOil: res.registry.transmissionOil,
           brakes: res.registry.brakes,
         });
+      } else if (res.car && this.flag === POPUP_TYPE.EDITCAR) {
+        this.car = res.car;
+        this.carForm.patchValue({
+          name: res.car.name,
+        });
+      } else if (res.car && this.flag === POPUP_TYPE.DELETECAR) {
+        this.car = res.car;
       }
     });
   }
@@ -138,22 +163,41 @@ export class PopupComponent {
         this.data!.id,
         this.expenseForm.getRawValue()
       );
-      this.popupService.setData(null);
     } else if (this.flag === POPUP_TYPE.EDITREGISTRY) {
       this.registryService.editRegistry(this.registryForm.getRawValue());
-      this.popupService.setRegistryData(null);
+    } else if (this.carForm.valid && this.flag === POPUP_TYPE.ADDCAR) {
+      this.registryService.addCar(this.carForm.getRawValue());
+    } else if (
+      this.carForm.valid &&
+      this.flag === POPUP_TYPE.EDITCAR &&
+      this.car
+    ) {
+      this.registryService.editCar(
+        this.carForm.getRawValue(),
+        this.car.id.toString()
+      );
+    } else if (this.flag === POPUP_TYPE.DELETECAR) {
+      this.registryService.deleteCar(this.car!.id);
     }
+
     this.closePopup();
   }
 
   close() {
-    console.log('click');
     this.expenseForm.reset();
+    this.carForm.reset();
     this.popupService.closePopup();
   }
 
   closePopup() {
     this.expenseForm.reset();
+    this.carForm.reset();
     this.popupService.closePopup();
+  }
+
+  sendPhoto(event: any) {
+    this.carForm.patchValue({
+      photoURL: event.target.files[0],
+    });
   }
 }

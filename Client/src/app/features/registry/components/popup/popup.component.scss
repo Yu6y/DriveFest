@@ -1,10 +1,10 @@
 .form-check-input:checked {
-  background-color: orange; /* Kolor tła zaznaczonego radio buttona */
-  border-color: orange; /* Kolor ramki zaznaczonego radio buttona */
+  background-color: orange; 
+  border-color: orange;
 }
 
 .form-check-input:checked:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25); /* Efekt fokusowania */
+  box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
 }
 
 .form-control:focus{
@@ -17,21 +17,21 @@
 ::ng-deep .dx-overlay-wrapper .dx-popup-title ,
 ::ng-deep .dx-overlay-wrapper:focus-within .dx-popup-title:focus-within ,
 ::ng-deep .dx-overlay-wrapper:focus-within .dx-popup-title:focus-within {
-  border: 0.5px solid orange; /* Zmień na wybrany kolor */
-  border-radius: 8px 8px 0 0; /* Zaokrąglij górne rogi */
+  border: 0.5px solid orange;
+  border-radius: 8px 8px 0 0; 
 }
 
 ::ng-deep .dx-overlay-wrapper .dx-popup-content {
-  border-top: none; /* Usuwa górną linię obramowania, aby uniknąć podwójnego obramowania */
-  border-radius: 0 0 8px 8px; /* Zaokrągla tylko dolne rogi */
+  border-top: none;
+  border-radius: 0 0 8px 8px;
 }
 
 
 ::ng-deep .dx-overlay-wrapper .dx-overlay-content.dx-popup-normal.dx-resizable {
-  border: 0.5px solid orange; /* Domyślny kolor obramowania */
+  border: 0.5px solid orange;
   border-radius: 8px;
 }
 
 ::ng-deep .dx-overlay-wrapper .dx-overlay-content.dx-popup-normal.dx-resizable:focus-within {
-  border: 0.5px solid orange; /* Zmiana koloru obramowania po kliknięciu */
+  border: 0.5px solid orange;
 }

@@ -10,8 +10,10 @@
         public string TransmissionOil { get; set; }
         public string Brakes { get; set; }
 
+        public int UserCarId { get; set; }
         public int UserId { get; set; }
 
+        public virtual UserCar UserCar { get; set; }
         public virtual User User { get; set; }
     }
 }

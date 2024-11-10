@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Firebase.Auth;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Backend.Entities
@@ -21,6 +22,7 @@ namespace Backend.Entities
         public DbSet<WorkshopRating> WorkshopRatings { get; set; }
         public DbSet<CarRegistry> CarRegistries { get; set; }
         public DbSet<CarExpense> CarExpenses { get; set; }
+        public DbSet<UserCar> UserCars { get; set; }
             
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -122,6 +124,26 @@ namespace Backend.Entities
                 .HasOne(wr => wr.Workshop)
                 .WithMany(w => w.WorkshopRatings)
                 .HasForeignKey(wr => wr.WorkshopId);
+
+            modelBuilder.Entity<UserCar>()
+                .HasKey(k => k.Id);
+
+            modelBuilder.Entity<UserCar>()
+                .HasOne(u => u.User)
+                .WithMany(c => c.UserCars)
+                .HasForeignKey(f => f.UserId);
+
+            modelBuilder.Entity<CarExpense>()
+                .HasOne(ce => ce.UserCar)
+                .WithMany(uc => uc.CarExpenses)
+                .HasForeignKey(ce => ce.UserCarId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<CarRegistry>()
+                .HasOne(ce => ce.UserCar)
+                .WithMany(uc => uc.CarRegistries)
+                .HasForeignKey(ce => ce.UserCarId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     
 

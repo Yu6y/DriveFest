@@ -11,6 +11,7 @@ import { WorkshopDescComponent } from './features/workshops/components/workshop-
 import { AddEventComponent } from './features/add-forms/add-event/add-event.component';
 import { AddWorkshopComponent } from './features/add-forms/add-workshop/add-workshop.component';
 import { RegistryComponent } from './features/registry/registry.component';
+import { CarDataComponent } from './features/registry/components/car-data/car-data.component';
 
 export const routes: Routes = [
   {
@@ -67,7 +68,7 @@ export const routes: Routes = [
     path: 'add-event',
     component: AddEventComponent,
     title: 'Dodaj wydarzenie',
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'add-workshop',
@@ -78,6 +79,12 @@ export const routes: Routes = [
   {
     path: 'registry',
     component: RegistryComponent,
+    title: 'Pojazdy',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'registry/:id',
+    component: CarDataComponent,
     title: 'Rejestr',
     canActivate: [authGuard],
   },

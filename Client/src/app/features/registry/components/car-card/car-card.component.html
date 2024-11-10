@@ -1,0 +1,16 @@
+<div class="car-container">
+  <div class="img-container">
+    <img [src]="value.photoUrl">
+  </div>
+  <div class="name-container">
+    <p class="text-canter p-name">{{ value.name }}</p>
+  </div>  
+  <div class="icons-container d-flex me-auto">
+    <div class="edit-container mx-2">
+      <mat-icon color="orange" (click)="iconClick.emit('edit'); $event.stopPropagation()">edit</mat-icon>
+    </div>
+    <div class="delete-container mx-2">
+      <mat-icon color="red" (click)="iconClick.emit('delete'); $event.stopPropagation()">delete_forever</mat-icon>
+    </div>
+  </div>
+</div>

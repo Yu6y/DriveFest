@@ -11,30 +11,13 @@ import { PopupService } from '../../shared/services/popup.service';
 import { POPUP_TYPE } from '../../shared/models/PopupType';
 import { CarRegistryComponent } from './components/car-registry/car-registry.component';
 import { ExpensesChartComponent } from './components/expenses-chart/expenses-chart.component';
+import { CarsListComponent } from './components/cars-list/cars-list.component';
 
 @Component({
   selector: 'app-registry',
   standalone: true,
-  imports: [
-    MatIconModule,
-    ExpensesListComponent,
-    DxScrollViewModule,
-    PopupComponent,
-    CarRegistryComponent,
-    ExpensesChartComponent,
-  ],
+  imports: [PopupComponent, CarsListComponent],
   templateUrl: './registry.component.html',
   styleUrl: './registry.component.scss',
 })
-export class RegistryComponent {
-  isLargeScreen: boolean = window.innerWidth >= 992;
-
-  ngOnInit() {
-    this.isLargeScreen = window.innerWidth >= 992;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.isLargeScreen = event.target.innerWidth >= 992;
-  }
-}
+export class RegistryComponent {}

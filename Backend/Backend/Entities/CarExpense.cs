@@ -7,8 +7,9 @@
         public double Price { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
+        public int UserCarId { get; set; }
         public int UserId { get; set; }
-
+        public virtual UserCar UserCar { get; set; }
         public virtual User User { get; set; }
     }
 }
