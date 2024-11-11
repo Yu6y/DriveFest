@@ -9,7 +9,7 @@
   [dragEnabled]="false"
   [showCloseButton]="false"
   [hideOnOutsideClick]="false"
-  (onHidden)="close()">
+  >
   <div class="container">
     <form [formGroup]="expenseForm" (ngSubmit)="submit()">
     <div class="expense-container container mb-1">
@@ -52,7 +52,7 @@
 
     <div class="container button-container d-flex justify-content-end">
       <button class="btn btn-success me-4" type="submit" [disabled]="!expenseForm.valid || (conditions.flag === flags.EDIT && expenseForm.pristine)">Ok</button>
-      <button class="btn btn-danger" type="button" (click)="closePopup()">Anuluj</button>
+      <button class="btn btn-danger" type="button" (click)="close()">Anuluj</button>
     </div>
   </form>
   </div>   
@@ -66,15 +66,16 @@
   title="Chcesz kontynuować?"
   class="custom-popup mt-2"
   [dragEnabled]="false"
-  [hideOnOutsideClick]="true"
-  (onHidden)="close()">
+  [showCloseButton]="false"
+  [hideOnOutsideClick]="false"
+  >
   <div class="container">
     <div class="container">
       <p>Czy na pewno chcesz usunąć dane?</p>
     </div>
     <div class="container button-container d-flex justify-content-end">
       <button class="btn btn-success me-4" (click)="submit()">Tak</button>
-      <button class="btn btn-danger" type="button" (click)="closePopup()">Nie</button>
+      <button class="btn btn-danger" type="button" (click)="close()">Nie</button>
     </div>
   </div>   
 </dx-popup>
@@ -88,7 +89,7 @@
   [dragEnabled]="false"
   [showCloseButton]="false"
   [hideOnOutsideClick]="false"
-  (onHidden)="close()">
+  >
   <div class="container">
     <form [formGroup]="registryForm" (ngSubmit)="submit()">
     
@@ -124,7 +125,7 @@
 
     <div class="container button-container d-flex justify-content-end">
       <button class="btn btn-success me-4" type="submit" [disabled]="!registryForm.valid || registryForm.pristine">Ok</button>
-      <button class="btn btn-danger" type="button" (click)="closePopup()">Anuluj</button>
+      <button class="btn btn-danger" type="button" (click)="close()">Anuluj</button>
     </div>
   </form>
   </div>   
@@ -162,7 +163,7 @@
     
     <div class="container button-container d-flex justify-content-end mt-4">
       <button class="btn btn-success me-4" type="submit" [disabled]="!carForm.valid || (conditions.flag === flags.EDITCAR && carForm.pristine)">Ok</button>
-      <button class="btn btn-danger" type="button" (click)="closePopup()">Anuluj</button>
+      <button class="btn btn-danger" type="button" (click)="close()">Anuluj</button>
     </div>
     
   </form>

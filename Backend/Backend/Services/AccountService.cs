@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using Backend.Entities;
+using Backend.Exceptions;
 using Backend.Models;
+using Firebase.Storage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Claims;
 using System.Text;
 
@@ -24,6 +28,7 @@ namespace Backend.Services
         private IMapper _mapper;
         private AuthenticationSettings _authenticationSettings;
         private PasswordHasher<object> _passwordHasher;
+        private Random random = new Random();
 
         public AccountService(EventsDbContext dbContext, IMapper mapper, AuthenticationSettings authenticationSettings)
         {
@@ -37,7 +42,7 @@ namespace Backend.Services
         {
             var user = await _dbContext
                 .Users
-                .FirstOrDefaultAsync(r => r.Email == loginDto.Email);
+                .FirstOrDefaultAsync(r => r.Email == loginDto.Email || r.Username == loginDto.Email);
 
             if (user is null)
                 throw new Exception("Credentials incorrect");
@@ -82,9 +87,21 @@ namespace Backend.Services
 
             var responseErrors = new RegistrationError();
 
+            if (registerDto.PhotoURL != null &&
+               (System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpg" &&
+               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpeg" &&
+               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".bmp" &&
+               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".png"))
+            {
+                responseErrors.Errors.Add("photo", "Podane zdjęcie jest niepoprawne.");
+                return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
+            }
+
+                
+
             if (user != null)
             {
-                if(user.Email == registerDto.Email)
+                if (user.Email == registerDto.Email)
                 {
                     responseErrors.Errors.Add("email", "Podany adres email jest już zajęty.");
                 }
@@ -92,7 +109,14 @@ namespace Backend.Services
                 {
                    responseErrors.Errors.Add("username", "Podana nazwa użytkownika jest już zajęta.");
                 }
-                return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
+                if (registerDto.PhotoURL != null &&
+                   (System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpg" &&
+                   System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpeg" &&
+                   System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".bmp" &&
+                   System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".png"))
+                    responseErrors.Errors.Add("photo", "Podane zdjęcie jest niepoprawne.");
+
+                    return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
             }
            
 
@@ -101,11 +125,15 @@ namespace Backend.Services
                 Username = registerDto.Username,
                 Email = registerDto.Email,
                 HashPassword = _passwordHasher.HashPassword(null, registerDto.Password),
-                UserPic = "",
                 CreatedAt = DateTime.Now
             };
             try
             {
+                if (registerDto.PhotoURL != null)
+                    newUser.UserPic = await uploadPhoto(registerDto.PhotoURL);
+                else
+                    newUser.UserPic = "https://firebasestorage.googleapis.com/v0/b/moto-event.appspot.com/o/images%2Fusers%2Fdefault.jpg?alt=media&token=98a3e130-f318-4581-9a71-21fa18755eba";
+
                 _dbContext.Add(newUser);
                 _dbContext.SaveChanges();
                 return new Dictionary<bool, RegistrationError> { { true, new RegistrationError() } };
@@ -130,6 +158,28 @@ namespace Backend.Services
             return _mapper.Map<UserDto>(user);
         }
 
+        public async Task<string> uploadPhoto(IFormFile file)
+        {
+            var stream = file.OpenReadStream();
 
+            var task = new FirebaseStorage(DatabaseLink.StorageAddress)
+             .Child("images")
+             .Child("users")
+             .Child(GenerateRandomString() + System.IO.Path.GetExtension(file.FileName))
+             .PutAsync(stream);
+
+            //task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
+
+            var downloadUrl = await task;
+
+            return downloadUrl;
+        }
+
+        public string GenerateRandomString()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            return new string(Enumerable.Repeat(chars, 20)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 }

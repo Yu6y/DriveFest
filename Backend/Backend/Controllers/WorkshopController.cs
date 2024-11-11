@@ -119,6 +119,10 @@ namespace Backend.Controllers
                 var result = await _workshopService.AddWorkshop(workshopDto);
                 return new ObjectResult(result) { StatusCode = 200 };
             }
+            catch (NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
             catch (Exception e)
             {
                 return new ObjectResult("Nie udało się dodać warsztatu!") { StatusCode = 402 };

@@ -14,6 +14,9 @@
                 @if(errors.email){
                   <small class="text-danger">{{ errors.email }}</small>
                 }
+                @if(form.get('email')!.invalid && form.get('email')!.touched){
+                  <small class="text-danger">Niepoprawny adres e-mail.</small>
+                }
                 <input type="email" 
                 class="form-control form-control-lg" 
                 formControlName="email" 
@@ -27,6 +30,9 @@
 
                 @if(errors.username){
                   <small class="text-danger">{{ errors.username }}</small>
+                }
+                @if(form.get('username')!.invalid && form.get('username')!.touched){
+                  <small class="text-danger">Nazwa może się składać z maksymalnie 30 liter, cyfr, znaków ().-_ </small>
                 }
                 <input 
                 type="text" 
@@ -51,6 +57,19 @@
                 <label class="form-label">Hasło</label>
               </div>
 
+              <div class="form-outline form-white mb-4">
+                @if(errors.photo){
+                  <small class="text-danger">{{ errors.photo }}</small>
+                }
+                  <input 
+                  id="photoURL" 
+                  type="file" 
+                  class="form-control form-control-lg" 
+                  accept=".jpg,.jpeg,.png,.bmp"
+                  (change)="sendPhoto($event)">
+                  <label class="form-label">Zdjęcie</label>
+              </div>
+
               <button 
               class="btn btn-lg" 
               type="submit"
@@ -59,7 +78,7 @@
               @if(registerState$ | async; as state){
                 @switch(state.state){
                   @case('loading'){
-                    <div class="load-container container d-flex justify-content-center align-items-center">
+                    <div class="load-container container d-flex justify-content-center align-items-center mt-3">
                       <dx-load-indicator
                         [visible]="true"
                         id="large-indicator"

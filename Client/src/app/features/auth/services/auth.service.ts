@@ -18,7 +18,7 @@ export class AuthService {
     });
   }
 
-  registerUser(registerCredentials: RegisterCredentials) {
+  registerUser(registerCredentials: FormData) {
     return this.httpClient.post(this.URL + 'register', registerCredentials);
   }
 }

@@ -13,9 +13,12 @@ import { AuthStateService } from '../../services/auth-state.service';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../../shared/models/LoadingState';
 import { AsyncPipe } from '@angular/common';
-import { DxLoadIndicatorComponent, DxLoadIndicatorModule } from 'devextreme-angular';
+import {
+  DxLoadIndicatorComponent,
+  DxLoadIndicatorModule,
+} from 'devextreme-angular';
 
-@Component({  
+@Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, AsyncPipe, DxLoadIndicatorModule],
@@ -31,7 +34,7 @@ export class LoginComponent {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }

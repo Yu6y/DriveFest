@@ -180,6 +180,10 @@ namespace Backend.Controllers
                 var result = await _eventService.AddEvent(eventDto);
                 return new ObjectResult(result) { StatusCode = 200 };
             }
+            catch (NotFoundException e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 404 };
+            }
             catch (Exception e)
             {
                 return new ObjectResult("Nie udało się dodać wydarzenia!") { StatusCode = 402 };

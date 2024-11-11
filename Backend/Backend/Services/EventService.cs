@@ -289,6 +289,13 @@ namespace Backend.Services
 
         public async Task<int> AddEvent(AddEventDto addEvent)
         {
+            if (addEvent.PhotoURL != null &&
+                (System.IO.Path.GetExtension(addEvent.PhotoURL.FileName) != ".jpg" &&
+               System.IO.Path.GetExtension(addEvent.PhotoURL.FileName) != ".jpeg" &&
+               System.IO.Path.GetExtension(addEvent.PhotoURL.FileName) != ".bmp" &&
+               System.IO.Path.GetExtension(addEvent.PhotoURL.FileName) != ".png"))
+                throw new NotFoundException("Niepoprawny format zdjęcia.");
+
             Event eventToSave = _mapper.Map<Event>(addEvent);
             EventDescription eventDescToSave = _mapper.Map<EventDescription>(addEvent);
 

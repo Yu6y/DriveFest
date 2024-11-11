@@ -88,6 +88,7 @@ export class RegistryStateService {
       this.toastService.showToast('Zaznacz przynajmniej jeden typ.', 'info');
       return;
     }
+    console.log(filters);
     this.expensesFilters = filters;
     let expenseDesc: ExpenseDescription[] = [];
 
@@ -287,7 +288,10 @@ export class RegistryStateService {
   }
 
   deleteAllExpenses() {
-    if (this.expensesListSubject$.value.state === 'success') {
+    if (
+      this.expensesListSubject$.value.state === 'success' &&
+      this.expensesListSubject$.value.data.length > 0
+    ) {
       this.apiService
         .deleteAllExpenses(this.currCarId)
         .pipe(
@@ -498,5 +502,14 @@ export class RegistryStateService {
 
   setCarId(id: number) {
     this.currCarId = id;
+  }
+
+  prepareReg() {
+    this.changeFilters([
+      EXPENSE_TYPE.FUEL,
+      EXPENSE_TYPE.SERVICE,
+      EXPENSE_TYPE.PARKING,
+      EXPENSE_TYPE.OTHER,
+    ]);
   }
 }

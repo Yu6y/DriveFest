@@ -28,38 +28,38 @@ export class ExpensesListComponent {
   private registryService = inject(RegistryStateService);
   list$ = this.registryService.expensesList$;
   protected expenseTypes = EXPENSE_TYPE;
-  selectedTypes$!: Observable<ExpenseType[]>;
   private expensesFilters: ExpenseType[] = [
     EXPENSE_TYPE.FUEL,
     EXPENSE_TYPE.SERVICE,
     EXPENSE_TYPE.PARKING,
     EXPENSE_TYPE.OTHER,
   ];
+  private selectedFilters: ExpenseType[] = [...this.expensesFilters];
 
   ngOnInit() {
-    this.registryService.getExpenses();
+    this.registryService.prepareReg();
+    //this.registryService.getExpenses();
   }
 
   add() {
-    this.popupService.showPopup();
     this.popupService.setFlag(POPUP_TYPE.ADD);
+    this.popupService.showPopup();
   }
 
   deleteAll() {
-    this.popupService.showPopup();
     this.popupService.setFlag(POPUP_TYPE.DELETE);
+    this.popupService.showPopup();
   }
 
   filter() {
+    this.expensesFilters = [...this.selectedFilters];
     this.registryService.changeFilters(this.expensesFilters);
   }
 
   checkboxChange(type: ExpenseType) {
-    if (this.expensesFilters.includes(type))
-      this.expensesFilters.splice(
-        this.expensesFilters.findIndex((o) => o === type),
-        1
-      );
-    else this.expensesFilters.push(type);
+    if (this.selectedFilters.includes(type))
+      this.selectedFilters = this.selectedFilters.filter((t) => t !== type);
+    else this.selectedFilters.push(type);
+    console.log(`${this.expensesFilters} - filtry`);
   }
 }
