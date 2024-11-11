@@ -34,7 +34,6 @@ export class AuthStateService {
     state: 'idle',
   });
 
-
   userLogged$ = this.userLoggedSubject$.asObservable();
 
   loginState$ = this.loginStateSubject$.asObservable();
@@ -58,7 +57,10 @@ export class AuthStateService {
               localStorage.setItem('auth_token', res);
               console.log(res);
               this.userLoggedSubject$.next(true);
-              this.toastService.showToast('Logowanie przebiegło pomyślnie.', 'success');
+              this.toastService.showToast(
+                'Logowanie przebiegło pomyślnie.',
+                'success'
+              );
               setTimeout(() => this.router.navigate(['/home']), 2000);
             });
         }),
@@ -75,9 +77,18 @@ export class AuthStateService {
   }
 
   registerUser(registerCredentials: RegisterCredentials) {
+    const form = new FormData();
+    form.append('Email', registerCredentials.email);
+    form.append('Username', registerCredentials.username);
+    form.append('Password', registerCredentials.password);
+    form.append(
+      'PhotoURL',
+      registerCredentials.photoURL ? registerCredentials.photoURL : ''
+    );
+
     this.registerStateSubject$.next({ state: 'loading' });
     this.authService
-      .registerUser(registerCredentials)
+      .registerUser(form)
       .pipe(
         tap((response) => {
           of(response as { success: string })
@@ -88,7 +99,10 @@ export class AuthStateService {
                 data: res.success,
               });
               console.log(res);
-              this.toastService.showToast('Rejestracja przebiegła pomyślnie.', 'success');
+              this.toastService.showToast(
+                'Rejestracja przebiegła pomyślnie.',
+                'success'
+              );
               setTimeout(() => this.router.navigate(['/login']), 2000);
             });
         }),

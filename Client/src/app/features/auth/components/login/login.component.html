@@ -11,7 +11,7 @@
 
               <div class="form-outline mb-4">
                 <input type="email" class="form-control form-control-lg" formControlName="email" />
-                <label class="form-label">Email</label>
+                <label class="form-label">Email / Nazwa użytkownika</label>
               </div>
 
               <div class="form-outline form-white mb-4">
@@ -24,7 +24,7 @@
               @if(loginState$ | async; as login){
                 @switch(login.state){
                   @case("loading"){
-                    <div class="load-container container d-flex justify-content-center align-items-center">
+                    <div class="load-container container d-flex justify-content-center align-items-center mt-3">
                       <dx-load-indicator
                         [visible]="true"
                         id="large-indicator"

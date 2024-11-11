@@ -406,10 +406,7 @@ namespace Backend.Services
             try
             {                    
                 if (userCar.PhotoUrl!= null)
-                {
-                    Console.WriteLine("niew");
                     car.PhotoUrl = await uploadPhoto(userCar.PhotoUrl);
-                }
 
                 _dbContext.Update(car);
                 await _dbContext.SaveChangesAsync();

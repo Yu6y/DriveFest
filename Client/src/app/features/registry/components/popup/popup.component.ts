@@ -180,7 +180,8 @@ export class PopupComponent {
       this.registryService.deleteCar(this.car!.id);
     }
 
-    this.closePopup();
+    //this.closePopup();
+    this.close();
   }
 
   close() {
@@ -189,11 +190,11 @@ export class PopupComponent {
     this.popupService.closePopup();
   }
 
-  closePopup() {
-    this.expenseForm.reset();
-    this.carForm.reset();
-    this.popupService.closePopup();
-  }
+  // closePopup() {
+  //   this.expenseForm.reset();
+  //   this.carForm.reset();
+  //   this.popupService.closePopup();
+  // }
 
   sendPhoto(event: any) {
     this.carForm.patchValue({

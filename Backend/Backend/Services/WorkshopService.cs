@@ -153,6 +153,13 @@ namespace Backend.Services
 
         public async Task<int> AddWorkshop(AddWorkshopDto addWorkshop)
         {
+            if (addWorkshop.PhotoURL != null &&
+             (System.IO.Path.GetExtension(addWorkshop.PhotoURL.FileName) != ".jpg" &&
+            System.IO.Path.GetExtension(addWorkshop.PhotoURL.FileName) != ".jpeg" &&
+            System.IO.Path.GetExtension(addWorkshop.PhotoURL.FileName) != ".bmp" &&
+            System.IO.Path.GetExtension(addWorkshop.PhotoURL.FileName) != ".png"))
+                throw new NotFoundException("Niepoprawny format zdjęcia.");
+
             Workshop workshopToSave = _mapper.Map<Workshop>(addWorkshop);
             WorkshopDescription wrkshopDescToSave = _mapper.Map<WorkshopDescription>(addWorkshop);
 
