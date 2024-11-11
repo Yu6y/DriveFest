@@ -14,4 +14,5 @@ import { POPUP_TYPE } from '../../../../shared/models/PopupType';
 export class CarCardComponent {
   @Input({ required: true }) value!: Car;
   @Output() iconClick = new EventEmitter<'edit' | 'delete'>();
+  @Output() cardClick = new EventEmitter<void>();
 }

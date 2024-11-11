@@ -57,7 +57,7 @@ export class WorkshopStateService {
       .pipe(
         tap((response) => {
           of(response)
-            .pipe(delay(1000))
+            .pipe(delay(200))
             .subscribe((res) => {
               console.log(res);
               this.workshopsListSubject$.next({ state: 'success', data: res });
@@ -90,7 +90,7 @@ export class WorkshopStateService {
       .pipe(
         tap((response) => {
           of(response)
-            .pipe(delay(1000))
+            .pipe(delay(200))
             .subscribe((res) => {
               console.log(res);
               this.workshopsListSubject$.next({ state: 'success', data: res });
@@ -139,7 +139,7 @@ export class WorkshopStateService {
       .pipe(
         tap((response) => {
           of(response)
-            .pipe(delay(1000))
+            .pipe(delay(200))
             .subscribe((res) => {
               res.forEach(
                 (comment) =>
@@ -207,23 +207,36 @@ export class WorkshopStateService {
     return this.apiService.addWorkshop(form);
   }
 
-  rateWorkshop(rate: number, isRated: boolean){ // sciagac z api obiekt, liczba i ocena
+  rateWorkshop(rate: number, isRated: boolean) {
+    // sciagac z api obiekt, liczba i ocena
     let workshop: WorkshopDesc;
-    if(this.workshopDescSubject$.value.state === 'success'){
+    if (this.workshopDescSubject$.value.state === 'success') {
       workshop = this.workshopDescSubject$.value.data;
-      this.apiService.rateWorkshop(rate, this.workshopDescSubject$.value.data.id).pipe(
-        tap((res) => {
-          workshop.rate = res;
-          if(!isRated)
-            workshop.ratesCount++;
-          this.workshopDescSubject$.next({state: 'success', data: workshop})
-    }))
-    .subscribe(() => this.toastState.showToast('Dodano ocenę.', 'success'), (error) => {
-      this.toastState.showToast('Nie udało się ocenić warsztatu.', 'error');});
+      this.apiService
+        .rateWorkshop(rate, this.workshopDescSubject$.value.data.id)
+        .pipe(
+          tap((res) => {
+            workshop.rate = res;
+            if (!isRated) workshop.ratesCount++;
+            this.workshopDescSubject$.next({
+              state: 'success',
+              data: workshop,
+            });
+          })
+        )
+        .subscribe(
+          () => this.toastState.showToast('Dodano ocenę.', 'success'),
+          (error) => {
+            this.toastState.showToast(
+              'Nie udało się ocenić warsztatu.',
+              'error'
+            );
+          }
+        );
+    }
   }
-  } 
 
-  getWorkshopRate(workshopId: number){
+  getWorkshopRate(workshopId: number) {
     return this.apiService.getWorkshopRate(workshopId);
   }
 }

@@ -1,0 +1,45 @@
+@if(user$ | async; as user){
+<div class="container my-lg-4 profile-container">
+  @switch(user.state){
+   @case('loading'){
+    <div class="load-container container d-flex justify-content-center align-items-center">
+      <dx-load-indicator
+        [visible]="true"
+        id="large-indicator"
+        [height]="40"
+        [width]="40">
+      </dx-load-indicator>
+    </div>
+   }
+
+   @case('success'){
+    <div class="mb-3 d-flex justify-content-center">
+      <img class="userpic" [src]="user.data.userPic">
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <p class="username-text text-center">{{ user.data.username }}</p>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <p class="mail-text text-center">{{ user.data.email }}</p>
+    </div>
+
+    @if(user.data.followedEvent){
+      <div class="d-flex justify-content-center mt-4">
+        <p class="event-text text-center">Nadchodzące wydarzenie</p>
+      </div>
+
+      <app-event-card [event]="user.data.followedEvent" (click)="eventClick(user.data.followedEvent.id)"></app-event-card>
+    }
+    <div class="d-flex justify-content-center my-4">
+      <button class="custom-btn" type="submit" (click)="regClick()">Moje pojazdy</button>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      <button class="btn btn-danger" type="submit" (click)="logout()">Wyloguj</button>
+    </div>
+  }
+}
+</div>
+}

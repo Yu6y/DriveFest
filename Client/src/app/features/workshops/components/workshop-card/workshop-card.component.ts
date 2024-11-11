@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { WorkshopShort } from '../../../../shared/models/WorkshopShort';
 
@@ -11,6 +11,7 @@ import { WorkshopShort } from '../../../../shared/models/WorkshopShort';
 })
 export class WorkshopCardComponent {
   @Input({ required: true }) workshop!: WorkshopShort;
+  @Output() cardClick = new EventEmitter<void>();
   tags: string = '#';
 
   ngOnInit() {

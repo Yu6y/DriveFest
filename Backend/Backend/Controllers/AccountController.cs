@@ -6,7 +6,7 @@ namespace Backend.Controllers
 {
     [Route("api/account")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
 
@@ -46,18 +46,18 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetUser([FromRoute] int userId)
+        public async Task<IActionResult> GetUser()
         {
             try
             {
-                var user = await _accountService.GetUserInfo(userId);
+                var user = await _accountService.GetUserInfo(GetUserId());
                 return new ObjectResult(user) { StatusCode = 200 };
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message) { StatusCode = 404 };
+                return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
     }

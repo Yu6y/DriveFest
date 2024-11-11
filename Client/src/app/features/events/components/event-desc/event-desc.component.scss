@@ -122,11 +122,13 @@ button {
 }
 
 .description {
-  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .text-container{
   margin-bottom: 50px;
+  width: 100%;
+  overflow: hidden;
 }
 
 
