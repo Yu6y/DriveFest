@@ -288,10 +288,7 @@ export class RegistryStateService {
   }
 
   deleteAllExpenses() {
-    if (
-      this.expensesListSubject$.value.state === 'success' &&
-      this.expensesListSubject$.value.data.length > 0
-    ) {
+    if (this.expensesListSubject$.value.state === 'success') {
       this.apiService
         .deleteAllExpenses(this.currCarId)
         .pipe(
