@@ -71,7 +71,7 @@ export class EventStateService {
         }),
         tap((response) => {
           of(response)
-            .pipe(delay(1000))
+            .pipe(delay(200))
             .subscribe((res) => {
               this.eventsListSubject$.next({ state: 'success', data: res });
               console.log(res);
@@ -121,7 +121,7 @@ export class EventStateService {
       .pipe(
         tap((response) => {
           of(response)
-            .pipe(delay(1000))
+            .pipe(delay(200))
             .subscribe((res) => {
               res.forEach(
                 (x) => (x.timestamp = this.datePipe.transform(x.timestamp))
@@ -283,7 +283,7 @@ export class EventStateService {
         }),
         tap((response) => {
           of(response)
-            .pipe(delay(1000))
+            .pipe(delay(200))
             .subscribe((res) => {
               this.eventsListSubject$.next({ state: 'success', data: res });
               console.log(res);
@@ -326,7 +326,7 @@ export class EventStateService {
         }),
         tap((response) => {
           of(response)
-            .pipe(delay(1000))
+            .pipe(delay(200))
             .subscribe((res) => {
               this.eventsListSubject$.next({ state: 'success', data: res });
               console.log(res);

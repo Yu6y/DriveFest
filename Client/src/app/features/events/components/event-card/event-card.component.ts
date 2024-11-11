@@ -12,4 +12,5 @@ import { EventShort } from '../../../../shared/models/EventShort';
 export class EventCardComponent {
   @Input({ required: true }) event!: EventShort;
   @Output() follow = new EventEmitter<EventShort>();
+  @Output() cardClick = new EventEmitter<void>();
 }

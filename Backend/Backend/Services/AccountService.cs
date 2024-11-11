@@ -155,7 +155,27 @@ namespace Backend.Services
             if (user == null)
                 throw new Exception("User not found");
 
-            return _mapper.Map<UserDto>(user);
+            var userInfo =  _mapper.Map<UserDto>(user);
+                
+            var events = await _dbContext
+                .Events
+                .Where(l => l.LikedByUsers.Any(r => r.Id == userId))
+                .OrderBy(d => d.Date)
+                .ToListAsync();
+
+            if (events.Count == 0)
+                userInfo.FollowedEvent = null;
+
+            foreach(var item in events)
+            {
+                if(item.Date.Date >= DateTime.Now.Date)
+                {
+                    userInfo.FollowedEvent = _mapper.Map<EventDto>(item);
+                    userInfo.FollowedEvent.IsFavorite = true;
+                }
+            }
+
+            return userInfo;
         }
 
         public async Task<string> uploadPhoto(IFormFile file)

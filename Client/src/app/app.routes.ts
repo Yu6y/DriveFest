@@ -12,6 +12,7 @@ import { AddEventComponent } from './features/add-forms/add-event/add-event.comp
 import { AddWorkshopComponent } from './features/add-forms/add-workshop/add-workshop.component';
 import { RegistryComponent } from './features/registry/registry.component';
 import { CarDataComponent } from './features/registry/components/car-data/car-data.component';
+import { UserProfileComponent } from './features/user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -86,6 +87,12 @@ export const routes: Routes = [
     path: 'registry/:id',
     component: CarDataComponent,
     title: 'Rejestr',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    title: 'Profil',
     canActivate: [authGuard],
   },
   {
