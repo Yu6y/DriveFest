@@ -51,7 +51,7 @@ export class AuthStateService {
       .pipe(
         tap((response) => {
           of(response)
-            .pipe(delay(2000))
+            .pipe(delay(1000))
             .subscribe((res) => {
               this.loginStateSubject$.next({ state: 'success', data: res });
               localStorage.setItem('auth_token', res);
@@ -92,7 +92,7 @@ export class AuthStateService {
       .pipe(
         tap((response) => {
           of(response as { success: string })
-            .pipe(delay(2000))
+            .pipe(delay(1000))
             .subscribe((res) => {
               this.registerStateSubject$.next({
                 state: 'success',
