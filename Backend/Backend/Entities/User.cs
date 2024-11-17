@@ -10,6 +10,7 @@ namespace Backend.Entities
         public string HashPassword { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string UserPic { get; set; }
+        public bool IsAdmin { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
         public virtual List<WorkshopComment> WorkshopComments {  get; set; }

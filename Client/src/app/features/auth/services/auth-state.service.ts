@@ -18,6 +18,7 @@ import { LoadingState } from '../../../shared/models/LoadingState';
 import { toLoadingState } from '../../../shared/utils/CreateState';
 import { RegisterError, RegisterState } from '../models/RegistrationState';
 import { ToastService } from '../../../shared/services/toast.service';
+import { SuccessLogin } from '../../../shared/models/SuccessLogin';
 
 @Injectable({
   providedIn: 'root',
@@ -27,15 +28,16 @@ export class AuthStateService {
   private router = inject(Router);
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
-  private loginStateSubject$ = new BehaviorSubject<LoadingState<string>>({
+  private loginStateSubject$ = new BehaviorSubject<LoadingState<SuccessLogin>>({
     state: 'idle',
   });
   private registerStateSubject$ = new BehaviorSubject<RegisterState<string>>({
     state: 'idle',
   });
+  private isAdmin = new BehaviorSubject<boolean>(false);
 
   userLogged$ = this.userLoggedSubject$.asObservable();
-
+  userAdmin$ = this.isAdmin.asObservable();
   loginState$ = this.loginStateSubject$.asObservable();
   registerState$ = this.registerStateSubject$.asObservable();
 
@@ -54,13 +56,14 @@ export class AuthStateService {
             .pipe(delay(1000))
             .subscribe((res) => {
               this.loginStateSubject$.next({ state: 'success', data: res });
-              localStorage.setItem('auth_token', res);
+              localStorage.setItem('auth_token', res.jwt);
               console.log(res);
               this.userLoggedSubject$.next(true);
               this.toastService.showToast(
                 'Logowanie przebiegło pomyślnie.',
                 'success'
               );
+              this.isAdmin.next(res.isAdmin);
               setTimeout(() => this.router.navigate(['/home']), 2000);
             });
         }),
@@ -121,6 +124,25 @@ export class AuthStateService {
   isAuthenticated(): boolean {
     if (localStorage.getItem('auth_token')) return true;
     return false;
+  }
+
+  getUserRole() {
+    console.log(this.isAuthenticated());
+    if (this.isAuthenticated()) {
+      this.authService
+        .getUserRole()
+        .pipe(
+          tap((res) => {
+            this.isAdmin.next(res.isAdmin);
+            console.log(res);
+          }),
+          catchError((err) => {
+            console.log(err);
+            return throwError(err);
+          })
+        )
+        .subscribe();
+    }
   }
 
   logout() {

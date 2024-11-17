@@ -64,6 +64,15 @@
           routerLink="profile"
           (click)="navClick()">Mój profil</a>
         </div>
+       @if(isAdmin$ | async; as admin){
+        <div  class="nav-item mx-lg-2">
+          <a 
+          [class.navbar-container]="!isCollapsed" 
+          class="nav-link"
+          routerLink="/admin"
+          (click)="navClick()">Panel administratora</a>
+        </div>
+      }
         <div class="nav-item ms-lg-auto d-none d-lg-block">
           <a 
             (click)="logout.emit()"

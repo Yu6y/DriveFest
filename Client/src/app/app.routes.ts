@@ -13,87 +13,105 @@ import { AddWorkshopComponent } from './features/add-forms/add-workshop/add-work
 import { RegistryComponent } from './features/registry/registry.component';
 import { CarDataComponent } from './features/registry/components/car-data/car-data.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { UsersListComponent } from './features/admin/components/users-list/users-list.component';
+import { adminGuard } from './features/auth/services/admin.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    component: UserLayoutComponent,
+    children: [
+      {
+        path: 'home',
+        component: EventsComponent,
+        title: 'Strona Główna',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'event/:id',
+        component: EventDescComponent,
+        title: 'Szczegóły',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        title: 'Logowanie',
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        title: 'Rejestracja',
+      },
+      {
+        path: 'favorites',
+        component: FavListComponent,
+        title: 'Zaobserwowane',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'workshops',
+        component: WorkshopsComponent,
+        title: 'Watsztaty',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'workshop/:id',
+        component: WorkshopDescComponent,
+        title: 'Szczegóły',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'error',
+        component: ErrorPageComponent,
+        title: 'Błąd',
+      },
+      {
+        path: 'add-event',
+        component: AddEventComponent,
+        title: 'Dodaj wydarzenie',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'add-workshop',
+        component: AddWorkshopComponent,
+        title: 'Dodaj warsztat',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'registry',
+        component: RegistryComponent,
+        title: 'Pojazdy',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'registry/:id',
+        component: CarDataComponent,
+        title: 'Rejestr',
+        canActivate: [authGuard],
+      },
+      {
+        path: 'profile',
+        component: UserProfileComponent,
+        title: 'Profil',
+        canActivate: [authGuard],
+      },
+    ],
   },
   {
-    path: 'home',
-    component: EventsComponent,
-    title: 'Strona Główna',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'event/:id',
-    component: EventDescComponent,
-    title: 'Szczegóły',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    title: 'Logowanie',
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    title: 'Rejestracja',
-  },
-  {
-    path: 'favorites',
-    component: FavListComponent,
-    title: 'Zaobserwowane',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'workshops',
-    component: WorkshopsComponent,
-    title: 'Watsztaty',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'workshop/:id',
-    component: WorkshopDescComponent,
-    title: 'Szczegóły',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'error',
-    component: ErrorPageComponent,
-    title: 'Błąd',
-  },
-  {
-    path: 'add-event',
-    component: AddEventComponent,
-    title: 'Dodaj wydarzenie',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'add-workshop',
-    component: AddWorkshopComponent,
-    title: 'Dodaj warsztat',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'registry',
-    component: RegistryComponent,
-    title: 'Pojazdy',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'registry/:id',
-    component: CarDataComponent,
-    title: 'Rejestr',
-    canActivate: [authGuard],
-  },
-  {
-    path: 'profile',
-    component: UserProfileComponent,
-    title: 'Profil',
-    canActivate: [authGuard],
+    path: 'admin',
+    component: AdminLayoutComponent,
+    canActivate: [authGuard, adminGuard],
+    children: [
+      {
+        path: '',
+        component: UsersListComponent,
+        title: 'Lista użytkowników',
+        //canActivate: [authGuard],
+      },
+    ],
   },
   {
     path: '**',
