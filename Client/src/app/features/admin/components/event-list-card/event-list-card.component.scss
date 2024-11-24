@@ -1,0 +1,23 @@
+.event-date{
+  margin: auto;
+}
+
+.event-name{
+  margin: auto auto auto 0;
+}
+
+.event-name-container,
+.event-date-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.event-name-container{
+  cursor: pointer;
+
+  &:hover{
+    color: blue;
+  }
+}
+

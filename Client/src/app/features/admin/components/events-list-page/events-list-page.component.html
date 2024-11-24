@@ -1,0 +1,23 @@
+<div class="container list-container">
+  
+  @if(list$ | async; as list){
+    @switch(list.state){
+      @case('loading'){
+        <div class="load-container container d-flex justify-content-center align-items-center mt-3">
+          <dx-load-indicator
+            [visible]="true"
+            id="large-indicator"
+            [height]="40"
+            [width]="40">
+          </dx-load-indicator>
+        </div>
+      }
+      @case('success'){
+        <app-events-list [list]="list.data"></app-events-list>
+      }
+      @case('error'){
+        <p class="text-danger text-center">Wystąpił błąd.</p>
+      }
+    }
+  }
+</div>

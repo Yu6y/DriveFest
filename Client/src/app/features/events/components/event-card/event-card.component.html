@@ -15,6 +15,15 @@
         <mat-icon color="orange">location_on</mat-icon>
         <span class="desc-text">{{ this.event.location }}</span>
       </div>
+      <div class="verify-container d-flex">
+        @if(event.isVerified){
+          <mat-icon color="orange">verified</mat-icon>
+          <span class="verify-text">Zweryfikowany</span>
+        }@else{
+          <mat-icon color="grey">verified</mat-icon>
+          <span class="verify-text">Niezweryfikowany</span>
+        }
+      </div>
     </div>
     <div class="follow-container">
       <div class="follow-btn-container">

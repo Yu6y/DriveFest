@@ -12,6 +12,7 @@ namespace Backend.Entities
         public int FollowersCount { get; set; }   
         public string Image { get; set; }         
         public List<Tag> Tags { get; set; }
+        public bool IsVerified { get; set; }
 
         public virtual EventDescription EventDescription { get; set; }
         public virtual List<User> LikedByUsers { get; set; }

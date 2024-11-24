@@ -53,6 +53,8 @@ namespace Backend
 
             CreateMap<UserCar, UserCarDto>();
             CreateMap<AddUserCarDto, UserCar>();
+
+            CreateMap<Event, UnverifiedEventsDto>();
         }
     }
 }

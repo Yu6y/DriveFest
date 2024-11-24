@@ -10,4 +10,5 @@ export type EventShort = {
   voivodeship: string;
   tags: Tag[];
   isFavorite: boolean;
+  isVerified: boolean;
 };

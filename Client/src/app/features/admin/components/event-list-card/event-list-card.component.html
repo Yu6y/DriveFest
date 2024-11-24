@@ -1,0 +1,15 @@
+<div class="card-container container">
+  <div class="row border py-1">
+  <div class="event-name-container p-0 ps-1 col-lg-8"(click)="sendData('event', value.id)">
+    <p class="event-name">{{ value.name }}</p>
+  </div>
+  <div class="event-date-container col-lg-1">
+    <p class="event-date">{{ value.date }}</p>
+  </div>
+  <div class="col-lg-3 d-flex justify-content-end align-items-center">
+    <button class="btn btn-success mx-2" (click)="sendData('accept', value.id)" [disabled]="clicked">Akceptuj</button>
+    <button class="btn btn-warning mx-2" (click)="sendData('edit', value.id)"  [disabled]="clicked">Edytuj</button>
+    <button class="btn btn-danger mx-2" (click)="sendData('delete', value.id)"  [disabled]="clicked">Usuń</button>
+  </div>
+</div>
+</div>

@@ -17,12 +17,19 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { UsersListComponent } from './features/admin/components/users-list/users-list.component';
 import { adminGuard } from './features/auth/services/admin.guard';
+import { EventsListPageComponent } from './features/admin/components/events-list-page/events-list-page.component';
+import { EditEventComponent } from './features/admin/components/edit-event/edit-event.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: UserLayoutComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
       {
         path: 'home',
         component: EventsComponent,
@@ -103,12 +110,29 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [authGuard, adminGuard],
+    //canActivate: [authGuard, adminGuard], na czas testowania
     children: [
       {
         path: '',
+        redirectTo: 'events',
+        pathMatch: 'full',
+      },
+      {
+        path: 'users',
         component: UsersListComponent,
-        title: 'Lista użytkowników',
+        title: 'Użytkownicy',
+        //canActivate: [authGuard],
+      },
+      {
+        path: 'events',
+        component: EventsListPageComponent,
+        title: 'Wydarzenia',
+        //canActivate: [authGuard],
+      },
+      {
+        path: 'edit-event',
+        component: EditEventComponent,
+        title: 'Szczegóły',
         //canActivate: [authGuard],
       },
     ],

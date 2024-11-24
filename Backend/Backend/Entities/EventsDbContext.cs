@@ -47,6 +47,10 @@ namespace Backend.Entities
                 .WithOne(ed => ed.Event)
                 .HasForeignKey<EventDescription>(ed => ed.EventId);
 
+            modelBuilder.Entity<Event>()
+                .Property(r => r.IsVerified)
+                .IsRequired();
+
             // Relacja 1:N między EventDescription a Comment
             modelBuilder.Entity<EventDescription>()
                 .HasMany(ed => ed.Comments)

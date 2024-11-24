@@ -19,5 +19,10 @@ namespace Backend.Controllers
         {
             return this.User.Claims.First(i => i.Type == ClaimTypes.Name).Value;
         }
+
+        protected bool IsUserAdmin()
+        {
+            return this.User.Claims.First(i => i.Type == ClaimTypes.Role).Value == "admin" ? true : false;
+        }
     }
 }

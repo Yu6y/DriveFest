@@ -11,5 +11,6 @@
         public string Image { get; set; }
         public bool IsFavorite { get; set; } = false;
         public List<TagsDto> Tags { get; set; }
+        public bool IsVerified { get; set; }
     }
 }

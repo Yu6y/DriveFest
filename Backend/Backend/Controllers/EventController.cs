@@ -137,7 +137,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost("favorites")]
-        public async Task<IActionResult> AddEventToFavorites([FromBody] FavEventDto favEvent)
+        public async Task<IActionResult> AddEventToFavorites([FromBody] EventIdDto favEvent)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("favorites/{eventId}")]
-        public async Task<IActionResult> DeleteFavoriteEvent([FromRoute] FavEventDto favEvent)
+        public async Task<IActionResult> DeleteFavoriteEvent([FromRoute] EventIdDto favEvent)
         {
             try
             {
@@ -177,7 +177,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var result = await _eventService.AddEvent(eventDto);
+                var result = await _eventService.AddEvent(eventDto, IsUserAdmin());
                 return new ObjectResult(result) { StatusCode = 200 };
             }
             catch (NotFoundException e)
