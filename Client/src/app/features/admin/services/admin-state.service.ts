@@ -6,6 +6,8 @@ import { AdminEvent } from '../../../shared/models/AdminEvent';
 import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
 import { EventDesc } from '../../../shared/models/EventDesc';
 import { EventApiService } from '../../events/services/event-api.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +16,7 @@ export class AdminStateService {
   private apiService = inject(AdminApiService);
   private datePipe = inject(DateCustomPipe);
   private eventService = inject(EventApiService);
+  private router = inject(Router);
 
   eventsListSubject$ = new BehaviorSubject<LoadingState<AdminEvent[]>>({
     state: 'idle',
@@ -94,6 +97,25 @@ export class AdminStateService {
   getEventToEdit(id: number) {
     this.eventToEdtiSubject$.next({ state: 'loading' });
 
-    this.eventService.getEventDesc(id).pipe;
+    this.eventService.getEventDesc(id).pipe(
+      map((data) => {
+        data.date = this.datePipe.transform(data.date);
+
+        return data;
+      }),
+      tap((response) => {
+        this.eventToEdtiSubject$.next({ state: 'success', data: response });
+        console.log(response);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.eventToEdtiSubject$.next({
+          state: 'error',
+          error: error.message,
+        });
+        this.router.navigate(['/error']);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -6,18 +6,34 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import {
-  DxDateBoxModule,
-  DxFileUploaderModule,
-  DxFormModule,
-  DxSelectBoxModule,
-  DxTagBoxModule,
-  DxTextAreaModule,
+DxDateBoxModule,
+DxFileUploaderModule,
+DxFormComponent,
+DxFormModule,
+DxSelectBoxModule,
+DxTagBoxModule,
+DxTextAreaModule,
+DxValidationSummaryModule,
+DxValidatorModule,
 } from 'devextreme-angular';
 import { DxDateBoxTypes } from 'devextreme-angular/ui/date-box';
 import {
-  DxCheckBoxModule,
-  DxCheckBoxTypes,
+DxCheckBoxModule,
+DxCheckBoxTypes,
 } from 'devextreme-angular/ui/check-box';
+import { Voivodeships } from '../../../../shared/models/voivodeships';
+import { DxoSummaryModule } from 'devextreme-angular/ui/nested';
+import { AdminStateService } from '../../services/admin-state.service';
+import { Observable } from 'rxjs';
+import { LoadingState } from '../../../../shared/models/LoadingState';
+import { EventDesc } from '../../../../shared/models/EventDesc';
+import { EventStateService } from '../../../events/services/event-state.service';
+import { Tag } from '../../../../shared/models/Tag';
+import { AsyncPipe } from '@angular/common';
+
+type CustomTag = Tag & {
+  selected: boolean;
+}
 
 @Component({
   selector: 'app-edit-event',
@@ -33,39 +49,91 @@ import {
     DxCheckBoxModule,
     DxFileUploaderModule,
     DxSelectBoxModule,
+    DxTextAreaModule,
+    DxValidatorModule,
+    DxValidationSummaryModule,
+    AsyncPipe,
   ],
   templateUrl: './edit-event.component.html',
   styleUrl: './edit-event.component.scss',
 })
 export class EditEventComponent {
+  private adminService = inject(AdminStateService);
+  private eventService = inject(EventStateService);
   private router = inject(Router);
 
-  date = '2024-02-12';
+  @ViewChild('tagsForm', { static: false }) cosiek!: DxFormComponent;
+
+  event$!: Observable<LoadingState<EventDesc>>;
+  tagsList!: CustomTag[];
+  eventDesc!: EventDesc;
+  textAreaValid: boolean = true;
+
   ngOnInit() {
-    console.log(window.history.state.id);
+    //observable 2 na html, na przycisk sciagniecie danych z formularza
+    this.eventService.getTags().subscribe(
+      (response) => {
+        this.tagsList = response.map((tag) => ({ ...tag, selected: false }));
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+        alert('Wystąpił błąd. Spróbuj ponownie później');
+        this.router.navigate(['admin']);
+      }
+    );
+
+    this.event$ = this.adminService.eventEdit$;
+    this.adminService.getEventToEdit(window.history.state.id);
+
+    this.event$.subscribe(res => {
+      if(res.state === 'success'){
+        this.eventDesc = res.data;
+        this.onTagsLoad(res.data);
+      }
+    })
+  } //tagi? mapowac do event decs i jednorazowo pobrac tagi?
+
+  onTagsLoad(event: EventDesc) {
+    this.tagsList.forEach(x => x.selected = event.tags.some(y => y.id === x.id));
   }
-  employee = {
-    name: 'John Heart',
-    position: 'CEO',
-    hireDate: '2024-01-12',
-    officeNumber: 901,
-    phone: '+1(213) 555-9392',
-    skype: 'jheart_DX_skype',
-    email: 'jheart@dx-email.com',
-    tags: [] as any,
-    voiv: 'coipawn' as string,
-  };
+
+  onTagChanged(tag: CustomTag) {
+    const indexEvent = this.eventDesc.tags.findIndex(index => index.id === tag.id);
+
+    if (indexEvent === -1) {
+      const newTag: Tag = {id: tag.id, name: tag.name};
+
+      this.eventDesc.tags.push(newTag); 
+    } else{
+      this.eventDesc.tags.splice(indexEvent, 1); 
+    }
+
+    console.log(this.tagsList);
+    console.log(this.eventDesc.tags);
+  }
+
+  textChange(event: any){
+    console.log(event.value)
+    if(event.value.trim().length() > 0)
+      this.textAreaValid = true;
+    else this.textAreaValid = false;
+  }
 
   cos() {
-    console.log(this.employee);
+    console.log(this.eventDesc);
+    console.log(this.tagsList);
+    console.log(this.cosiek.instance.option('formData'));
   }
   dateBoxOptions: DxDateBoxTypes.Properties = {
-    placeholder: this.employee.hireDate,
+    // zamienic na html
     acceptCustomValue: false,
     openOnFieldClick: true,
     displayFormat: 'yyyy-MM-dd',
   };
+
   isHomeAddressVisible: boolean | undefined | null = true;
+
   checkBoxOptions: DxCheckBoxTypes.Properties = {
     text: 'Show Address',
     value: true,
@@ -74,28 +142,21 @@ export class EditEventComponent {
     },
   };
 
-  tagList = [
-    { id: 1, nazwa: 'Tag 1', selected: false },
-    { id: 2, nazwa: 'Tag 2', selected: false },
-    { id: 3, nazwa: 'Tag 3', selected: false },
-  ];
+  // // submitForm() {
+  // //   const selectedTags = this.tagsList
+  // //     .filter((tag) => tag.selected)
+  // //     .map((tag) => tag.id);
 
-  submitForm() {
-    const selectedTags = this.tagList
-      .filter((tag) => tag.selected)
-      .map((tag) => tag.id);
-
-    this.employee.tags = selectedTags;
-
-    console.log('Dane formularza:', this.employee);
-  }
+  //   console.log('Dane formularza:', this.employee);
+  // }
 
   uploadedFiles: any[] = [];
 
   handlePhotoUpload(event: any) {
-    const file = event.file;
+    const file: File = event.target.files[0];
     console.log('Uploaded file:', file);
   }
+  voivodeships = Voivodeships;
 
   showScrollbarModes: { text: string; value: string }[] = [
     {
@@ -115,4 +176,27 @@ export class EditEventComponent {
       value: 'never',
     },
   ];
+
+  dwa = 'Dolnośląskie';
+
+  // validateTags(){
+  //   if(this.tagsList.some(tag => tag.selected)){
+  //     console.log('true')
+  //   }
+  //   else
+  //   console.log('false')
+  //   return this.tagList.some(tag => tag.selected);
+  // }
+
+  validate() {}
+  borderStyle: string = 'none';
+  callbacks = [];
+  adapterConfig = {
+    getValue: () => {
+      return this.tagsList;
+    },
+    validationRequestsCallbacks: [],
+  };
+
+  True = true;
 }

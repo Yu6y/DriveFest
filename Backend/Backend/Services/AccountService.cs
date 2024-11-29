@@ -135,7 +135,8 @@ namespace Backend.Services
                 Username = registerDto.Username,
                 Email = registerDto.Email,
                 HashPassword = _passwordHasher.HashPassword(null, registerDto.Password),
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                IsAdmin = false
             };
             try
             {

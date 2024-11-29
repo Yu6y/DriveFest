@@ -1,80 +1,162 @@
-<div class="container my-4 comments-container">
-  <p class="new-text text-center">Edycja wydarzenia</p>
-  <dx-form
-    [formData]="employee"
-    [colCount]="2">
-    <dxi-item 
-        itemType="group" 
-        caption="Personal Information">
-        <dxi-item dataField="name"></dxi-item>
-        <dxi-item dataField="position"></dxi-item>
-        <!-- <dxi-item>
-          <dxo-label text="Dataaa">
+@if(event$ | async; as event){
+  @if(event.state === 'success'){
+<div class="container my-4 comments-container col-6">
+    <p class="new-text text-center">Edycja wydarzenia</p>
+    <dx-form
+      #tagsForm
+      [formData]="event.data">
+      <dxi-item 
+          itemType="group">
 
-          </dxo-label>
-          <dx-date-box
-            displayFormat="yyyy-MM-dddd"
-            [(value)]="employee.hireDate"
-            applyValueMode="useButtons"
+          <dxi-item 
+            dataField="name">
+            <dxo-label
+              text="Nazwa"
             >
-          </dx-date-box>
-        </dxi-item> -->
-        <dxi-item
-          dataField="hireDate"
-          editorType="dxDateBox"
-          
-          [editorOptions]="dateBoxOptions"
-        >
-          <dxo-label text="Date of birth"> </dxo-label>
-          <dxi-validation-rule
+            </dxo-label>
+            <dxi-validation-rule
             type="required"
-            message="Date of birth is required"
+            message="Pole wymagane."
           >
         </dxi-validation-rule>
+          </dxi-item>
+
+          <dxi-item dataField="location">
+            <dxo-label
+              text="Miejscowość"
+            >
+            </dxo-label>
+            <dxi-validation-rule
+            type="required"
+            message="Pole wymagane."
+          >
+        </dxi-validation-rule>
+          </dxi-item>
+          
+          <dxi-item dataField="address">
+            <dxo-label
+              text="Adres"
+            >
+            </dxo-label>
+            <dxi-validation-rule
+            type="required"
+            message="Pole wymagane."
+          >
+        </dxi-validation-rule>
+          </dxi-item>
+
+          <dxi-item
+            dataField="date"
+            editorType="dxDateBox"
+            
+            [editorOptions]="dateBoxOptions"
+          >
+            <dxo-label text="Data"> </dxo-label>
+            <dxi-validation-rule
+              type="required"
+              message="Pole wymagane."
+            >
+          </dxi-validation-rule>
+        </dxi-item>
+
+        <dxi-item class="my-5">
+          <div class="d-flex justify-content-center align-items-center">
+            <img style="width:290px; height: 145px;" [src]="event.data.image">
+          </div>
+        </dxi-item>
+
+        <dxi-item>
+          <dxo-label text="Zdjęcie"></dxo-label>
+          <input
+            type="file"
+            id="photo-upload"
+            (change)="handlePhotoUpload($event)"
+            accept="image/*"
+          />
+        </dxi-item>
+
+        <dxi-item >
+          <dxo-label text="Województwo"></dxo-label>
+          <dx-select-box
+                id="show-scrollbar-mode"
+                [inputAttr]="{ 'aria-label': 'Show Scrollbar Mode' }"
+                [items]="voivodeships"
+                [(value)]="event.data.voivodeship"
+                >
+          </dx-select-box>
+          <dxi-validation-rule
+            type="required"
+            message="Pole wymagane."
+          >
+          </dxi-validation-rule>
+        </dxi-item>
+
+
+        <dxi-item itemType="group" caption="Tagi" dataField="tags">
+          @for(tag of tagsList; track tag){
+          <div class="py-1">
+            <dx-check-box
+              [(value)]="tag.selected"
+              [text]="tag.name"
+              (onValueChanged)="onTagChanged(tag)">
+            </dx-check-box>
+          </div>
+        }
+        <dxi-validation-rule
+            type="required"
+            message="Pole wymagane."
+          >
+          </dxi-validation-rule>
       </dxi-item>
-        <dxi-item dataField="officeNumber"></dxi-item>
-    </dxi-item>
-    <dxi-item itemType="group" caption="Contacts">
-        <dxi-item dataField="phone"></dxi-item>
-        <dxi-item dataField="skype"></dxi-item>
-        <dxi-item dataField="email" type=""></dxi-item>
-    </dxi-item>
 
-    <dxi-item itemType="group" caption="Tagi">
-    @for(tag of tagList; track tag.id){
-      <div>
-        <dx-check-box
-          [(value)]="tag.selected"
-          [text]="tag.nazwa"
-        ></dx-check-box>
-      </div>
-    }
-  </dxi-item>
 
-  <dxi-item itemType="group" caption="Photo Uploader">
-    <dx-file-uploader
-      [(value)]="uploadedFiles"
-      [multiple]="false"
-      [accept]="'image/*'"
-      [uploadMode]="'useButtons'"
-      (onUploaded)="handlePhotoUpload($event)">
-    </dx-file-uploader>
-  </dxi-item>
-  <dxi-item itemType="group" caption="Photo Uploader">
-  <dx-select-box
-        id="show-scrollbar-mode"
-        [inputAttr]="{ 'aria-label': 'Show Scrollbar Mode' }"
-        [items]="showScrollbarModes"
-        valueExpr="value"
-        displayExpr="text"
-        [(value)]="employee.voiv"
-      >
-      </dx-select-box>
+        <!-- <dxi-item>
+          <dx-form 
+          #tagsForm
+          [formData]="formData">
+          <dxi-item itemType="group" caption="Tagi">
+          @for(tag of formData.tags; track tag.id){
+            <div class="py-1">
+              <dx-check-box
+                [(value)]="tag.selected"
+                [text]="tag.nazwa"
+                (onValueChanged)="validate()"
+              ></dx-check-box>
+            </div>
+            <dxi-validation-rule
+            type="compare"
+            [validationCallback]="zmienna"
+            message="Pole wymagane.">
+            </dxi-validation-rule>
+          }
+        </dxi-item>
+        </dx-form>
+        </dxi-item> -->
+
+        <dxi-item dataField="description">
+          <dxo-label text="Opis"></dxo-label>
+        
+          <dx-text-area
+          [minHeight]="50"
+          [maxHeight]="300"
+          [autoResizeEnabled]="true"
+          [(value)]="event.data.description"
+          (onChange )="textChange($event)"
+          [isValid]="textAreaValid"
+          >
+          </dx-text-area>
+          <dxi-validation-rule
+            type="required"
+            message="Pole wymagane."
+          >
+          </dxi-validation-rule>
+        </dxi-item>
       </dxi-item>
-  </dx-form>
-  <button (click)="cos()">gdrf</button>
-</div>
-
-
-
-  
+    </dx-form>
+    <div class="container my-5 d-flex justify-content-center align-items-center">
+      <button class="mb-5 btn btn-success" (click)="cos()">Zaakceptuj</button>
+    </div>
+    
+  </div>
+}
+}
