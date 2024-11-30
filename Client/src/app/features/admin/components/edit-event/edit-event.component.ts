@@ -113,11 +113,23 @@ export class EditEventComponent {
     console.log(this.eventDesc.tags);
   }
 
-  textChange(event: any){
-    console.log(event.value)
-    if(event.value.trim().length() > 0)
+  textChange(data: string){
+    console.log(data)
+    if(data.trim().length > 0)
       this.textAreaValid = true;
     else this.textAreaValid = false;
+  }
+
+  isFormValid(): boolean {
+    let valid = true;
+    if(this.cosiek){
+      if(this.cosiek.instance.validate().isValid)
+        valid = true;
+      else 
+        valid = false;
+    }
+    // const formValid: boolean = this.cosiek.instance.validate().isValid !== undefined ? this.cosiek.instance.validate().isValid as boolean: false;
+    return valid &&  this.textAreaValid;
   }
 
   cos() {
@@ -125,6 +137,7 @@ export class EditEventComponent {
     console.log(this.tagsList);
     console.log(this.cosiek.instance.option('formData'));
   }
+
   dateBoxOptions: DxDateBoxTypes.Properties = {
     // zamienic na html
     acceptCustomValue: false,

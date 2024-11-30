@@ -141,20 +141,16 @@
           [maxHeight]="300"
           [autoResizeEnabled]="true"
           [(value)]="event.data.description"
-          (onChange )="textChange($event)"
+          (onChange)="textChange(event.data.description)"
           [isValid]="textAreaValid"
           >
           </dx-text-area>
-          <dxi-validation-rule
-            type="required"
-            message="Pole wymagane."
-          >
-          </dxi-validation-rule>
-        </dxi-item>
+        </dxi-item> 
+
       </dxi-item>
     </dx-form>
     <div class="container my-5 d-flex justify-content-center align-items-center">
-      <button class="mb-5 btn btn-success" (click)="cos()">Zaakceptuj</button>
+      <button class="mb-5 btn btn-success" (click)="cos()" [disabled]="!isFormValid()">Zaakceptuj</button>
     </div>
     
   </div>
