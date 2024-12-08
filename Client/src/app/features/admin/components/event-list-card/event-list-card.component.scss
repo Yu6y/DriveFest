@@ -1,16 +1,17 @@
-.event-date{
+.event-header{
+  font-weight: bold;
+}
+
+.event-name-container, 
+.event-date-container{
+  display: inline-block;
   margin: auto;
 }
 
 .event-name{
-  margin: auto auto auto 0;
-}
-
-.event-name-container,
-.event-date-container{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .event-name-container{

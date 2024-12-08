@@ -1,0 +1,39 @@
+<div class="container-xxl"> <!---->
+  <div class="row py-1">
+    <div class="user-id-container col-lg-1">
+      <span class="user-header d-flex d-lg-none">Id: </span>
+      <p class="user-id my-lg-0">{{ value.id }}</p>
+    </div>
+    <div class="user-username-container col-lg-3">
+      <span class="user-header d-flex d-lg-none">Nick: </span>
+      <p class="user-username my-lg-0">{{ value.username }}</p>
+    </div>
+    <div class="user-email-container col-lg-3 col-xl-4">
+      <span class="user-header d-flex d-lg-none">E-mail: </span>
+      <p class="user-email my-lg-0">{{ value.email }}</p>
+    </div>
+    <div class="user-created-container col-lg-2">
+      <span class="user-header d-flex d-lg-none">Data dołączenia: </span>
+      <p class="user-created my-lg-0">{{ value.createdAt }}</p>
+    </div>
+    <div class="user-admin-container col-lg-1">
+      <span class="user-header d-flex d-lg-none">Uprawnienia administratora: </span>
+      @if(value.isAdmin){
+        <p class="user-admin my-lg-0">Tak</p>
+      }@else{
+        <p class="user-admin my-lg-0">Nie</p>
+      }
+    </div>
+  <div class="btn-container col-lg-2 col-xl-1 d-flex justify-content-center align-items-center ">
+    <button [disabled]="clicked" (click)="value.isAdmin ? sendData('delete', value.id) : sendData('accept', value.id)">
+    <div class="icon-btn d-flex align-items-center">
+      @if(!value.isAdmin){
+        <mat-icon color="green">check</mat-icon>
+      }@else{
+        <mat-icon color="red">close</mat-icon>
+      }
+    </div>
+  </button>
+  </div>
+</div>
+</div>

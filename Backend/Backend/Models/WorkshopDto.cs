@@ -12,5 +12,6 @@ namespace Backend.Models
         public List<TagsDto> Tags { get; set; }
         public float Rate { get; set; }
         public int RatesCount { get; set; }
+        public bool IsVerified { get; set; }
     }
 }

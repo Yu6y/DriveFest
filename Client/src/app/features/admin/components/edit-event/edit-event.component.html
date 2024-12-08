@@ -1,9 +1,10 @@
 @if(event$ | async; as event){
-  @if(event.state === 'success'){
+  @if(tags$ | async; as tags){
+  @if(event.state === 'success' && tags.state === 'success'){
 <div class="container my-4 comments-container col-6">
     <p class="new-text text-center">Edycja wydarzenia</p>
     <dx-form
-      #tagsForm
+      #form
       [formData]="event.data">
       <dxi-item 
           itemType="group">
@@ -48,7 +49,6 @@
           <dxi-item
             dataField="date"
             editorType="dxDateBox"
-            
             [editorOptions]="dateBoxOptions"
           >
             <dxo-label text="Data"> </dxo-label>
@@ -66,7 +66,7 @@
         </dxi-item>
 
         <dxi-item>
-          <dxo-label text="Zdjęcie"></dxo-label>
+          <dxo-label text="Zdjęcie" dataField="photoURL"></dxo-label>
           <input
             type="file"
             id="photo-upload"
@@ -93,9 +93,10 @@
 
 
         <dxi-item itemType="group" caption="Tagi" dataField="tags">
-          @for(tag of tagsList; track tag){
+          @for(tag of tags.data; track tag){
           <div class="py-1">
             <dx-check-box
+              [isValid]="checkboxesValid"
               [(value)]="tag.selected"
               [text]="tag.name"
               (onValueChanged)="onTagChanged(tag)">
@@ -109,30 +110,6 @@
           </dxi-validation-rule>
       </dxi-item>
 
-
-        <!-- <dxi-item>
-          <dx-form 
-          #tagsForm
-          [formData]="formData">
-          <dxi-item itemType="group" caption="Tagi">
-          @for(tag of formData.tags; track tag.id){
-            <div class="py-1">
-              <dx-check-box
-                [(value)]="tag.selected"
-                [text]="tag.nazwa"
-                (onValueChanged)="validate()"
-              ></dx-check-box>
-            </div>
-            <dxi-validation-rule
-            type="compare"
-            [validationCallback]="zmienna"
-            message="Pole wymagane.">
-            </dxi-validation-rule>
-          }
-        </dxi-item>
-        </dx-form>
-        </dxi-item> -->
-
         <dxi-item dataField="description">
           <dxo-label text="Opis"></dxo-label>
         
@@ -145,14 +122,18 @@
           [isValid]="textAreaValid"
           >
           </dx-text-area>
+          <dxi-validation-rule
+          type="required"
+        >
+        </dxi-validation-rule>
         </dxi-item> 
 
       </dxi-item>
     </dx-form>
     <div class="container my-5 d-flex justify-content-center align-items-center">
-      <button class="mb-5 btn btn-success" (click)="cos()" [disabled]="!isFormValid()">Zaakceptuj</button>
+      <button class="mb-5 btn btn-success" (click)="submit()" [disabled]="!isFormValid()">Zaakceptuj</button>
     </div>
     
   </div>
 }
-}
+}}

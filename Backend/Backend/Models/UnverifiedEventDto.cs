@@ -1,6 +1,6 @@
 ﻿namespace Backend.Models
 {
-    public class UnverifiedEventsDto
+    public class UnverifiedEventDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

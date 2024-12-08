@@ -15,10 +15,11 @@ import { CarDataComponent } from './features/registry/components/car-data/car-da
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { UsersListComponent } from './features/admin/components/users-list/users-list.component';
-import { adminGuard } from './features/auth/services/admin.guard';
 import { EventsListPageComponent } from './features/admin/components/events-list-page/events-list-page.component';
 import { EditEventComponent } from './features/admin/components/edit-event/edit-event.component';
+import { WorkshopsListPageComponent } from './features/admin/components/workshops-list-page/workshops-list-page.component';
+import { EditWorkshopComponent } from './features/admin/components/edit-workshop/edit-workshop.component';
+import { UsersListPageComponent } from './features/admin/components/users-list-page/users-list-page.component';
 
 export const routes: Routes = [
   {
@@ -119,7 +120,7 @@ export const routes: Routes = [
       },
       {
         path: 'users',
-        component: UsersListComponent,
+        component: UsersListPageComponent,
         title: 'Użytkownicy',
         //canActivate: [authGuard],
       },
@@ -130,8 +131,20 @@ export const routes: Routes = [
         //canActivate: [authGuard],
       },
       {
+        path: 'workshops',
+        component: WorkshopsListPageComponent,
+        title: 'Warsztaty',
+        //canActivate: [authGuard],
+      },
+      {
         path: 'edit-event',
         component: EditEventComponent,
+        title: 'Szczegóły',
+        //canActivate: [authGuard],
+      },
+      {
+        path: 'edit-workshop',
+        component: EditWorkshopComponent,
         title: 'Szczegóły',
         //canActivate: [authGuard],
       },

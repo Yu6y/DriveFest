@@ -1,9 +1,0 @@
-@for(x of list; track x.id){
-  <div class="list-container">
-    <app-event-list-card [value]="x" (output)="handleOutput($event)"></app-event-list-card>
-  </div>
-}@empty {
-  <div class="container">
-    <p class="empty text-center">Brak danych do wyświetlenia.</p>
-  </div>
-}

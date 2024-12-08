@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AdminEvent } from '../../../../shared/models/AdminEvent';
 
 export type outputTypes = {
-  type: 'delete' | 'edit' | 'accept' | 'event';
+  type: 'delete' | 'edit' | 'accept' | 'event' | 'workshop';
   id: number;
 };
 @Component({

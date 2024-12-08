@@ -9,7 +9,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [CardsListComponent, EventFiltersComponent, AsyncPipe],
+  imports: [CardsListComponent, EventFiltersComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',
 })

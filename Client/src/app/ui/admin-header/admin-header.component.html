@@ -26,6 +26,13 @@
           <a 
             [class.navbar-container]="!isCollapsed" 
             class="nav-link" 
+            routerLink="workshops"
+            (click)="navClick()">Warsztaty</a>
+        </div>
+        <div class="nav-item mx-lg-2">
+          <a 
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link" 
             routerLink="users"
             (click)="navClick()">Użytkownicy</a>
         </div>

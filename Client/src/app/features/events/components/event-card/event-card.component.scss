@@ -1,4 +1,4 @@
-.event-container{
+.event-card{
   border-radius: 10px;
   border-style: solid;
   border-width: 1px;
@@ -6,6 +6,7 @@
   height: 300px;
   width: 300px;
   margin: auto;
+  overflow: hidden;
 }
 
 .name-container{
@@ -13,12 +14,10 @@
   padding-left: 3px;
   font-family: sans-serif;
   font-size: 25px;
-
 }
 
 .p-name{
   margin: 0px;
-  
   white-space: nowrap;   
   overflow: hidden;           
   text-overflow: ellipsis;  
@@ -26,59 +25,20 @@
   display: block;
 }
 
-.event-image{
-  
-  width: 290px;
-  height: 145px; 
-  object-fit: contain;
+.event-image{ 
+  object-fit: cover;
+  height: 150px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .desc-container{
-  display: grid;
-  grid-template-columns: auto 1fr;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .mat-icon.mat-orange{
   color: rgb(182, 123, 13);
-}
-
-.icons-container{
-  display: grid;
-  grid-template-rows: 1.5fr 1.5fr 3ch;
-  padding-left: 3px;
-}
-
-.verify-text{
-  font-size: 10px;
-}
-
-.verify-container{
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  height: 100%;
-}
-
-.verify-container .mat-icon{
-  display: flex;
-  font-size: 15px;
-  vertical-align: bottom;
-}
-
-.verify-container .mat-icon.mat-orange{
-  color: rgb(152, 114, 11);
-}
-
-.verify-container .mat-icon.mat-grey{
-  color: rgb(102, 102, 102);
-}
-
-.follow-text-container,
-.location-container,
-.date-container{
-  display: flex;
-  align-items: center;
 }
 
 .desc-text {
@@ -89,23 +49,12 @@
   white-space: nowrap;
 }
 
-.follow-container{
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-}
-
 .follow-btn-container{
-  padding-top: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 5px;
   .mat-icon.mat-orange, .mat-icon.mat-white{
     transform: scale(0.75);
     vertical-align: middle;
-    padding-bottom: 3px;
+    //padding-bottom: 3px;
   }
-
 }
 
 button{
@@ -121,7 +70,6 @@ button{
   font-size:15px;
 }
 
-
 .followed-btn{
   height: 40px;
   border-radius: 4px;
@@ -133,14 +81,31 @@ button{
   background-color: rgb(182, 123, 13);
 }
 
-.follow-text-container{
-  margin: 0;
-  padding: 0;
-  padding-right: 5px;
+.follow-text-container,
+.location-container,
+.date-container{
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
 }
 
 .follow-text{
   font-size: 18px;
 }
+
+.verify-text{
+  margin-top: 1px;
+  font-size: 10px;
+}
+
+.verify-container .mat-icon{
+  transform: scale(0.6);
+  vertical-align: middle;
+}
+.verify-container .mat-icon.mat-orange{
+  color: rgb(152, 114, 11);
+}
+
+.verify-container .mat-icon.mat-grey{
+  color: rgb(102, 102, 102);
+}
+

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { EventListCardComponent } from '../event-list-card/event-list-card.component';
-import { EventsListComponent } from '../events-list/events-list.component';
+import { LinearListComponent } from '../linear-list/linear-list.component';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../../shared/models/LoadingState';
 import { AdminEvent } from '../../../../shared/models/AdminEvent';
@@ -12,19 +12,12 @@ import {
 } from 'devextreme-angular';
 
 @Component({
-  selector: 'app-events-list-page',
+  selector: 'app-linear-list-page',
   standalone: true,
-  imports: [EventsListComponent, AsyncPipe, DxLoadIndicatorModule],
+  imports: [LinearListComponent, DxLoadIndicatorModule],
   templateUrl: './events-list-page.component.html',
   styleUrl: './events-list-page.component.scss',
 })
 export class EventsListPageComponent {
-  private adminState = inject(AdminStateService);
-
-  list$!: Observable<LoadingState<AdminEvent[]>>;
-
-  ngOnInit() {
-    this.list$ = this.adminState.eventsList$;
-    this.adminState.loadEventsList();
-  }
+  flag: 'events' = 'events';
 }
