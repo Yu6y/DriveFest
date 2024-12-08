@@ -1,0 +1,24 @@
+.event-header{
+  font-weight: bold;
+}
+
+.event-name-container, 
+.event-date-container{
+  display: inline-block;
+  margin: auto;
+}
+
+.event-name{
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.event-name-container{
+  cursor: pointer;
+
+  &:hover{
+    color: blue;
+  }
+}
+

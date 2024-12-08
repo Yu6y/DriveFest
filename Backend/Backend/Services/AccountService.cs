@@ -17,9 +17,10 @@ namespace Backend.Services
 {
     public interface IAccountService
     {
-        Task<string> LoginUser(LoginDto loginDto);
+        Task<SuccessLoginDto> LoginUser(LoginDto loginDto);
         Task<Dictionary<bool, RegistrationError>> RegisterUser(RegisterDto registerDto);
         Task<UserDto> GetUserInfo(int userId);
+        Task<IsAdminDto> GetUserRole(int userId);
     }
 
     public class AccountService : IAccountService
@@ -38,7 +39,7 @@ namespace Backend.Services
             _passwordHasher = new PasswordHasher<object>();
         }
 
-        public async Task<string> LoginUser(LoginDto loginDto)
+        public async Task<SuccessLoginDto> LoginUser(LoginDto loginDto)
         {
             var user = await _dbContext
                 .Users
@@ -59,6 +60,11 @@ namespace Backend.Services
                 new Claim("UserPic", user.UserPic)
             };
 
+            if (user.IsAdmin)
+                claims.Add(new Claim(ClaimTypes.Role, "admin"));
+            else
+                claims.Add(new Claim(ClaimTypes.Role, "user"));
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
@@ -70,7 +76,11 @@ namespace Backend.Services
                 signingCredentials: cred);
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            return tokenHandler.WriteToken(token);
+            return new SuccessLoginDto()
+            {
+                Jwt = tokenHandler.WriteToken(token),
+                IsAdmin = user.IsAdmin
+            };
         }
 
         public bool checkPassword(string hash, string password)
@@ -125,7 +135,8 @@ namespace Backend.Services
                 Username = registerDto.Username,
                 Email = registerDto.Email,
                 HashPassword = _passwordHasher.HashPassword(null, registerDto.Password),
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                IsAdmin = false
             };
             try
             {
@@ -176,6 +187,21 @@ namespace Backend.Services
             }
 
             return userInfo;
+        }
+
+        public async Task<IsAdminDto> GetUserRole(int userId)
+        {
+            var user = await _dbContext
+                .Users
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                throw new Exception("User not found");
+
+            return new IsAdminDto()
+            {
+                IsAdmin = user.IsAdmin
+            };
         }
 
         public async Task<string> uploadPhoto(IFormFile file)

@@ -10,6 +10,7 @@
         public List<WorkshopTag> Tags { get; set; }
         public float Rate { get; set; }
         public int RatesCount { get; set; }
+        public bool IsVerified { get; set; }
 
         public virtual List<WorkshopRating> WorkshopRatings { get; set; } // Nawigacja do ocen użytkowników
 

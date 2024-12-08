@@ -16,7 +16,14 @@ export class JwtInterceptor implements HttpInterceptor {
     let token = localStorage.getItem('auth_token');
     if (token) {
       req = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${token}`),
+        headers: req.headers
+          .set('Authorization', `Bearer ${token}`)
+          .set(
+            'Cache-Control',
+            'no-cache, no-store, must-revalidate, post-check=0, pre-check=0'
+          )
+          .set('Pragma', 'no-cache')
+          .set('Expires', '0'),
       });
     }
     return next.handle(req);

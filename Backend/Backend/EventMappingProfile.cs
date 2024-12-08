@@ -53,6 +53,21 @@ namespace Backend
 
             CreateMap<UserCar, UserCarDto>();
             CreateMap<AddUserCarDto, UserCar>();
+
+            CreateMap<Event, UnverifiedEventDto>();
+            CreateMap<Workshop, UnverifiedWorkshopDto>();
+
+            CreateMap<Workshop, EditWorkshopDto>()
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.WorkshopDescription.Address))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.WorkshopDescription.Description));
+
+            CreateMap<Event, EditEventDto>()
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.EventDescription.Address))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.EventDescription.Description));
+
+            CreateMap<User, UserDataDto>();
         }
     }
 }

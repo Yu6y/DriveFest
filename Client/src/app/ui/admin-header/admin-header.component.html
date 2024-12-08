@@ -1,0 +1,57 @@
+<nav #navbar class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid header-container">
+    <a class="navbar-brand" href="home">DriveFest</a>
+    <button 
+      class="navbar-toggler" 
+      type="button" 
+      (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed"
+      aria-controls="navbarNav"
+      >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div 
+      #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed"
+      class="collapse navbar-collapse" 
+      id="navbarNav">
+      <div class="navbar-nav d-flex w-100">
+        <div class="nav-item mx-lg-2">
+          <a 
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link" 
+            routerLink="events"
+            (click)="navClick()">Wydarzenia</a>
+        </div>
+        <div class="nav-item mx-lg-2">
+          <a 
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link" 
+            routerLink="workshops"
+            (click)="navClick()">Warsztaty</a>
+        </div>
+        <div class="nav-item mx-lg-2">
+          <a 
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link" 
+            routerLink="users"
+            (click)="navClick()">Użytkownicy</a>
+        </div>
+
+        <div class="nav-item ms-lg-auto d-none d-lg-block">
+          <a 
+            (click)="logout.emit()"
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link text-white" 
+            >Wyloguj się</a>
+        </div>
+        <div class="nav-item d-lg-none">
+          <a 
+            (click)="logout.emit()"
+            [class.navbar-container]="!isCollapsed" 
+            class="nav-link text-white pt-5" 
+            >Wyloguj się</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -30,7 +30,7 @@
         <p class="event-text text-center">Nadchodzące wydarzenie</p>
       </div>
 
-      <app-event-card [event]="user.data.followedEvent" (click)="eventClick(user.data.followedEvent.id)"></app-event-card>
+      <app-event-card [event]="user.data.followedEvent" (click)="eventClick(user.data.followedEvent.id)" (follow)="eventClick(user.data.followedEvent.id)"></app-event-card>
     }
     <div class="d-flex justify-content-center my-4">
       <button class="custom-btn" type="submit" (click)="regClick()">Moje pojazdy</button>

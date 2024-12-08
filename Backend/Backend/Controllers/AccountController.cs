@@ -60,5 +60,20 @@ namespace Backend.Controllers
                 return new ObjectResult(e.Message) { StatusCode = 500 };
             }
         }
+
+        [HttpGet("role")]
+        [Authorize]
+        public async Task<IActionResult> GetUserRole()
+        {
+            try
+            {
+                var user = await _accountService.GetUserRole(GetUserId());
+                return new ObjectResult(user) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message) { StatusCode = 500 };
+            }
+        }
     }
 }

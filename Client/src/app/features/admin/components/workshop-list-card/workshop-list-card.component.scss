@@ -1,0 +1,25 @@
+.workshop-header{
+  font-weight: bold;
+}
+
+.workshop-name-container, 
+.workshop-location-container{
+  display: inline-block;
+  margin: auto;
+}
+
+.workshop-name, 
+.workshop-location{
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.workshop-name-container{
+  cursor: pointer;
+
+  &:hover{
+    color: blue;
+  }
+}
+

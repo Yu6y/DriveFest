@@ -9,4 +9,5 @@ export type WorkshopShort = {
   rate: number;
   image: string;
   ratesCount: number;
+  isVerified: boolean;
 };

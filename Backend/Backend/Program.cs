@@ -44,6 +44,7 @@ namespace Backend
             builder.Services.AddScoped<IEventService, EventService>();
             builder.Services.AddScoped<IWorkshopService, WorkshopService>();
             builder.Services.AddScoped<ICarRegisterService, CarRegisterService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
             
        
 

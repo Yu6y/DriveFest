@@ -1,0 +1,176 @@
+@if(flag === 'events'){
+  @if(events$ | async; as events){
+    @switch(events.state){
+      @case('loading'){
+        <div class="load-container container d-flex justify-content-center align-items-center mt-3">
+          <dx-load-indicator
+            [visible]="true"
+            id="large-indicator"
+            [height]="40"
+            [width]="40">
+          </dx-load-indicator>
+        </div>
+      }
+      @case('success'){
+        <div class="list-header d-none d-lg-flex">
+          <div class="container-xxl">
+            <div class="row py-1">
+              <div class="event-name-container col-lg-6">
+                <p class="event-name">Nazwa</p>
+              </div>
+              <div class="event-date-container col-lg-3">
+                <p class="event-date">Data</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        @for(x of events.data.list; track x.id){
+          <div class="list-container">
+            <app-event-list-card [value]="x" (output)="handleOutput($event)"></app-event-list-card>
+          </div>
+        }@empty {
+          <div class="container">
+            <p class="empty text-center">Brak danych do wyświetlenia.</p>
+          </div>
+        }
+        @if(events.data.total > 0){
+
+        <div class="paginator">
+          <mat-paginator         
+            #paginator    
+            [length]="events.data.total"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[10, 20, 40]"
+            [pageIndex]="pageIndex"
+            aria-label="Select page"
+            (page)="handlePage($event)"
+          >
+          </mat-paginator>
+        </div>
+      }
+      }
+      @case('error'){
+        <p class="text-danger text-center">Wystąpił błąd.</p>
+      }
+    }
+  }
+}
+@if(flag === 'workshops'){
+  @if(workshops$ | async; as workshops){
+    @switch(workshops.state){
+      @case('loading'){
+        <div class="load-container container d-flex justify-content-center align-items-center mt-3">
+          <dx-load-indicator
+            [visible]="true"
+            id="large-indicator"
+            [height]="40"
+            [width]="40">
+          </dx-load-indicator>
+        </div>
+      }
+      @case('success'){
+        <div class="list-header d-none d-lg-flex">
+          <div class="container-xxl">
+            <div class="row py-1">
+              <div class="workshop-name-container col-lg-5 col-xl-6 ">
+                <p class="workshop-name">Nazwa</p>
+              </div>
+              <div class="workshop-location-container col-lg-4 col-xl-3  ">
+                <p class="workshop-location">Miejscowość</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        @for(x of workshops.data.list; track x.id){
+          <div class="list-container">
+            <app-workshop-list-card [value]="x" (output)="handleOutput($event)"></app-workshop-list-card>
+          </div>
+        }@empty {
+          <div class="container">
+            <p class="empty text-center">Brak danych do wyświetlenia.</p>
+          </div>
+        }
+        @if(workshops.data.total > 0){
+        <div class="paginator">
+          <mat-paginator 
+            [length]="workshops.data.total"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[10, 20, 40]"
+            aria-label="Select page"
+            (page)="handlePage($event)"
+            [pageIndex]="pageIndex"
+            >
+          </mat-paginator>
+        </div>
+      }
+      }
+      @case('error'){
+        <p class="text-danger text-center">Wystąpił błąd.</p>
+      }
+    }
+  }
+}
+@if(flag === 'users'){
+  @if(users$ | async; as users){
+    @switch(users.state){
+      @case('loading'){
+        <div class="load-container container d-flex justify-content-center align-items-center mt-3">
+          <dx-load-indicator
+            [visible]="true"
+            id="large-indicator"
+            [height]="40"
+            [width]="40">
+          </dx-load-indicator>
+        </div>
+      }
+      @case('success'){
+        <div class="list-header d-none d-lg-flex">
+          <div class="container-xxl">
+            <div class="row py-1">
+              <div class="user-id-container col-lg-1 ">
+                <p class="user-id">Id</p>
+              </div>
+              <div class="user-username-container col-lg-3 ">
+                <p class="user-username">Nick</p>
+              </div>
+              <div class="user-email-container col-lg-3 col-xl-4 ">
+                <p class="user-email">E-mail</p>
+              </div>
+              <div class="user-created-container col-lg-2 ">
+                <p class="user-created">Data dołączenia</p>
+              </div>
+              <div class="user-admin-container col-lg-1 ">
+                  <p class="user-admin">Administrator</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        @for(x of users.data.list; track x.id){
+          <div class="list-container">
+            <app-user-list-card [value]="x" (output)="handleOutput($event)"></app-user-list-card>
+          </div>
+        }@empty {
+          <div class="container">
+            <p class="empty text-center">Brak danych do wyświetlenia.</p>
+          </div>
+        }
+        @if(users.data.total > 0){
+        <div class="paginator">
+          <mat-paginator             
+          [length]="users.data.total"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[10, 20, 40]"
+          [pageIndex]="pageIndex"
+          aria-label="Select page"
+          (page)="handlePage($event)"
+        >
+        </mat-paginator>
+        </div>
+      }
+      }
+      @case('error'){
+        <p class="text-danger text-center">Wystąpił błąd.</p>
+      }
+    }
+  }
+}

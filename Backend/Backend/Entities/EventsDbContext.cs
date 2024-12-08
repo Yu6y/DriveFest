@@ -38,10 +38,18 @@ namespace Backend.Entities
                 .Property(r => r.HashPassword)
                 .IsRequired();
 
+            modelBuilder.Entity<User>()
+                .Property(r => r.IsAdmin)
+                .IsRequired();
+
             modelBuilder.Entity<Event>()
                 .HasOne(e => e.EventDescription)
                 .WithOne(ed => ed.Event)
                 .HasForeignKey<EventDescription>(ed => ed.EventId);
+
+            modelBuilder.Entity<Event>()
+                .Property(r => r.IsVerified)
+                .IsRequired();
 
             // Relacja 1:N między EventDescription a Comment
             modelBuilder.Entity<EventDescription>()

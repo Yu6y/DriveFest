@@ -1,6 +1,6 @@
 ﻿namespace Backend.Models
 {
-    public class FavEventDto
+    public class EventIdDto
     {
         public int eventId {  get; set; }
     }

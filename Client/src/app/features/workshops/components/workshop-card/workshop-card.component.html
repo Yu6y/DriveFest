@@ -1,20 +1,39 @@
-<div class="card workshop-card" (click)="cardClick.emit()">
+<div class="workshop-card" (click)="cardClick.emit()">
   <div class="name-container card-header">
     <p class="p-name">{{ this.workshop.name }}</p>
   </div>
   <div class="img-container">
-    <img class="card-img-top workshop-image" [src]="this.workshop.image" alt="Wystąpił błąd podczas ładowania zdjęcia" onerror="this.src='workshopalt.jpg';">
+    <img class="card-img-top workshop-image" [src]="this.workshop.image" onerror="this.src='workshopalt.jpg';">
   </div>
-  <div class="card-body desc-container">
-    <div class="icons-container d-flex justify-content-between align-items-center">
-      <div class="location-container d-flex align-items-center">
-        <mat-icon color="orange">location_on</mat-icon>
-        <span class="desc-text ms-2">{{ this.workshop.location }}</span>
-      </div>
-      <div class="others-grade-container d-flex align-items-center">
-        <span class="grade-text">{{ this.workshop.rate }}</span>
-        <mat-icon color="yellow" class="ms-2">grade</mat-icon>
+  
+  <div class="desc-container mt-3 mb-1 mx-2 ">
+    <div class="row d-flex">
+      <div class="col">
+        <div class="location-container d-flex align-items-center">
+          <mat-icon color="orange">location_on</mat-icon>
+          <span class="desc-text ms-2">{{ this.workshop.location }}</span>
+        </div>
+      </div>  
+      <div class="col">
+        <div class="others-grade-container me-1 d-flex align-items-center justify-content-end">
+          <span class="grade-text">{{ this.workshop.rate }}</span>
+          <mat-icon color="yellow" class="ms-2">grade</mat-icon>
+        </div>   
       </div>
     </div>
+    <div class="row d-flex mt-2">
+      <div class="col align-content-end">
+        <div class="verify-container d-flex align-items-center mt-1 ">
+          @if(workshop.isVerified){
+            <mat-icon color="orange">verified</mat-icon>
+            <span class="verify-text ms-1">Zweryfikowany</span>
+          }@else{
+            <mat-icon color="grey">verified</mat-icon>
+            <span class="verify-text ms-1">Niezweryfikowany</span>
+          }
+        </div>
+      </div>   
+    </div>
+    
   </div>
 </div>

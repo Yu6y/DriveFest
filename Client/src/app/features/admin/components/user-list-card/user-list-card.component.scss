@@ -1,0 +1,34 @@
+.user-header{
+  font-weight: bold;
+}
+
+.user-id-container,
+.user-created-container,
+.user-admin-container,
+.user-username-container,
+.user-email-container{
+  display: inline-block;
+  margin: auto;
+}
+
+.user-username,
+.user-email{
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+
+.mat-icon.mat-red{
+  color: rgb(255, 0, 0);
+}
+
+.mat-icon.mat-green{
+  color: rgb(0, 255, 0);
+}
+
+button{
+  cursor: pointer;
+  border-style: none;
+  background-color: white;
+}

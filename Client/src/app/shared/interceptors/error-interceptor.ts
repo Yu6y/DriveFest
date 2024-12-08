@@ -21,12 +21,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An error occurred';
         if (error.status === 401)
+          // route na strone logowania
           errorMessage = 'Nieautoryzowany dostęp.';
-        else if (error.status === 0){
+        else if (error.status === 0) {
           errorMessage = 'Serwer jest niedostępny. Spróbuj później.';
-          this.router.navigate(['/error'])
-        }
-        else if(error.status === 500){
+          this.router.navigate(['/error']);
+        } else if (error.status === 500) {
           errorMessage = 'Server error!';
           this.router.navigate(['/error']);
         }

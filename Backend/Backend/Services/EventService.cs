@@ -28,7 +28,7 @@ namespace Backend.Services
         Task<IEnumerable<EventDto>> GetFavEvents(int userId);
         Task<int> AddFavEvent(int eventId, int userId);
         Task<int> DeleteFavEvent(int eventId, int userId);
-        Task<int> AddEvent(AddEventDto addEvent);
+        Task<int> AddEvent(AddEventDto addEvent, bool UserAdmin);
     }
 
     public class EventService : IEventService
@@ -72,16 +72,16 @@ namespace Backend.Services
         public async Task<IEnumerable<EventDto>> GetEventsFiltered(string searchTerm, string dateFrom, string dateTo, string sortBy, string tags, string voivodeships, int userId)
         {
             DateTime dateFromNew, dateToNew;
-            
+
             if (!(DateTime.TryParse(dateFrom, out dateFromNew) && DateTime.TryParse(dateTo, out dateToNew)))
                 throw new NotFoundException("Given date error");
 
             List<int> tagsList = null;
             List<string> voivodeshipsList = null;
 
-            if(tags != null)
+            if (tags != null)
                 tagsList = tags.Split(',').Select(int.Parse).ToList();
-            if(voivodeships != null)
+            if (voivodeships != null)
                 voivodeshipsList = voivodeships.Split(',').ToList();
 
             var query = _dbContext
@@ -92,24 +92,24 @@ namespace Backend.Services
 
             if (tagsList != null)
             {
-               query = query.Where(e => e.Tags.Any(t => tagsList.Contains(t.Id)));
+                query = query.Where(e => e.Tags.Any(t => tagsList.Contains(t.Id)));
             }
 
             if (voivodeshipsList != null)
             {
-               query = query.Where(e => voivodeshipsList.Contains(e.Voivodeship));
+                query = query.Where(e => voivodeshipsList.Contains(e.Voivodeship));
             }
 
 
             List<Event> list;
 
             if (sortBy == "NONE")
-               list = await query.ToListAsync();
+                list = await query.ToListAsync();
 
             else if (sortBy == "ASC")
-               list = await query.OrderBy(c => c.Date).ToListAsync();
+                list = await query.OrderBy(c => c.Date).ToListAsync();
             else
-               list = await query.OrderByDescending(c => c.Date).ToListAsync();
+                list = await query.OrderByDescending(c => c.Date).ToListAsync();
 
             var favorites = _dbContext
                 .Events
@@ -127,13 +127,13 @@ namespace Backend.Services
                 });
             });
 
-            return eventsReturn; 
+            return eventsReturn;
         }
 
         public async Task<EventDescDto> GetEventDesc(int eventId, int userId)
         {
             var eventExist = await _dbContext.EventDescriptions.AnyAsync(e => e.EventId == eventId);
-            if(!eventExist)
+            if (!eventExist)
                 throw new Exception("Resource not found");
 
             var eventDesc = _dbContext
@@ -150,18 +150,18 @@ namespace Backend.Services
             var liked = _mapper.Map<EventDescDto>(eventDesc);
             if (eventLiked)
                 liked.IsFavorite = true;
-            
+
             liked.EventDescId = eventDesc.EventDescription.Id;
-                
+
             return _mapper.Map<EventDescDto>(liked);
         }
-         
+
         public async Task<IEnumerable<TagsDto>> GetEventTags()
         {
             var tags = await _dbContext
                 .Tags
                 .ToListAsync();
-               
+
             return _mapper.Map<IEnumerable<TagsDto>>(tags);
         }
 
@@ -220,8 +220,8 @@ namespace Backend.Services
 
             return favListReturn;
         }
-
-        public async Task<int> AddFavEvent(int eventId, int userId)
+        
+            public async Task<int> AddFavEvent(int eventId, int userId)
         {
             var eventLiked = await _dbContext
                 .Events
@@ -287,7 +287,7 @@ namespace Backend.Services
             return favDelete.Id;
         }
 
-        public async Task<int> AddEvent(AddEventDto addEvent)
+        public async Task<int> AddEvent(AddEventDto addEvent, bool userAdmin)
         {
             if (addEvent.PhotoURL != null &&
                 (System.IO.Path.GetExtension(addEvent.PhotoURL.FileName) != ".jpg" &&
@@ -302,6 +302,8 @@ namespace Backend.Services
             eventToSave.FollowersCount = 0;
             eventToSave.Date = DateTime.Parse(addEvent.Date).AddHours(12);
             eventToSave.Tags = new List<Tag>();
+            eventToSave.IsVerified = userAdmin;
+
             try
             {
                 eventToSave.Image = await uploadPhoto(addEvent.PhotoURL);
@@ -348,6 +350,8 @@ namespace Backend.Services
                 throw new Exception(e.Message);
             }
         }
+
+       
 
         public async Task<string> uploadPhoto(IFormFile file)
         {

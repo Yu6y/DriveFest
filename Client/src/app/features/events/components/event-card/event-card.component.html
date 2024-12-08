@@ -1,35 +1,57 @@
-<div class="event-container" (click)="cardClick.emit()">
-  <div class="name-container">
+<div class="event-card" (click)="cardClick.emit()">
+  <div class="name-container card-header">
     <p class="p-name">{{ this.event.name }}</p>
   </div>
+
   <div class="img-container">
-    <img class="event-image" [src]="this.event.image"  alt="Wystąpił błąd podczas ładowania zdjęcia" onerror="this.src='eventalt.jpg';">
+    <img class="card-img-top event-image" [src]="this.event.image" onerror="this.src='eventalt.jpg';">
   </div>
-  <div class="desc-container">
-    <div class="icons-container">
-      <div class="location-container">
-        <mat-icon color="orange">event</mat-icon>
-        <span class="desc-text">{{ this.event.date }}</span>
+
+  <div class="desc-container mt-1 mb-1"> 
+    <div class="row">
+      <div class="col">
+        <div class="date-container mt-1 d-flex justify-content-start">
+          <mat-icon color="orange">event</mat-icon>
+          <span class="desc-text ms-1">{{ this.event.date }}</span>
+        </div>
       </div>
-      <div class="date-container">
-        <mat-icon color="orange">location_on</mat-icon>
-        <span class="desc-text">{{ this.event.location }}</span>
+      <div class="col">
+        <div class="follow-btn-container d-flex align-items-center justify-content-end">
+          <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite"
+          (click)="follow.emit(this.event); $event.stopPropagation()"
+          >@if(event.isFavorite)
+            { Obserwujesz<mat-icon color="white">favorite</mat-icon> }
+            @else{
+              Obserwuj<mat-icon color="orange">favorite</mat-icon>
+            }
+          </button>
+        </div>
       </div>
     </div>
-    <div class="follow-container">
-      <div class="follow-btn-container">
-        <button [class.followed-btn]="event.isFavorite" [class.follow-btn]="!event.isFavorite"
-        (click)="follow.emit(this.event); $event.stopPropagation()"
-        >@if(event.isFavorite)
-          { Obserwujesz<mat-icon color="white">favorite</mat-icon> }
-          @else{
-            Obserwuj<mat-icon color="orange">favorite</mat-icon>
-          }
-        </button>
+    <div class="row mt-1">
+      <div class="col">
+        <div class="location-container d-flex justify-content-start">
+          <mat-icon color="orange">location_on</mat-icon>
+          <span class="desc-text">{{ this.event.location }}</span>
+        </div>
       </div>
-      <div class="follow-text-container">
-        <span class="follow-text">Followers: {{ this.event.followersCount }}</span>
+      <div class="col">
+        <div class="follow-text-container d-flex justify-content-end">
+          <span class="follow-text">Followers: {{ this.event.followersCount }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="verify-container d-flex align-items-center justify-content-end">
+        @if(event.isVerified){
+          <mat-icon color="orange">verified</mat-icon>
+          <span class="verify-text">Zweryfikowany</span>
+        }@else{
+          <mat-icon color="grey">verified</mat-icon>
+          <span class="verify-text">Niezweryfikowany</span>
+        }
       </div>
     </div>
   </div>
+
 </div>
