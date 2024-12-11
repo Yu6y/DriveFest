@@ -6,7 +6,6 @@ import { WorkshopListFiltersFormValue } from '../components/workshop-filters/wor
 import { WorkshopDesc } from '../../../shared/models/WorkshopDesc';
 import { Observable } from 'rxjs';
 import { Comment } from '../../../shared/models/Comment';
-import { WorkshopAddFormValue } from '../../add-forms/add-workshop/add-workshop.component';
 
 @Injectable({
   providedIn: 'root',
@@ -53,11 +52,14 @@ export class WorkshopApiService {
     return this.httpClient.post(`${this.URL}`, workshop);
   }
 
-  rateWorkshop(rate: number, workshopId: number){
-    return this.httpClient.post<number>(`${this.URL}/rate`, {workshopId: workshopId, rate: rate});
+  rateWorkshop(rate: number, workshopId: number) {
+    return this.httpClient.post<number>(`${this.URL}/rate`, {
+      workshopId: workshopId,
+      rate: rate,
+    });
   }
 
-  getWorkshopRate(workshopId: number): Observable<number>{
-    return this.httpClient.get<number>(`${this.URL}/rate/${workshopId}`)
+  getWorkshopRate(workshopId: number): Observable<number> {
+    return this.httpClient.get<number>(`${this.URL}/rate/${workshopId}`);
   }
 }

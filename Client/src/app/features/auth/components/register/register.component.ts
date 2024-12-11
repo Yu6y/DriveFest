@@ -1,15 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RegisterCredentials } from '../../models/RegisterCredentials';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthStateService } from '../../services/auth-state.service';
 import { AsyncPipe } from '@angular/common';
@@ -42,7 +38,6 @@ export type RegisterFormValue = FormValue<RegisterForm>;
 export class RegisterComponent {
   private authService = inject(AuthStateService);
   private formBuilder = inject(NonNullableFormBuilder);
-  private router = inject(Router);
 
   errors: RegisterError = {};
   registerState$ = this.authService.registerState$;

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ExpenseCardComponent } from '../expense-card/expense-card.component';
 import { DxLoadIndicatorModule, DxScrollViewModule } from 'devextreme-angular';
 import { RegistryStateService } from '../../services/registry-state.service';
@@ -9,7 +9,6 @@ import {
 } from '../../../../shared/models/ExpenseType';
 import { PopupService } from '../../../../shared/services/popup.service';
 import { POPUP_TYPE } from '../../../../shared/models/PopupType';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-expenses-list',
@@ -38,7 +37,6 @@ export class ExpensesListComponent {
 
   ngOnInit() {
     this.registryService.prepareReg();
-    //this.registryService.getExpenses();
   }
 
   add() {

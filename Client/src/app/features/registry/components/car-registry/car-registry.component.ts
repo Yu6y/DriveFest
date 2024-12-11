@@ -5,7 +5,6 @@ import { RegistryStateService } from '../../services/registry-state.service';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../../shared/models/LoadingState';
 import { CarRegistry } from '../../../../shared/models/CarRegistry';
-import { ChartSeriesAggregationMethod } from 'devextreme/viz/chart';
 import { AsyncPipe } from '@angular/common';
 import { DxLoadIndicatorModule } from 'devextreme-angular';
 

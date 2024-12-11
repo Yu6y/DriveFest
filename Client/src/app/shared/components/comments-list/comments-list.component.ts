@@ -1,11 +1,8 @@
-import { Component, inject, Input, input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Comment } from '../../models/Comment';
 import { CommentCardComponent } from '../comment-card/comment-card.component';
-import { EventApiService } from '../../../features/events/services/event-api.service';
-import { DateCustomPipe } from '../../pipes/custom-date.pipe';
 import { EventStateService } from '../../../features/events/services/event-state.service';
 import { Observable } from 'rxjs';
-import { escapeLeadingUnderscores } from 'typescript';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { WorkshopStateService } from '../../../features/workshops/services/workshop-state.service';
@@ -23,9 +20,8 @@ export class CommentsListComponent {
   @Input({ required: true }) contextId!: number;
   private eventService = inject(EventStateService);
   private workshopService = inject(WorkshopStateService);
-  private route = inject(ActivatedRoute);
-  comments$!: Observable<LoadingState<Comment[]>>;
 
+  comments$!: Observable<LoadingState<Comment[]>>;
   isInputEmpty: boolean = false;
 
   ngOnInit() {

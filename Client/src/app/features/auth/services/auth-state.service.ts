@@ -1,21 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  BehaviorSubject,
-  catchError,
-  debounceTime,
-  delay,
-  Observable,
-  of,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, catchError, delay, of, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { LoginCredentials } from '../models/LoginCredentials';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RegisterCredentials } from '../models/RegisterCredentials';
 import { LoadingState } from '../../../shared/models/LoadingState';
-import { toLoadingState } from '../../../shared/utils/CreateState';
 import { RegisterError, RegisterState } from '../models/RegistrationState';
 import { ToastService } from '../../../shared/services/toast.service';
 import { SuccessLogin } from '../../../shared/models/SuccessLogin';
@@ -34,7 +24,7 @@ export class AuthStateService {
   private registerStateSubject$ = new BehaviorSubject<RegisterState<string>>({
     state: 'idle',
   });
-  private isAdmin = new BehaviorSubject<boolean>(false);
+  private isAdmin = new BehaviorSubject<boolean | null>(null);
 
   userLogged$ = this.userLoggedSubject$.asObservable();
   userAdmin$ = this.isAdmin.asObservable();
@@ -146,8 +136,8 @@ export class AuthStateService {
   }
 
   logout() {
-    this.router.navigate(['/login']);
     localStorage.clear();
+    this.router.navigate(['/login']);
     this.userLoggedSubject$.next(false);
   }
 }

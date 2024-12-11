@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  HostListener,
-  inject,
-  ViewChild,
-} from '@angular/core';
+import { Component, HostListener, inject, ViewChild } from '@angular/core';
 import { AdminStateService } from '../../services/admin-state.service';
 import {
   DxCheckBoxModule,

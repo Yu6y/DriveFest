@@ -22,7 +22,6 @@ import { WorkshopEdit } from '../../../shared/models/WorkshopEdit';
 import { WorkshopApiService } from '../../workshops/services/workshop-api.service';
 import { UserData } from '../../../shared/models/UserData';
 import { ListData } from '../../../shared/models/AdminListData';
-import { NumberSymbol } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',

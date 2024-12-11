@@ -1,16 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { AuthStateService } from '../auth/services/auth-state.service';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserProfile } from '../../shared/models/UserProfile';
 import { LoadingState } from '../../shared/models/LoadingState';
 import { UserStateService } from './services/user-state.service';
 import { AsyncPipe } from '@angular/common';
 import { EventCardComponent } from '../events/components/event-card/event-card.component';
-import {
-  DxLoadIndicatorComponent,
-  DxLoadIndicatorModule,
-} from 'devextreme-angular';
+import { DxLoadIndicatorModule } from 'devextreme-angular';
 
 @Component({
   selector: 'app-user-profile',

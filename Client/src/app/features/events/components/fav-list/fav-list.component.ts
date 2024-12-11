@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { EventStateService } from '../../services/event-state.service';
-import { AsyncPipe } from '@angular/common';
 import { CardsListComponent } from '../../../../shared/components/cards-list/cards-list.component';
 
 @Component({
   selector: 'app-fav-list',
   standalone: true,
-  imports: [AsyncPipe, CardsListComponent],
+  imports: [CardsListComponent],
   templateUrl: './fav-list.component.html',
   styleUrl: './fav-list.component.scss',
 })

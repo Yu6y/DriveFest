@@ -18,7 +18,7 @@
 
 .navbar-nav {
   display: flex;
-  align-items: center; /* Dodano wyrównanie pionowe */
+  align-items: center;
   text-align: center;
 }
 
@@ -27,6 +27,6 @@
 }
 
 .nav-link {
-  padding: 5px; /* Ustawiono równomierne odstępy */
+  padding: 5px;
   cursor: pointer;
 }

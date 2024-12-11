@@ -1,12 +1,11 @@
-import { Component, inject, Inject, Injector, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { EventDesc } from '../../../../shared/models/EventDesc';
 import { MatIconModule } from '@angular/material/icon';
 import { CommentsListComponent } from '../../../../shared/components/comments-list/comments-list.component';
 import { ActivatedRoute } from '@angular/router';
 import { EventStateService } from '../../services/event-state.service';
 import { Tag } from '../../../../shared/models/Tag';
-import { Observable, ObservedValueOf, tap } from 'rxjs';
-import { Comment } from '../../../../shared/models/Comment';
+import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { LoadingState } from '../../../../shared/models/LoadingState';
 import { DxLoadIndicatorModule } from 'devextreme-angular';

@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { WorkshopApiService } from '../../workshops/services/workshop-api.service';
 import { Router } from '@angular/router';
 import {
   FormControl,
@@ -41,6 +40,7 @@ export class AddWorkshopComponent {
 
   tagsList!: Tag[];
   selectedTags: Tag[] = [];
+  disableSubmit: boolean = false;
 
   workshopForm: WorkshopAddForm = this.formBuilder.group({
     name: this.formBuilder.control<string>(''),
@@ -79,6 +79,7 @@ export class AddWorkshopComponent {
       tags: this.selectedTags,
     });
     if (this.validateForm(this.workshopForm.getRawValue())) {
+      this.disableSubmit = true;
       this.workshopService
         .addWorkshop(this.workshopForm.getRawValue())
         .subscribe(
@@ -88,7 +89,10 @@ export class AddWorkshopComponent {
           },
           (error) => {
             console.log(error);
-            this.toastService.showToast('Nie udało się dodać warsztatu.', 'error');
+            this.toastService.showToast(
+              'Nie udało się dodać warsztatu.',
+              'error'
+            );
           }
         );
     }

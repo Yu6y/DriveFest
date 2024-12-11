@@ -14,13 +14,11 @@ import { LoadingState } from '../../../shared/models/LoadingState';
 import { WorkshopShort } from '../../../shared/models/WorkshopShort';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WorkshopListFiltersFormValue } from '../components/workshop-filters/workshop-filters.component';
-import { DatePipe } from '@angular/common';
 import { Comment } from '../../../shared/models/Comment';
 import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
 import { WorkshopDesc } from '../../../shared/models/WorkshopDesc';
 import { Router } from '@angular/router';
 import { WorkshopAddFormValue } from '../../add-forms/add-workshop/add-workshop.component';
-import { EventDesc } from '../../../shared/models/EventDesc';
 import { ToastService } from '../../../shared/services/toast.service';
 
 @Injectable({
@@ -208,7 +206,6 @@ export class WorkshopStateService {
   }
 
   rateWorkshop(rate: number, isRated: boolean) {
-    // sciagac z api obiekt, liczba i ocena
     let workshop: WorkshopDesc;
     if (this.workshopDescSubject$.value.state === 'success') {
       workshop = this.workshopDescSubject$.value.data;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,7 +16,6 @@ import { Expense } from '../../../../shared/models/Expense';
 import { POPUP_TYPE, PopupType } from '../../../../shared/models/PopupType';
 import { EXPENSE_TYPE } from '../../../../shared/models/ExpenseType';
 import { CarRegistry } from '../../../../shared/models/CarRegistry';
-import { transform } from 'typescript';
 import { Car } from '../../../../shared/models/Car';
 
 type AddExpenseForm = FormGroup<{
@@ -180,7 +179,6 @@ export class PopupComponent {
       this.registryService.deleteCar(this.car!.id);
     }
 
-    //this.closePopup();
     this.close();
   }
 
@@ -189,12 +187,6 @@ export class PopupComponent {
     this.carForm.reset();
     this.popupService.closePopup();
   }
-
-  // closePopup() {
-  //   this.expenseForm.reset();
-  //   this.carForm.reset();
-  //   this.popupService.closePopup();
-  // }
 
   sendPhoto(event: any) {
     this.carForm.patchValue({

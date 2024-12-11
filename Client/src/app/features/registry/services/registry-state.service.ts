@@ -20,12 +20,10 @@ import { LoadingState } from '../../../shared/models/LoadingState';
 import { Expense } from '../../../shared/models/Expense';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../../../shared/services/toast.service';
-import { EditExpense } from '../../../shared/models/EditExpense';
 import { CarRegistry } from '../../../shared/models/CarRegistry';
 import { EXPENSE_TYPE, ExpenseType } from '../../../shared/models/ExpenseType';
 import { ChartData } from '../../../shared/models/ChartData';
 import { ExpenseDescription } from '../../../shared/models/ExpenseDesc';
-import { state } from '@angular/animations';
 import { Car } from '../../../shared/models/Car';
 
 @Injectable({
@@ -299,7 +297,6 @@ export class RegistryStateService {
               data: [],
             });
 
-            // this.getChartData();
             this.getYears();
           }),
           catchError((error) => {
@@ -336,7 +333,7 @@ export class RegistryStateService {
             state: 'success',
             data: currList.filter((x) => x.id !== id),
           });
-          //this.getChartData();
+
           this.getYears();
         }),
         catchError((error) => {
@@ -363,7 +360,7 @@ export class RegistryStateService {
         tap(() => {
           this.toastService.showToast('Zaaktualizowano wydatek.', 'success');
           this.getExpenses();
-          //this.getChartData();
+
           this.getYears();
         }),
         catchError((error) => {

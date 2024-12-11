@@ -1,9 +1,6 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { LoginCredentials } from '../models/LoginCredentials';
-import { Router } from '@angular/router';
-import { RegisterCredentials } from '../models/RegisterCredentials';
-import { BehaviorSubject } from 'rxjs';
 import { SuccessLogin } from '../../../shared/models/SuccessLogin';
 import { UserRole } from '../../../shared/models/UserRole';
 

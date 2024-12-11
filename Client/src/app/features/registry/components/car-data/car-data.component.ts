@@ -1,5 +1,5 @@
 import { Component, HostListener, inject } from '@angular/core';
-import { DxPopupModule, DxScrollViewModule } from 'devextreme-angular';
+import { DxScrollViewModule } from 'devextreme-angular';
 import { ExpensesListComponent } from '../expenses-list/expenses-list.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CarRegistryComponent } from '../car-registry/car-registry.component';

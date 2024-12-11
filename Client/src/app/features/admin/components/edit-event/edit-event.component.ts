@@ -1,9 +1,5 @@
 import { Component, HostListener, inject, ViewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { Router } from '@angular/router';
 import {
   DxDateBoxModule,
   DxFileUploaderModule,
@@ -11,20 +7,13 @@ import {
   DxFormModule,
   DxSelectBoxModule,
   DxTextAreaModule,
-  DxValidationSummaryModule,
-  DxValidatorModule,
 } from 'devextreme-angular';
 import { DxDateBoxTypes } from 'devextreme-angular/ui/date-box';
-import {
-  DxCheckBoxModule,
-  DxCheckBoxTypes,
-} from 'devextreme-angular/ui/check-box';
+import { DxCheckBoxModule } from 'devextreme-angular/ui/check-box';
 import { Voivodeships } from '../../../../shared/models/voivodeships';
 import { AdminStateService } from '../../services/admin-state.service';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../../shared/models/LoadingState';
-import { EventDesc } from '../../../../shared/models/EventDesc';
-import { EventStateService } from '../../../events/services/event-state.service';
 import { Tag } from '../../../../shared/models/Tag';
 import { AsyncPipe } from '@angular/common';
 import { EventEdit } from '../../../../shared/models/EventEdit';
