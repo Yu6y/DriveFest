@@ -1,13 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
-import { map, Observable, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { EventShort } from '../../../shared/models/EventShort';
 import { EventDesc } from '../../../shared/models/EventDesc';
 import { Comment } from '../../../shared/models/Comment';
 import { Tag } from '../../../shared/models/Tag';
 import { EventListFiltersFormValue } from '../components/event-filters/event-filters.component';
-import { EventAddFormValue } from '../../add-forms/add-event/add-event.component';
 
 @Injectable({
   providedIn: 'root',

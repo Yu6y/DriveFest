@@ -8,21 +8,16 @@ import {
   map,
   Observable,
   of,
-  startWith,
   tap,
   throwError,
 } from 'rxjs';
 import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
-import { setTokenSourceMapRange } from 'typescript';
 import { EventDesc } from '../../../shared/models/EventDesc';
 import { Comment } from '../../../shared/models/Comment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoadingState } from '../../../shared/models/LoadingState';
-import { Tag } from '../../../shared/models/Tag';
 import { EventListFiltersFormValue } from '../components/event-filters/event-filters.component';
-import { state } from '@angular/animations';
 import { Router } from '@angular/router';
-import { elementSelectors } from '@angular/cdk/schematics';
 import { EventAddFormValue } from '../../add-forms/add-event/add-event.component';
 import { ToastService } from '../../../shared/services/toast.service';
 

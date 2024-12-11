@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DxPopupComponent } from 'devextreme-angular';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { Expense } from '../models/Expense';
 import { POPUP_TYPE, PopupType } from '../models/PopupType';

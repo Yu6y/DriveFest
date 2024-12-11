@@ -7,7 +7,6 @@ import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { EventApiService } from '../../events/services/event-api.service';
 import { Router } from '@angular/router';
 import { FormValue } from '../../../shared/utils/FromValue';
 import { EventStateService } from '../../events/services/event-state.service';
@@ -42,6 +41,7 @@ export class AddEventComponent {
 
   tagsList!: Tag[];
   selectedTags: Tag[] = [];
+  disableSubmit = false;
 
   eventForm: EventAddForm = this.formBuilder.group({
     name: this.formBuilder.control<string>(''),
@@ -81,6 +81,7 @@ export class AddEventComponent {
       tags: this.selectedTags,
     });
     if (this.validateForm(this.eventForm.getRawValue())) {
+      this.disableSubmit = true;
       this.eventService.addEvent(this.eventForm.getRawValue()).subscribe(
         (response) => {
           this.toastState.showToast('Dodano wydarzenie', 'success');

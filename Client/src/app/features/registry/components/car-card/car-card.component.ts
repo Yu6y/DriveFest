@@ -1,8 +1,6 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Car } from '../../../../shared/models/Car';
-import { PopupService } from '../../../../shared/services/popup.service';
-import { POPUP_TYPE } from '../../../../shared/models/PopupType';
 
 @Component({
   selector: 'app-car-card',

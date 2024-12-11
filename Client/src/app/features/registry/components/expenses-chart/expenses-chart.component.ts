@@ -1,14 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DxChartModule, DxLoadIndicatorModule } from 'devextreme-angular';
-import {
-  DxiBreakModule,
-  DxoLoadingIndicatorModule,
-  DxoValueAxisComponent,
-  DxoValueAxisModule,
-} from 'devextreme-angular/ui/nested';
-import { DiscreteAxisDivisionMode } from 'devextreme/common/charts';
+import { DxoValueAxisModule } from 'devextreme-angular/ui/nested';
 import { RegistryStateService } from '../../services/registry-state.service';
-import { EXPENSE_TYPE } from '../../../../shared/models/ExpenseType';
 import { Observable } from 'rxjs';
 import { ChartData } from '../../../../shared/models/ChartData';
 import { LoadingState } from '../../../../shared/models/LoadingState';
@@ -31,7 +24,7 @@ import { ExpenseDescription } from '../../../../shared/models/ExpenseDesc';
 })
 export class ExpensesChartComponent {
   private registryService = inject(RegistryStateService);
-  
+
   dataCombined$!: Observable<{
     currYear: string;
     chart: LoadingState<ChartData[]>;
@@ -41,7 +34,6 @@ export class ExpensesChartComponent {
 
   ngOnInit() {
     this.dataCombined$ = this.registryService.combinedConditions$;
-    // this.registryService.getYears();
   }
 
   changeYear(year: Event) {

@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { WorkshopCardComponent } from '../workshop-card/workshop-card.component';
 import { WorkshopStateService } from '../../services/workshop-state.service';
 import {
   FormControl,
@@ -39,7 +38,6 @@ export class WorkshopFiltersComponent {
   selectedTags: Tag[] = [];
 
   form: WorkshopListFiltersForm = this.formBuilder.group({
-    //formarray
     searchTerm: this.formBuilder.control<string>(''),
     sortBy: this.formBuilder.control<SortBy>(SORT_BY.NONE),
     tags: this.formBuilder.control<Tag[]>(this.tags),
@@ -52,7 +50,7 @@ export class WorkshopFiltersComponent {
         this.tags = response;
       },
       (error) => {
-        console.log(error); //strona bledu
+        console.log(error);
       }
     );
   }
@@ -67,7 +65,6 @@ export class WorkshopFiltersComponent {
   }
 
   clearFilters() {
-    //this.check = false;
     this.selectedTags = [];
     this.selectedVoivodeships = [];
     this.form.reset({
@@ -86,7 +83,7 @@ export class WorkshopFiltersComponent {
       );
     else this.selectedTags.push(option);
   }
-  //do poprawy
+
   voivChange(voiv: string) {
     if (this.selectedVoivodeships.includes(voiv))
       this.selectedVoivodeships.splice(

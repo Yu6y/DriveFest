@@ -3,14 +3,11 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
-  inject,
   Output,
   ViewChild,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthStateService } from '../../features/auth/services/auth-state.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-header',

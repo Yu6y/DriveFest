@@ -1,4 +1,4 @@
-import { Component, inject, NgModule } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Voivodeships } from '../../../../shared/models/voivodeships';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Tag } from '../../../../shared/models/Tag';
@@ -11,7 +11,6 @@ import {
 } from '@angular/forms';
 import { SORT_BY, SortBy } from '../../../../shared/models/Sort';
 import { FormValue } from '../../../../shared/utils/FromValue';
-import { DynamicDateInputDirective } from './date-input-directive';
 
 type EventListFiltersForm = FormGroup<{
   searchTerm: FormControl<string>;
@@ -42,7 +41,6 @@ export class EventFiltersComponent {
   check: boolean = true;
 
   form: EventListFiltersForm = this.formBuilder.group({
-    //formarray
     searchTerm: this.formBuilder.control<string>(''),
     dateFrom: this.formBuilder.control<string>(''),
     dateTo: this.formBuilder.control<string>(''),
@@ -57,7 +55,7 @@ export class EventFiltersComponent {
         this.tags = response;
       },
       (error) => {
-        console.log(error); //strona bledu
+        console.log(error);
       }
     );
   }
@@ -84,7 +82,6 @@ export class EventFiltersComponent {
       voivodeships: [],
     });
   }
-
 
   inputChange(option: Tag) {
     if (this.selectedTags.includes(option))

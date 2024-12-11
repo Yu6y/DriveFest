@@ -12,8 +12,6 @@ import {
 import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { ErrorInterceptor } from './shared/interceptors/error-interceptor';
-import { AuthService } from './features/auth/services/auth.service';
-import { DynamicDateInputDirective } from './features/events/components/event-filters/date-input-directive';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlPl } from './shared/utils/MatPaginator';
 
@@ -35,7 +33,6 @@ export const appConfig: ApplicationConfig = {
       useClass: ErrorInterceptor,
       multi: true,
     },
-    DynamicDateInputDirective,
     {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorIntlPl,

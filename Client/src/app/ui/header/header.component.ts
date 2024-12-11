@@ -24,7 +24,7 @@ export class HeaderComponent {
   @Output() logout = new EventEmitter();
   private authService = inject(AuthStateService);
   isCollapsed: boolean = true;
-  isAdmin$!: Observable<boolean>;
+  isAdmin$!: Observable<boolean | null>;
 
   ngOnInit() {
     this.isAdmin$ = this.authService.userAdmin$;

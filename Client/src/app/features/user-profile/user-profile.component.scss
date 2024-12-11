@@ -45,12 +45,12 @@ select:focus{
 }
 
 input[type="checkbox"] {
-  accent-color: orange;  /* Ustawienie koloru checkboxa */
+  accent-color: orange;
 }
 
 textarea.form-control {
-  resize: none; /* Zapobiega ręcznej zmianie rozmiaru */
-  overflow: hidden; /* Ukrywa pasek przewijania */
+  resize: none;
+  overflow: hidden;
 }
 
 .focused {

@@ -4,11 +4,8 @@ import { Expense } from '../../../shared/models/Expense';
 import { Observable } from 'rxjs';
 import {
   AddExpenseFormValue,
-  EditCarFormValue,
   EditRegistryFromValue,
 } from '../components/popup/popup.component';
-import { EditExpense } from '../../../shared/models/EditExpense';
-import { isExpressionStatement } from 'typescript';
 import { CarRegistry } from '../../../shared/models/CarRegistry';
 import { ExpenseType } from '../../../shared/models/ExpenseType';
 import { ChartData } from '../../../shared/models/ChartData';

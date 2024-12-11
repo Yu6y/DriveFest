@@ -20,6 +20,7 @@ import { EditEventComponent } from './features/admin/components/edit-event/edit-
 import { WorkshopsListPageComponent } from './features/admin/components/workshops-list-page/workshops-list-page.component';
 import { EditWorkshopComponent } from './features/admin/components/edit-workshop/edit-workshop.component';
 import { UsersListPageComponent } from './features/admin/components/users-list-page/users-list-page.component';
+import { adminGuard } from './features/auth/services/admin.guard';
 
 export const routes: Routes = [
   {
@@ -111,7 +112,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    //canActivate: [authGuard, adminGuard], na czas testowania
+    canActivate: [authGuard, adminGuard],
     children: [
       {
         path: '',
@@ -122,31 +123,31 @@ export const routes: Routes = [
         path: 'users',
         component: UsersListPageComponent,
         title: 'Użytkownicy',
-        //canActivate: [authGuard],
+        canActivate: [authGuard],
       },
       {
         path: 'events',
         component: EventsListPageComponent,
         title: 'Wydarzenia',
-        //canActivate: [authGuard],
+        canActivate: [authGuard],
       },
       {
         path: 'workshops',
         component: WorkshopsListPageComponent,
         title: 'Warsztaty',
-        //canActivate: [authGuard],
+        canActivate: [authGuard],
       },
       {
         path: 'edit-event',
         component: EditEventComponent,
         title: 'Szczegóły',
-        //canActivate: [authGuard],
+        canActivate: [authGuard],
       },
       {
         path: 'edit-workshop',
         component: EditWorkshopComponent,
         title: 'Szczegóły',
-        //canActivate: [authGuard],
+        canActivate: [authGuard],
       },
     ],
   },
