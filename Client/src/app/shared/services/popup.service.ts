@@ -10,26 +10,26 @@ import { Car } from '../models/Car';
 })
 export class PopupService {
   private popupSubject$ = new BehaviorSubject<boolean>(false);
-  private popupFlagSubject$ = new BehaviorSubject<PopupType>(POPUP_TYPE.ADD);
+  private popupFlagSubject$ = new BehaviorSubject<PopupType>(
+    POPUP_TYPE.DEFAULT
+  );
   private popupDataSubject$ = new BehaviorSubject<Expense | null>(null);
   private popupRegistryDataSubject$ = new BehaviorSubject<CarRegistry | null>(
     null
   );
   private popupCarSubject$ = new BehaviorSubject<Car | null>(null);
 
+  popupData$ = this.popupDataSubject$.asObservable();
+  popupRegistryData$ = this.popupRegistryDataSubject$.asObservable();
+  popupCar$ = this.popupCarSubject$.asObservable();
+
   combinedConditions$ = combineLatest([
     this.popupSubject$,
     this.popupFlagSubject$,
-    this.popupDataSubject$,
-    this.popupRegistryDataSubject$,
-    this.popupCarSubject$,
   ]).pipe(
-    map(([isVisible, flag, data, registry, car]) => ({
+    map(([isVisible, flag]) => ({
       isVisible,
       flag,
-      data,
-      registry,
-      car,
     }))
   );
 
@@ -40,7 +40,6 @@ export class PopupService {
   closePopup() {
     this.popupSubject$.next(false);
     this.clearData();
-    console.log('usun dane');
   }
 
   setFlag(flag: PopupType) {
@@ -48,7 +47,6 @@ export class PopupService {
   }
 
   setData(data: Expense) {
-    console.log(data);
     this.popupDataSubject$.next(data);
   }
 
@@ -61,9 +59,9 @@ export class PopupService {
   }
 
   clearData() {
-    this.popupFlagSubject$.next(POPUP_TYPE.ADD);
     this.popupDataSubject$.next(null);
     this.popupRegistryDataSubject$.next(null);
     this.popupCarSubject$.next(null);
+    this.popupFlagSubject$.next(POPUP_TYPE.DEFAULT);
   }
 }

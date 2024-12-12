@@ -2,14 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Expense } from '../../../shared/models/Expense';
 import { Observable } from 'rxjs';
-import {
-  AddExpenseFormValue,
-  EditRegistryFromValue,
-} from '../components/popup/popup.component';
+import {} from '../components/popup/popup.component';
 import { CarRegistry } from '../../../shared/models/CarRegistry';
 import { ExpenseType } from '../../../shared/models/ExpenseType';
 import { ChartData } from '../../../shared/models/ChartData';
 import { Car } from '../../../shared/models/Car';
+import { AddExpenseFormValue } from '../components/popup-expense-form/popup-expense-form.component';
+import { EditRegistryFromValue } from '../components/popup-registry-form/popup-registry-form.component';
 
 @Injectable({
   providedIn: 'root',
