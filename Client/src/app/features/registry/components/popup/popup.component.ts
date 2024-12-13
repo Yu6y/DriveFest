@@ -2,7 +2,10 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DxPopupModule } from 'devextreme-angular';
 import { Observable } from 'rxjs';
-import { PopupService } from '../../../../shared/services/popup.service';
+import {
+  PopupService,
+  PopupSettings,
+} from '../../../../shared/services/popup.service';
 import { AsyncPipe } from '@angular/common';
 import { POPUP_TYPE, PopupType } from '../../../../shared/models/PopupType';
 import { EXPENSE_TYPE } from '../../../../shared/models/ExpenseType';
@@ -34,7 +37,9 @@ export class PopupComponent {
   combined$!: Observable<{
     isVisible: boolean;
     flag: PopupType;
+    settings: PopupSettings;
   }>;
+  popupSettings!: PopupSettings;
 
   ngOnInit() {
     this.combined$ = this.popupService.combinedConditions$;

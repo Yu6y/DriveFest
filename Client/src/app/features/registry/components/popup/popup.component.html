@@ -1,9 +1,9 @@
 @if(combined$ | async; as conditions){
 <dx-popup
   [visible]="conditions.isVisible"
-  [maxWidth]="500"
-  [maxHeight]="500"
-  title="Wydatek"
+  [maxWidth]="conditions.settings.width"
+  [maxHeight]="conditions.settings.height"
+  [titleTemplate]="conditions.settings.title"
   class="custom-popup mt-2"
   [dragEnabled]="false"
   [showCloseButton]="false"
@@ -21,42 +21,3 @@
   }
 </dx-popup>
 }
-<!-- @else if(conditions.flag === flags.DELETE || conditions.flag === flags.DELETEREGISTRY || conditions.flag === flags.DELETECAR){
-  <dx-popup
-  [visible]="conditions.isVisible"
-  [maxWidth]="400"
-  [maxHeight]="180"
-  title="Chcesz kontynuować?"
-  class="custom-popup mt-2"
-  [dragEnabled]="false"
-  [showCloseButton]="false"
-  [hideOnOutsideClick]="false"
-  >
-    
-</dx-popup>
-}@else if(conditions.flag === flags.EDITREGISTRY){
-  <dx-popup
-  [visible]="conditions.isVisible"
-  [maxWidth]="500"
-  [maxHeight]="480"
-  title="Dziennik"
-  class="custom-popup mt-2"
-  [dragEnabled]="false"
-  [showCloseButton]="false"
-  [hideOnOutsideClick]="false"
-  >
-  
-</dx-popup>
-}@else if(conditions.flag === flags.ADDCAR || conditions.flag === flags.EDITCAR){
-  <dx-popup
-  [visible]="conditions.isVisible"
-  [maxWidth]="500"
-  [maxHeight]="280"
-  title="Pojazd"
-  class="custom-popup mt-2"
-  [dragEnabled]="false"
-  [showCloseButton]="false"
-  [hideOnOutsideClick]="false"
-  (onHidden)="close()"> 
-</dx-popup>
-} -->

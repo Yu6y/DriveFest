@@ -26,6 +26,10 @@
   border-radius: 0 0 8px 8px;
 }
 
+::ng-deep .dx-popup-content,
+::ng-deep .dx-popup-title{
+  font-size: 1rem;
+}
 
 ::ng-deep .dx-overlay-wrapper .dx-overlay-content.dx-popup-normal.dx-resizable {
   border: 0.5px solid orange;
