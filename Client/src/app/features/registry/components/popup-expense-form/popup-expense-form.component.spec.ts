@@ -8,9 +8,8 @@ describe('PopupExpenseFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PopupExpenseFormComponent]
-    })
-    .compileComponents();
+      imports: [PopupExpenseFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PopupExpenseFormComponent);
     component = fixture.componentInstance;

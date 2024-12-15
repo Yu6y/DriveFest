@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventsListPageComponent } from './events-list-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DateCustomPipe } from '../../../../shared/pipes/custom-date.pipe';
 
 describe('EventsListPageComponent', () => {
   let component: EventsListPageComponent;
@@ -8,9 +10,8 @@ describe('EventsListPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EventsListPageComponent]
-    })
-    .compileComponents();
+      imports: [EventsListPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EventsListPageComponent);
     component = fixture.componentInstance;
