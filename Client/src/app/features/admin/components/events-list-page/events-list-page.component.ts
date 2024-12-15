@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { LinearListComponent } from '../linear-list/linear-list.component';
 import { DxLoadIndicatorModule } from 'devextreme-angular';
 
