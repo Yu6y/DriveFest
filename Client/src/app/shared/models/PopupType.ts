@@ -7,6 +7,7 @@ export const POPUP_TYPE = {
   ADDCAR: 'add_car',
   EDITCAR: 'edit_car',
   DELETECAR: 'delete_car',
+  DEFAULT: '',
 } as const;
 
 export type PopupType = (typeof POPUP_TYPE)[keyof typeof POPUP_TYPE];

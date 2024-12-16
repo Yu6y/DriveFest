@@ -1,0 +1,46 @@
+<div class="container">
+  <form [formGroup]="expenseForm" (ngSubmit)="submit()">
+  <div class="expense-container container mb-1">
+    <p>Typ wydatku</p>
+    <div class="form-check">
+      <input class="form-check-input" id="fuel" name="type" type="radio"  [value]="expenseTypes.FUEL" formControlName="type">
+      <label class="form-check-label" for="fuel">Tankowanie</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" id="service" name="type" type="radio" [value]="expenseTypes.SERVICE" formControlName="type">
+      <label class="form-check-label" for="service">Serwis</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" id="parking" name="type" type="radio" [value]="expenseTypes.PARKING" formControlName="type">
+      <label class="form-check-label" for="parking">Parking</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" id="other" name="type" type="radio" [value]="expenseTypes.OTHER" formControlName="type" >
+      <label class="form-check-label" for="other">Inne</label>
+    </div>
+  </div>
+
+  <div class="container container-price mb-1">
+    <label class="price-text">Kwota</label>
+    <input class="form-control" formControlName="price"> 
+  </div>
+
+  <div class="container container-date mb-1">
+    <label class="date-text">Data</label>
+    <input class="form-control" type="date" onkeydown="return false" formControlName="date"> 
+  </div>
+  
+  <div class="container container-date mb-2">
+    <label class="date-text">Krótki opis</label>
+    <textarea
+      class="form-control"
+      rows="2"
+      formControlName="description"></textarea>
+  </div>
+
+  <div class="container button-container d-flex justify-content-end">
+    <button class="btn btn-success me-4" type="submit" [disabled]="!expenseForm.valid || expenseForm.pristine">Ok</button>
+    <button class="btn btn-danger" type="button" (click)="close()">Anuluj</button>
+  </div>
+</form>
+</div>   

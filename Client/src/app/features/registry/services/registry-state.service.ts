@@ -1,10 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { RegistryApiService } from './registry-api.service';
-import {
-  AddExpenseFormValue,
-  EditCarFormValue,
-  EditRegistryFromValue,
-} from '../components/popup/popup.component';
+import {} from '../components/popup/popup.component';
 import { DateCustomPipe } from '../../../shared/pipes/custom-date.pipe';
 import {
   BehaviorSubject,
@@ -25,6 +21,9 @@ import { EXPENSE_TYPE, ExpenseType } from '../../../shared/models/ExpenseType';
 import { ChartData } from '../../../shared/models/ChartData';
 import { ExpenseDescription } from '../../../shared/models/ExpenseDesc';
 import { Car } from '../../../shared/models/Car';
+import { EditCarFormValue } from '../components/popup-car-form/popup-car-form.component';
+import { AddExpenseFormValue } from '../components/popup-expense-form/popup-expense-form.component';
+import { EditRegistryFromValue } from '../components/popup-registry-form/popup-registry-form.component';
 
 @Injectable({
   providedIn: 'root',
