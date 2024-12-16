@@ -7,15 +7,13 @@ import { of } from 'rxjs';
 describe('WorkshopDescComponent', () => {
   let component: WorkshopDescComponent;
   let fixture: ComponentFixture<WorkshopDescComponent>;
-  let workshopStateServiceSpy: jasmine.SpyObj<WorkshopStateService>;
 
   beforeEach(async () => {
-    workshopStateServiceSpy = jasmine.createSpyObj('WorkshopStateService', {
-      getWorkshopDesc: null,
-      getWorkshopRate: null,
-      workshopDesc$: null
-    });
-
+    let api = jasmine.createSpyObj('WorkshopStateService', [
+      'getWorkshopDesc',
+      'getWorkshopRate',
+    ]);
+    api.getWorkshopRate.and.returnValue(of(1));
     const activatedRouteMock = {
       snapshot: {
         params: { id: '1' },
@@ -26,9 +24,9 @@ describe('WorkshopDescComponent', () => {
     await TestBed.configureTestingModule({
       imports: [WorkshopDescComponent],
       providers: [
-        { provide: WorkshopStateService, useValue: workshopStateServiceSpy },
+        { provide: WorkshopStateService, useValue: api },
         { provide: ActivatedRoute, useValue: activatedRouteMock },
-      ]
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(WorkshopDescComponent);
