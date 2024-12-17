@@ -12,7 +12,7 @@ import { ListData } from '../../../shared/models/AdminListData';
 })
 export class AdminApiService {
   private httpClient = inject(HttpClient);
-  private URL = `http://localhost:5253/api/admin`;
+  private URL = `https://drivefest.azurewebsites.net//api/admin`;
 
   getUnverifiedEvents(pageIndex: number, pageSize: number) {
     return this.httpClient.get<ListData<AdminEvent[]>>(`${this.URL}/events`, {

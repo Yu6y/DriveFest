@@ -12,7 +12,7 @@ import { Comment } from '../../../shared/models/Comment';
 })
 export class WorkshopApiService {
   private httpClient = inject(HttpClient);
-  private URL = 'http://localhost:5253/api/workshop';
+  private URL = 'https://drivefest.azurewebsites.net/api/workshop';
 
   getAllWorkshops(): Observable<WorkshopShort[]> {
     return this.httpClient.get<WorkshopShort[]>(`${this.URL}`);

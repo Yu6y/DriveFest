@@ -6,8 +6,8 @@ namespace Backend.Entities
 {
     public class EventsDbContext : DbContext
     {
-        private string _connectionString =
-            $"Server={DatabaseLink.ServerName};Database=DriveFestDb;Trusted_Connection=True;TrustServerCertificate=True; MultipleActiveResultSets=True";
+
+        private string _connectionString = $"Server=tcp:{DatabaseLink.ServerName}.database.windows.net,1433;Initial Catalog=DriveFestDb;Persist Security Info=False;User ID={DatabaseLink.UserName};Password={DatabaseLink.Password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments {get; set; }
