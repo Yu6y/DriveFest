@@ -1,3 +1,6 @@
+#Swagger
+Dokumentacja api swagger dostępna pod: /swagger/index.html
+
 #Wymagania
 
 - Node.js
@@ -17,3 +20,6 @@ dotnet restore
 Backup bazy danych znajduje się w folderze Backup wewnątrz folderu backendu.
 
 W pliku DatabaseLink w folderze Backend zmień nazwę serwera na nazwę swojego serwera bazy danych.
+
+#Kontakt
+537991834
