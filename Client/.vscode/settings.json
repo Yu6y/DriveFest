@@ -1,2 +1,4 @@
 {
+  "appService.defaultWebAppToDeploy": "/subscriptions/238908a9-81b6-4645-b61f-441c5cbc3a8c/resourceGroups/drivefestweb/providers/Microsoft.Web/sites/DriveFestDb",
+  "appService.deploySubpath": "dist\\drive-fest\\browser"
 }

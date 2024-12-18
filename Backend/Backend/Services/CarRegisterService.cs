@@ -68,7 +68,7 @@ namespace Backend.Services
             carExpense.UserId = userId;
             carExpense.UserCarId = carId;
             carExpense.Type = expense.Type;
-            carExpense.Price = (float)Math.Round(expense.Price, 2);
+            carExpense.Price = Math.Round(expense.Price, 2);
             carExpense.Date = DateTime.Parse(expense.Date);
             carExpense.Description = expense.Description;
 

@@ -13,7 +13,6 @@ import { PopupService } from '../../../../shared/services/popup.service';
 })
 export class PopupDeleteComponent {
   @Input() flag!: PopupType;
-  private formBuilder = inject(NonNullableFormBuilder);
   private registryService = inject(RegistryStateService);
   private popupService = inject(PopupService);
 

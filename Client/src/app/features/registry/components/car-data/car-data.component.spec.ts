@@ -59,4 +59,12 @@ describe('CarDataComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should isLarge be false while small screen', () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(768);
+    window.dispatchEvent(new Event('resize'));
+    fixture.detectChanges();
+
+    expect(component.isLargeScreen).toBeFalse();
+  });
 });

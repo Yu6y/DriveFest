@@ -4,6 +4,7 @@ import { WorkshopStateService } from '../../services/workshop-state.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Tag } from '../../../../shared/models/Tag';
 import { of } from 'rxjs';
+import { SORT_BY } from '../../../../shared/models/Sort';
 
 describe('WorkshopFiltersComponent', () => {
   let component: WorkshopFiltersComponent;
@@ -37,5 +38,73 @@ describe('WorkshopFiltersComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should pass form', () => {
+    component.form.patchValue({
+      searchTerm: 'text',
+      sortBy: SORT_BY.ASC,
+    });
+    component.selectedTags = [];
+    component.selectedVoivodeships = ['voiv'];
+    component.submitFilters();
+
+    fixture.detectChanges();
+
+    expect(mockWorkshopStateService.loadFilteredWorkshops).toHaveBeenCalledWith(
+      {
+        searchTerm: 'text',
+        sortBy: SORT_BY.ASC,
+        tags: [],
+        voivodeships: ['voiv'],
+      }
+    );
+  });
+
+  it('should clear form', () => {
+    component.form.patchValue({
+      searchTerm: 'text',
+      sortBy: SORT_BY.ASC,
+    });
+    component.selectedTags = [{ id: 1, name: 'tag' }];
+    component.selectedVoivodeships = ['voiv', 'voiv2'];
+
+    fixture.detectChanges();
+
+    component.clearFilters();
+
+    expect(component.form.value).toEqual({
+      searchTerm: '',
+      sortBy: SORT_BY.NONE,
+      tags: [],
+      voivodeships: [],
+    });
+    expect(component.selectedTags).toEqual([]);
+    expect(component.selectedVoivodeships).toEqual([]);
+  });
+
+  it('should select tags', () => {
+    const tag: Tag = { id: 1, name: 'tag' };
+    component.selectedTags = [];
+
+    fixture.detectChanges();
+
+    component.inputChange(tag);
+    expect(component.selectedTags[0]).toBe(tag);
+    component.inputChange(tag);
+    fixture.detectChanges();
+    expect(component.selectedTags.length).toBe(0);
+  });
+
+  it('should select voivodeship', () => {
+    component.selectedVoivodeships = [];
+
+    fixture.detectChanges();
+
+    component.voivChange('voiv');
+    expect(component.selectedVoivodeships[0]).toBe('voiv');
+    component.voivChange('voiv');
+    fixture.detectChanges();
+    expect(component.selectedVoivodeships.length).toBe(0);
   });
 });

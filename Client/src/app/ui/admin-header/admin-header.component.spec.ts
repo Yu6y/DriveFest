@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminHeaderComponent } from './admin-header.component';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling';
 
-fdescribe('AdminHeaderComponent', () => {
+describe('AdminHeaderComponent', () => {
   let component: AdminHeaderComponent;
   let fixture: ComponentFixture<AdminHeaderComponent>;
 
@@ -42,5 +43,15 @@ fdescribe('AdminHeaderComponent', () => {
 
   it('should menu be collapsed', () => {
     expect(component.isCollapsed).toBeTrue();
+  });
+
+  it('should button click open header small screen', () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(768);
+    const btn = fixture.debugElement.query(By.css('button'));
+
+    component.isCollapsed = true;
+    btn.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.isCollapsed).toBeFalse();
   });
 });

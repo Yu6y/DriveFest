@@ -58,6 +58,5 @@ export class ExpensesListComponent {
     if (this.selectedFilters.includes(type))
       this.selectedFilters = this.selectedFilters.filter((t) => t !== type);
     else this.selectedFilters.push(type);
-    console.log(`${this.expensesFilters} - filtry`);
   }
 }

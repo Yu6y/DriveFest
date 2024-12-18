@@ -43,7 +43,6 @@ export class PopupCarFormComponent {
   });
 
   ngOnInit() {
-    console.log('243453453');
     if (this.flag === POPUP_TYPE.EDITCAR) {
       this.carData$
         .pipe(
