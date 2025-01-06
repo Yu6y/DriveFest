@@ -18,7 +18,6 @@ export class AppComponent {
   title = 'DriveFest';
 
   ngOnInit() {
-    console.log('appcomponent');
     this.toastService.register(this.toast);
     this.authService.getUserRole();
   }

@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminHeaderComponent } from './admin-header.component';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling';
 
 describe('AdminHeaderComponent', () => {
   let component: AdminHeaderComponent;
@@ -53,5 +52,28 @@ describe('AdminHeaderComponent', () => {
     btn.nativeElement.click();
     fixture.detectChanges();
     expect(component.isCollapsed).toBeFalse();
+  });
+
+  it('should button click open menu on small screen', () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(768);
+    const btn = fixture.debugElement.query(By.css('button'));
+
+    component.isCollapsed = true;
+    btn.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.isCollapsed).toBeFalse();
+    const links = fixture.debugElement.queryAll(By.css('.nav-item'));
+    expect(
+      links.some((x) => x.nativeElement.textContent === 'Użytkownicy')
+    ).toBeTrue();
+  });
+
+  it('should button be invisible while not collapsed on small screen', () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(768);
+    const btn = fixture.debugElement.query(By.css('button'));
+
+    component.isCollapsed = false;
+    fixture.detectChanges();
+    expect(component.isCollapsed).toBeFalsy();
   });
 });

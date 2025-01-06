@@ -53,6 +53,15 @@ describe('HeaderComponent', () => {
     expect(component.isCollapsed).toBeTrue();
   });
 
+  it('should button be invisible while not collapsed on small screen', () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(768);
+    const btn = fixture.debugElement.query(By.css('button'));
+
+    component.isCollapsed = false;
+    fixture.detectChanges();
+    expect(component.isCollapsed).toBeFalsy();
+  });
+
   it('should button click open header small screen', () => {
     spyOnProperty(window, 'innerWidth', 'get').and.returnValue(768);
     const btn = fixture.debugElement.query(By.css('button'));
@@ -61,5 +70,19 @@ describe('HeaderComponent', () => {
     btn.nativeElement.click();
     fixture.detectChanges();
     expect(component.isCollapsed).toBeFalse();
+  });
+
+  it('should button click open menu on small screen', () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(768);
+    const btn = fixture.debugElement.query(By.css('button'));
+
+    component.isCollapsed = true;
+    btn.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.isCollapsed).toBeFalse();
+    const links = fixture.debugElement.queryAll(By.css('.nav-item'));
+    expect(
+      links.some((x) => x.nativeElement.textContent === 'Wydarzenia')
+    ).toBeTrue();
   });
 });

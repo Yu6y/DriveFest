@@ -1,5 +1,10 @@
 #Swagger
+
 Dokumentacja api swagger dostępna pod: /swagger/index.html
+
+#Konto Administratora
+username: joe@doe
+password: password
 
 #Wymagania
 
@@ -7,7 +12,7 @@ Dokumentacja api swagger dostępna pod: /swagger/index.html
 - .Net
 - Microsoft SqlServer
 
-#instalacja
+#Instalacja
 
 -Client
 cd Client
@@ -22,4 +27,5 @@ Backup bazy danych znajduje się w folderze Backup wewnątrz folderu backendu.
 W pliku DatabaseLink w folderze Backend zmień nazwę serwera na nazwę swojego serwera bazy danych.
 
 #Kontakt
+
 537991834

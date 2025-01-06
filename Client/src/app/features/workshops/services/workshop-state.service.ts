@@ -179,6 +179,7 @@ export class WorkshopStateService {
           state: 'success',
           data: [response, ...currentCommentsState.data],
         });
+        console.log('testy');
       }),
       catchError((error) => {
         this.toastState.showToast('Nie udało się dodać komentarza.', 'error');
