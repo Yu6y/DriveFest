@@ -24,7 +24,7 @@ describe('WorkshopApiService', () => {
     service = TestBed.inject(WorkshopApiService);
     testingController = TestBed.inject(HttpTestingController);
   });
-  const url = 'https://drivefest.azurewebsites.net/api/workshop';
+  const url = 'http://localhost:5253/api/workshop';
 
   it('should be created', () => {
     expect(service).toBeTruthy();

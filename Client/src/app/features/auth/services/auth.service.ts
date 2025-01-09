@@ -9,7 +9,7 @@ import { UserRole } from '../../../shared/models/UserRole';
 })
 export class AuthService {
   private httpClient = inject(HttpClient);
-  private URL = 'https://drivefest.azurewebsites.net/api/account/';
+  private URL = 'http://localhost:5253/api/account/';
 
   loginUser(loginCredentials: LoginCredentials) {
     return this.httpClient.post<SuccessLogin>(

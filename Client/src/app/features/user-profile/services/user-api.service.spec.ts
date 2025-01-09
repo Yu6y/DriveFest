@@ -39,7 +39,7 @@ describe('UserApiService', () => {
       expect(res.followedEvent).toBeNull();
     });
     const req = testingController.expectOne(
-      'https://drivefest.azurewebsites.net/api/account'
+      'http://localhost:5253/api/account'
     );
     expect(req.request.method).toBe('GET');
     req.flush(data);

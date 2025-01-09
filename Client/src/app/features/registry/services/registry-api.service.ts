@@ -15,7 +15,7 @@ import { EditRegistryFromValue } from '../components/popup-registry-form/popup-r
 })
 export class RegistryApiService {
   private httpClient = inject(HttpClient);
-  private URL = 'https://drivefest.azurewebsites.net/api/register';
+  private URL = 'http://localhost:5253/api/register';
 
   getExpenses(types: ExpenseType[], carId: number): Observable<Expense[]> {
     return this.httpClient.get<Expense[]>(`${this.URL}/${carId}/expense`, {

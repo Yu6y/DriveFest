@@ -5,6 +5,7 @@ Backend/.vs/
 Backend/*.user
 Backend/*.suo
 Backend/*.swp
+Backend/Properties/PublishProfiles/*
 
 # Ignorowanie systemowych plików tymczasowych
 Thumbs.db

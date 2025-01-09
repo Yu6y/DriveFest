@@ -240,7 +240,6 @@ export class RegistryStateService {
             .pipe(delay(1000))
             .subscribe((res) => {
               this.expensesListSubject$.next({ state: 'success', data: res });
-              console.log(res);
               this.getYears();
             });
         }),
@@ -270,7 +269,7 @@ export class RegistryStateService {
       .addExpense(expense, this.currCarId)
       .pipe(
         tap((response) => {
-          response.date = this.datePipe.transform(response.date);
+          response.date = this.datePipe.transform(response.date); //?
           this.toastService.showToast('Dodano wydatek.', 'success');
           this.getExpenses();
           this.getYears();
@@ -375,7 +374,6 @@ export class RegistryStateService {
   }
 
   getYears() {
-    //
     if (this.expensesFilters.length === 0) {
       this.expenseDescSubject$.next([]);
       return;
@@ -403,7 +401,6 @@ export class RegistryStateService {
   }
 
   getChartData() {
-    console.log(this.currYearDataSubject$.value);
     if (
       this.currYearDataSubject$.value === undefined ||
       this.currYearDataSubject$.value === ''

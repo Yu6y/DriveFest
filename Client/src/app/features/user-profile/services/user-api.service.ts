@@ -7,7 +7,7 @@ import { UserProfile } from '../../../shared/models/UserProfile';
 })
 export class UserApiService {
   private httpClient = inject(HttpClient);
-  private URL = 'https://drivefest.azurewebsites.net/api/account';
+  private URL = 'http://localhost:5253/api/account';
 
   getUser() {
     return this.httpClient.get<UserProfile>(this.URL);

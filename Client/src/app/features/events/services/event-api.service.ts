@@ -12,7 +12,7 @@ import { EventListFiltersFormValue } from '../components/event-filters/event-fil
 })
 export class EventApiService {
   private httpClient = inject(HttpClient);
-  private URL = 'https://drivefest.azurewebsites.net/api/event';
+  private URL = 'http://localhost:5253/api/event';
 
   getAllEvents(): Observable<EventShort[]> {
     return this.httpClient.get<EventShort[]>(`${this.URL}`);
