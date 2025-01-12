@@ -35,4 +35,15 @@ describe('EventFiltersComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should change voiviodeships', () => {
+    component.selectedVoivodeships = [];
+    component.voivChange('Mazowieckie');
+    component.voivChange('Zachodnio-pomorskie');
+    component.voivChange('Zachodnio-pomorskie');
+
+    fixture.detectChanges();
+
+    expect(component.selectedVoivodeships.length).toBe(1);
+  });
 });

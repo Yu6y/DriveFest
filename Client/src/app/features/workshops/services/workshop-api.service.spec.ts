@@ -11,7 +11,6 @@ import { Tag } from '../../../shared/models/Tag';
 import { WorkshopListFiltersFormValue } from '../components/workshop-filters/workshop-filters.component';
 import { WorkshopDesc } from '../../../shared/models/WorkshopDesc';
 import { Comment } from '../../../shared/models/Comment';
-import { WorkshopAddFormValue } from '../../add-forms/add-workshop/add-workshop.component';
 
 describe('WorkshopApiService', () => {
   let service: WorkshopApiService;
