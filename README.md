@@ -1,10 +1,5 @@
-#Swagger
 
-Dokumentacja api swagger dostępna pod: /swagger/index.html
-
-#Konto Administratora
-username: joe@doe
-password: password
+# Aplikacja webowa z wydarzeniami motorsportowymi, warsztatami oraz dzienniczkiem pojazdu.
 
 #Wymagania
 
@@ -26,6 +21,7 @@ Backup bazy danych znajduje się w folderze Backup wewnątrz folderu backendu.
 
 W pliku DatabaseLink w folderze Backend zmień nazwę serwera na nazwę swojego serwera bazy danych.
 
-#Kontakt
+#Konto Administratora
 
-537991834
+username: joe@doe,
+password: password
