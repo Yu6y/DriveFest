@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
+using Backend.Exceptions;
 namespace Backend.Controllers
 {
     [Route("api/account")]
@@ -23,7 +24,7 @@ namespace Backend.Controllers
                 var token = await _accountService.LoginUser(loginDto);
                 return new ObjectResult(token) { StatusCode = 200 };
             }
-            catch (Exception ex)
+            catch (InvalidCredentialsException ex)
             {
                 return new ObjectResult(ex.Message) { StatusCode = 404 };
             }

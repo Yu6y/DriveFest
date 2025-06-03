@@ -46,10 +46,10 @@ namespace Backend.Services
                 .FirstOrDefaultAsync(r => r.Email == loginDto.Email || r.Username == loginDto.Email);
 
             if (user is null)
-                throw new Exception("Credentials incorrect");
+                throw new InvalidCredentialsException("Credentials incorrect");
 
             if (!checkPassword(user.HashPassword, loginDto.Password))
-                throw new Exception("Credentials incorrect");
+                throw new InvalidCredentialsException("Credentials incorrect");
 
             var claims = new List<Claim>()
             {
@@ -97,18 +97,6 @@ namespace Backend.Services
 
             var responseErrors = new RegistrationError();
 
-            if (registerDto.PhotoURL != null &&
-               (System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpg" &&
-               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpeg" &&
-               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".bmp" &&
-               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".png"))
-            {
-                responseErrors.Errors.Add("photo", "Podane zdjęcie jest niepoprawne.");
-                return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
-            }
-
-                
-
             if (user != null)
             {
                 if (user.Email == registerDto.Email)
@@ -119,16 +107,20 @@ namespace Backend.Services
                 {
                    responseErrors.Errors.Add("username", "Podana nazwa użytkownika jest już zajęta.");
                 }
-                if (registerDto.PhotoURL != null &&
-                   (System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpg" &&
-                   System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpeg" &&
-                   System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".bmp" &&
-                   System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".png"))
-                    responseErrors.Errors.Add("photo", "Podane zdjęcie jest niepoprawne.");
-
-                    return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
+                
+                return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
             }
-           
+
+            if (registerDto.PhotoURL != null &&
+               (System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpg" &&
+               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".jpeg" &&
+               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".bmp" &&
+               System.IO.Path.GetExtension(registerDto.PhotoURL.FileName) != ".png"))
+            {
+                responseErrors.Errors.Add("photo", "Podane zdjęcie jest niepoprawne.");
+                return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
+            }
+
 
             var newUser = new User()
             {
@@ -150,9 +142,7 @@ namespace Backend.Services
                 return new Dictionary<bool, RegistrationError> { { true, new RegistrationError() } };
             }catch(Exception e)
             {
-                
                 responseErrors.Errors.Add("general", "Nie udało się utworzyć konta.");
-
                 return new Dictionary<bool, RegistrationError>() { { false, responseErrors } };
             }
         }
