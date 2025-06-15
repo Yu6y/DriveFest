@@ -6,6 +6,7 @@ Backend/*.user
 Backend/*.suo
 Backend/*.swp
 Backend/Properties/PublishProfiles/*
+Backend/appsettings.Development.json
 
 Backend.Tests/bin/
 Backend.Tests/obj/
