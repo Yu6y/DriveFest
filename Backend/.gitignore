@@ -6,6 +6,15 @@ Backend/*.user
 Backend/*.suo
 Backend/*.swp
 Backend/Properties/PublishProfiles/*
+Backend/appsettings.Development.json
+
+Backend.Tests/bin/
+Backend.Tests/obj/
+Backend.Tests/.vs/
+Backend.Tests/*.user
+Backend.Tests/*.suo
+Backend.Tests/*.swp
+Backend.Tests/Properties/PublishProfiles/*
 
 # Ignorowanie systemowych plików tymczasowych
 Thumbs.db
